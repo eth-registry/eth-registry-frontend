@@ -1,7 +1,4 @@
 import React from "react";
-import metadata from "../js/metadata.js";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import "../index.css";
 
 export default class Recent extends React.Component {
@@ -34,7 +31,7 @@ export default class Recent extends React.Component {
                 {this.state.recent.map(sub => {
                     return (
                         <div key={sub.key} className="historyItem">
-                            <img src={sub.data.metadata.logo} />{" "}
+                            <img src={sub.data.metadata.logo} alt="submission_icon"/>{" "}
                             <span>
                                 <a
                                     href={

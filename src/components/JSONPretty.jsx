@@ -41,7 +41,7 @@ module.exports = createReactClass({
           }
         }
 
-        sps = sps + (val[0] == '"' ? strSpan : valSpan) + val + spanEnd;
+        sps = sps + (val[0] === '"' ? strSpan : valSpan) + val + spanEnd;
       }
     }
 
