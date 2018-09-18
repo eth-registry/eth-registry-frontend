@@ -1,0 +1,10 @@
+{
+    "name": "cafe.ethtective",
+    "version": "2.2.0",
+    "scripts": {
+        "start": "serve --single"
+    },
+    "dependencies": {
+        "serve": "latest"
+    }
+}

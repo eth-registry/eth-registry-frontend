@@ -1,0 +1,294 @@
+import Eth from "ethjs";
+import abi from "../abi/metadata.json";
+import IPFS from "ipfs-mini";
+// import { EthContract, onReceipt } from "ethjs-extras"; // or import..
+
+const network = "ropsten";
+
+let reader = {};
+const eth = new Eth(
+    new Eth.HttpProvider(
+        `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`,
+    ),
+);
+const ethRead = new Eth(
+    new Eth.HttpProvider(
+        `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`,
+    ),
+);
+
+let json = {
+    version: "0.2",
+    address: "",
+    submission: {
+        comments: "",
+        ipfs: [],
+    },
+    metadata: {
+        name: "",
+        url: "",
+        logo: "",
+        description: "",
+        contact: [],
+        contract: {
+            name: "",
+            abi: "",
+            source: "",
+            compiler: "", //0.4.24+commit.e67f0147
+            language: "", //Solidity
+            optimizer: -1, //200
+            swarm: "",
+            constructor_arguments: "",
+            interfaces: [],
+            erc: [],
+        },
+        token: {
+            ticker: "",
+            decimals: 18,
+        },
+        reputation: {
+            verified: [],
+            status: "",
+            category: "",
+            subcategory: "",
+            description: "",
+            related: [],
+        },
+    },
+    scamdb: {},
+};
+const ipfs = new IPFS({
+    host: "ipfs.infura.io",
+    port: 5001,
+    protocol: "https",
+});
+
+export default class MetaDataContract {
+    constructor() {
+        this.contractAddress = "0xfa91455977911e46f48b0c362174f52176ed49b6";
+        this.contract = eth.contract(abi).at(this.contractAddress);
+        this.contractView = ethRead.contract(abi).at(this.contractAddress);
+        this.price = 0;
+        this.account = this.curator = false;
+        this.index = 0;
+        this.history = [];
+        this.onReceiptFN = () => {};
+    }
+
+    async getHistory() {
+        let index = await this.contractView.getIndex();
+        index = index[0].toNumber() - 1;
+        this.history = [];
+        for (let i = index; i > index - 5; i--) {
+            let h = await this.contractView.getByIndex(i);
+            h.key = i;
+            this.history.push(h);
+        }
+        return this.history;
+    }
+
+    getMetamask() {
+        if (
+            typeof window.web3 !== "undefined" &&
+            typeof window.web3.currentProvider !== "undefined"
+        ) {
+            eth.setProvider(window.web3.currentProvider);
+        }
+    }
+
+    async isCurator() {
+        return this.contractView
+            .isCurator(this.getCurrentAccount())
+            .then(response => {
+                if (response[0]) {
+                    this.curator = true;
+                    return true;
+                }
+                return false;
+            })
+            .catch(error => {
+                return false;
+            });
+    }
+
+    async getNetwork() {
+        return eth.net_version();
+    }
+
+    async getPrice() {
+        return this.contract.getPrice().then(result => {
+            // console.log(result[0]);
+            this.price = result[0];
+
+            return Eth.fromWei(result[0], "ether");
+        });
+    }
+
+    isValidAddress(address) {
+        if (address && address.length === 42) return Eth.isAddress(address);
+        return false;
+    }
+
+    async getAddressData(address) {
+        return this.contractView.getByAddress(address).then(result => {
+            if (result[0] === "0x0000000000000000000000000000000000000000")
+                return;
+            return this.lookUp(result[2])
+                .then(ipfs => {
+                    return {
+                        address: result[0],
+                        name: result[1],
+                        data: JSON.parse(JSON.stringify(ipfs)),
+                        self_attested: result[3],
+                        curated: result[4],
+                        submitter: result[5],
+                    };
+                })
+                .catch(err => {
+                    return {
+                        address: result[0],
+                        name: result[1],
+                        data: { data: "no data for this address" },
+                    };
+                });
+        });
+    }
+
+    getCurrentAccount() {
+        if (window.web3) return window.web3.eth.accounts[0];
+        else return null;
+    }
+
+    getEmptyObject() {
+        let newObj = JSON.parse(JSON.stringify(json));
+        return newObj;
+    }
+
+    async storeMetadata(address, _name, data, _onReceipt) {
+        return new Promise((resolve, reject) => {
+            ipfs.addJSON(data, (err, result) => {
+                // console.log(`IPFS Hash: ${result}`);
+                if (result === undefined || err)
+                    reject(new DOMException("Couldn't add metadata to IPFS"));
+                console.log(address, _name, result);
+                if (this.curator) {
+                    // console.log("curator");
+                    return this.contract
+                        .addByCurator(address, _name, result, {
+                            from: window.web3.eth.accounts[0],
+                        })
+                        .then(result => {
+                            // onReceipt(result, {
+                            //     network: "ropsten",
+                            // })
+                            //     .then(r => {
+                            //         _onReceipt();
+                            //     })
+                            //     .catch(console.error);
+                            resolve(result);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            reject(err);
+                        });
+                } else
+                    return this.contract
+                        .addAddress(address, _name, result, {
+                            from: window.web3.eth.accounts[0],
+                            value: this.price,
+                        })
+                        .then(result => {
+                            // onReceipt(result, {
+                            //     network: "ropsten",
+                            // })
+                            //     .then(r => {
+                            //         _onReceipt();
+                            //     })
+                            //     .catch(console.error);
+                            resolve(result);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            reject(err);
+                        });
+            });
+        });
+    }
+
+    async storeJsonIPFS(data) {
+        return new Promise((resolve, reject) => {
+            reader = new FileReader();
+            reader.onerror = () => {
+                reader.abort();
+                reject(new DOMException("Problem parsing input file."));
+            };
+            reader.onload = () => {
+                let json = JSON.parse(reader.result);
+                ipfs.addJSON(json, (err, result) => {
+                    if (err) reject(err);
+                    console.log(result);
+                    resolve(result);
+                });
+            };
+            reader.readAsText(data);
+        });
+    }
+
+    async storeDataIPFS(data) {
+        return new Promise((resolve, reject) => {
+            reader = new FileReader();
+            reader.onerror = () => {
+                reader.abort();
+                reject(new DOMException("Problem parsing input file."));
+            };
+            reader.onload = () => {
+                ipfs.add(reader.result, (err, result) => {
+                    if (err) reject(err);
+                    console.log(result);
+                    resolve(result);
+                });
+            };
+            reader.readAsText(data);
+        });
+    }
+
+    async convertBlobToBase64(blob) {
+        console.log(blob);
+        return new Promise((resolve, reject) => {
+            reader = new FileReader();
+            reader.onerror = () => {
+                reader.abort();
+                reject(new DOMException("Problem parsing input file."));
+            };
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            console.log(blob);
+            reader.readAsDataURL(blob[0]);
+        });
+    }
+
+    async lookUp(address) {
+        if (address);
+        return new Promise((resolve, reject) => {
+            ipfs.catJSON(address, (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            });
+        });
+    }
+}
+
+// for reference, 2 nov new Web3 request as per https://github.com/bitpshr/EIPs/blob/1102-readonly-provider/EIPS/eip-1102.md
+// window.addEventListener('load', async () => {
+//     // Read-only provider is exposed by default
+//     console.log(await ethereum.send('net_version'));
+//     try {
+//         // Request full provider if needed
+//         await ethereum.enable();
+//         // Full provider exposed
+//         await ethereum.send('eth_sendTransaction', [/* ... */]);
+//     } catch (error) {
+//         // User denied full provider access
+//     }
+// });
