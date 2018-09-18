@@ -107,7 +107,7 @@ class Index extends React.Component {
     render() {
         return (
             <div className="markdown">
-                <img src="../shield08.png" className="shield" />
+                <img src="../shield08.png" className="shield" alt="logo"/>
                 <h3>Ethereum Metadata Directory</h3>
                 <h1>The Registry</h1>
                 <h2 className="logo">
