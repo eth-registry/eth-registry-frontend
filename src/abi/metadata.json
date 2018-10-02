@@ -44,6 +44,28 @@
         "type": "function"
     },
     {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "_logo_ipfs",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "index",
+                "type": "uint256"
+            }
+        ],
+        "name": "SetData",
+        "type": "event"
+    },
+    {
         "constant": false,
         "inputs": [
             {
@@ -124,28 +146,6 @@
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "name": "_address",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "name": "_logo_ipfs",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "index",
-                "type": "uint256"
-            }
-        ],
-        "name": "SetData",
-        "type": "event"
     },
     {
         "constant": false,

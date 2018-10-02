@@ -29,9 +29,13 @@ export default class Recent extends React.Component {
         return (
             <div>
                 {this.state.recent.map(sub => {
+                    if (!sub.data) return "";
                     return (
                         <div key={sub.key} className="historyItem">
-                            <img src={sub.data.metadata.logo} alt="submission_icon"/>{" "}
+                            <img
+                                src={sub.data.metadata.logo}
+                                alt="submission_icon"
+                            />{" "}
                             <span>
                                 <a
                                     href={

@@ -107,7 +107,7 @@ class Index extends React.Component {
     render() {
         return (
             <div className="markdown">
-                <img src="../shield08.png" className="shield" alt="logo"/>
+                <img src="../shield08.png" className="shield" alt="logo" />
                 <h3>Ethereum Metadata Directory</h3>
                 <h1>The Registry</h1>
                 <h2 className="logo">
@@ -121,7 +121,8 @@ class Index extends React.Component {
                     behind APIs. We wish to provide the Ethereum ecosystem with
                     an easy way to add, edit and access information such as
                     logo, url, token information or scam type to the Ethereum
-                    blockchain.
+                    blockchain. The current version of this contract is{" "}
+                    <b>deployed on Mainnet</b>.
                 </p>
                 <form noValidate autoComplete="off" className="form">
                     <TextField

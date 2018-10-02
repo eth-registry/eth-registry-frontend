@@ -1,9 +1,8 @@
 import Eth from "ethjs";
 import abi from "../abi/metadata.json";
 import IPFS from "ipfs-mini";
-// import { EthContract, onReceipt } from "ethjs-extras"; // or import..
 
-const network = "ropsten";
+const network = "mainnet";
 
 let reader = {};
 const eth = new Eth(
@@ -27,6 +26,7 @@ let json = {
     metadata: {
         name: "",
         url: "",
+        ens: "",
         logo: "",
         description: "",
         contact: [],
@@ -65,7 +65,7 @@ const ipfs = new IPFS({
 
 export default class MetaDataContract {
     constructor() {
-        this.contractAddress = "0xfa91455977911e46f48b0c362174f52176ed49b6";
+        this.contractAddress = "0x201be2022c9b58428d6a5743f2bd4cb8934547df";
         this.contract = eth.contract(abi).at(this.contractAddress);
         this.contractView = ethRead.contract(abi).at(this.contractAddress);
         this.price = 0;
@@ -130,6 +130,7 @@ export default class MetaDataContract {
     }
 
     async getAddressData(address) {
+        if (!Eth.isAddress(address)) return {};
         return this.contractView.getByAddress(address).then(result => {
             if (result[0] === "0x0000000000000000000000000000000000000000")
                 return;
