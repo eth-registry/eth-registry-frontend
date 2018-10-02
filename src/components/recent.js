@@ -45,7 +45,16 @@ export default class Recent extends React.Component {
                                 >
                                     {sub.name}
                                 </a>{" "}
-                                <code>{sub.address}</code>
+                                <code>
+                                    <a
+                                        href={
+                                            "https://www.ethtective.com/" +
+                                            sub.address
+                                        }
+                                    >
+                                        {sub.address}
+                                    </a>
+                                </code>
                             </span>
                         </div>
                     );
