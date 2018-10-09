@@ -4,6 +4,7 @@
 *.lock
 *.log
 .next
+.env
 
 # Editor directories and files
 .idea
