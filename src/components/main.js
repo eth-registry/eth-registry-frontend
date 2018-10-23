@@ -196,6 +196,7 @@ class Index extends React.Component {
           <a
             href={"http://canary.ethtective.com/" + metaData.contractAddress}
             target="_blank"
+            rel="noopener noreferrer"
           >
             <code>{metaData.contractAddress}</code>
           </a>

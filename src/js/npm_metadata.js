@@ -15,7 +15,7 @@ export default class Metadata {
    */
   constructor(provider) {
     this.provider = provider;
-    this.contract = eth.contract(abi).at(contractAddress);
+    this.contract = Eth.contract(abi).at(contractAddress);
   }
 
   async isCurator() {}
@@ -55,9 +55,11 @@ export default class Metadata {
       data: JSON.parse(JSON.stringify(ipfs)),
       self_attested: query[3],
       curated: query[4],
-      submitter: result[5]
+      submitter: metadata[5]
     };
   }
+
+  async storeJsonIPFS(data) {}
 
   /** @description Stores address metadata on ETH Registry
    * @param {string} Address for which you are submitting data
@@ -67,16 +69,14 @@ export default class Metadata {
    * @return {string} TX Hash of the submitted file
    */
   async storeMetadata(_address, _name, _data, _onReceipt) {
-    let ipfsHash = await storeJsonIPFS(_data);
+    let ipfsHash = await this.storeJsonIPFS(_data);
     if (!ipfsHash) return;
   }
 
-  getEmptyObject() {
+  getEmptyObject(json) {
     const newObj = JSON.pase(JSON.stringify(json));
     return newObj;
   }
-
-  async storeJsonIPFS(data) {}
 
   /** @description Reads content of a JSON file and stores it on IPFS
    * @param {blob} Blob accepted by Filereader
@@ -84,7 +84,7 @@ export default class Metadata {
    */
   async storeJsonFileIPFS(data) {
     return new Promise((resolve, reject) => {
-      reader = new FileReader();
+      let reader = new FileReader();
       reader.onerror = () => {
         reader.abort();
         reject(new DOMException("Problem parsing input file."));
@@ -107,7 +107,7 @@ export default class Metadata {
    */
   async storeDataFileIPFS(data) {
     return new Promise((resolve, reject) => {
-      reader = new FileReader();
+      let reader = new FileReader();
       reader.onerror = () => {
         reader.abort();
         reject(new DOMException("Problem parsing input file."));
@@ -130,7 +130,7 @@ export default class Metadata {
   async convertBlobToBase64(blob) {
     console.log(blob);
     return new Promise((resolve, reject) => {
-      reader = new FileReader();
+      let reader = new FileReader();
       reader.onerror = () => {
         reader.abort();
         reject(new DOMException("Problem parsing input file."));

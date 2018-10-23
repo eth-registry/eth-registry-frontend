@@ -9,7 +9,7 @@ body {
   font-size: 90%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-smooth: 10em;
+  /* font-smooth: 10em; */
   box-sizing: border-box;
   margin-top: 4rem !important;
 }
