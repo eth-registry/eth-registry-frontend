@@ -6,6 +6,7 @@ import Recent from "./recent";
 import TextField from "@material-ui/core/TextField";
 import LoadingIndicator from "./loadingIndicator";
 import Button from "@material-ui/core/Button";
+import LogoBanner from "../assets/logo_banner.png";
 
 let metaData = {};
 
@@ -107,9 +108,8 @@ class Index extends React.Component {
   render() {
     return (
       <div className="markdown">
-        <img src="../shield08.png" className="shield" alt="logo" />
+        <img src={LogoBanner} alt="logo" />
         <h3>Ethereum Metadata Directory</h3>
-        <h1>ETH Registry</h1>
         <h2 className="logo">
           Submit <i>{this.state.addressType}</i> Metadata
         </h2>
