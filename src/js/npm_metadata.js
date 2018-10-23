@@ -11,7 +11,7 @@ const ipfs = new IPFS({
 
 export default class Metadata {
 
-    /** @description Initialize The Registry module
+    /** @description Initialize ETH Registry module
     * @param {provider} Web3 provider
     */
     constructor(provider) {
@@ -24,7 +24,7 @@ export default class Metadata {
     async getPrice() {}
 
 
-    /** @description Initialize The Registry module
+    /** @description Initialize ETH Registry module
     * @param {string} _address
     * @return {metadata} Metadata object with received metadata or null when no metadata available
     */
@@ -54,7 +54,7 @@ export default class Metadata {
         }
     }
 
-    /** @description Stores address metadata on The Registry
+    /** @description Stores address metadata on ETH Registry
     * @param {string} Address for which you are submitting data
     * @param {string} Name of the address
     * @param {string} Metadata object

@@ -39,7 +39,7 @@ export default class Recent extends React.Component {
                             <span>
                                 <a
                                     href={
-                                        "https://theregistry.online/edit/" +
+                                        "https://ethregistry.org/edit/" +
                                         sub.data.address
                                     }
                                 >
