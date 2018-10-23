@@ -439,7 +439,7 @@ class Editor extends React.Component {
                 elevation={0}
                 style={{ color: "white" }}
               >
-                Sign Transaction
+                Submit Metadata
               </Button>
             </span>
           </Tooltip>

@@ -1,20 +1,85 @@
 import React, { Component } from "react";
-import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Input from "@material-ui/core/Input";
 import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
+import Delete from "@material-ui/icons/Delete";
+import VerifiedUser from "@material-ui/icons/VerifiedUserRounded";
+import SelfAttested from "@material-ui/icons/RecordVoiceOver";
+import Lock from "@material-ui/icons/Lock";
+import Edit from "@material-ui/icons/Edit";
+import Warning from "@material-ui/icons/Warning";
 import "../css/form.css";
 
+class Badge extends Component {}
+
 export default class Form extends Component {
+  state = {
+    badges: ["locked", "scam"],
+  };
+
+  renderIcon(type) {
+    switch (type) {
+      case "verified":
+        return (
+          <InputAdornment position="start" className="badgeIcon verified">
+            <VerifiedUser />
+          </InputAdornment>
+        );
+      case "scam":
+        return (
+          <InputAdornment position="start" className="badgeIcon scam">
+            <Warning />
+          </InputAdornment>
+        );
+      case "self":
+        return (
+          <InputAdornment position="start" className="badgeIcon selfAttested">
+            <SelfAttested />
+          </InputAdornment>
+        );
+      case "locked":
+        return (
+          <InputAdornment position="start" className="badgeIcon curated">
+            <Lock />
+          </InputAdornment>
+        );
+    }
+  }
+
+  renderBadge(type) {
+    switch (type) {
+      case "scam":
+        return (
+          <div className="badge scam">
+            Scam <Warning />
+          </div>
+        );
+      case "locked":
+        return (
+          <div className="badge curated">
+            Locked <Lock />
+          </div>
+        );
+      case "self":
+        return (
+          <div className="badge selfAttested">
+            Self Attested <SelfAttested />
+          </div>
+        );
+      case "verified":
+        return (
+          <div className="badge verified">
+            Verified <VerifiedUser />
+          </div>
+        );
+    }
+  }
+
   render() {
     return (
       <div className="form">
@@ -35,10 +100,18 @@ export default class Form extends Component {
             <Typography gutterBottom component="h2">
               <InputBase
                 fullWidth
-                value="SpankChain"
+                value={"SpankChain"}
                 className="borderHover inputH2"
+                startAdornment={<React.Fragment />}
                 endAdornment={
-                  <InputAdornment position="end">edit</InputAdornment>
+                  <React.Fragment>
+                    <InputAdornment position="end" className="badgeIcon action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    {this.state.badges.map(key => {
+                      return this.renderIcon(key);
+                    })}
+                  </React.Fragment>
                 }
               />
             </Typography>
@@ -52,7 +125,9 @@ export default class Form extends Component {
                 value="https://spankchain.com"
                 className="borderHover inputH4"
                 endAdornment={
-                  <InputAdornment position="end">edit</InputAdornment>
+                  <InputAdornment position="end" className="action">
+                    <Edit fontSize="inherit" />
+                  </InputAdornment>
                 }
               />
             </Typography>
@@ -79,12 +154,18 @@ export default class Form extends Component {
                 className="borderHover inputH4"
                 endAdornment={
                   <React.Fragment>
-                    <InputAdornment position="end">edit</InputAdornment>
-                    <InputAdornment position="end">remove</InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
                   </React.Fragment>
                 }
                 startAdornment={
-                  <InputAdornment position="start">Twitter: </InputAdornment>
+                  <InputAdornment position="start" className="prefix">
+                    Twitter:{" "}
+                  </InputAdornment>
                 }
               >
                 a
@@ -95,12 +176,18 @@ export default class Form extends Component {
                 className="borderHover inputH4"
                 endAdornment={
                   <React.Fragment>
-                    <InputAdornment position="end">edit</InputAdornment>
-                    <InputAdornment position="end">remove</InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
                   </React.Fragment>
                 }
                 startAdornment={
-                  <InputAdornment position="start">Email: </InputAdornment>
+                  <InputAdornment position="start" className="prefix">
+                    Email:{" "}
+                  </InputAdornment>
                 }
               />
             </Typography>
@@ -117,12 +204,18 @@ export default class Form extends Component {
                 className="borderHover inputH4"
                 endAdornment={
                   <React.Fragment>
-                    <InputAdornment position="end">edit</InputAdornment>
-                    <InputAdornment position="end">remove</InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
                   </React.Fragment>
                 }
                 startAdornment={
-                  <InputAdornment position="start">Twitter: </InputAdornment>
+                  <InputAdornment position="start" className="prefix">
+                    Twitter:{" "}
+                  </InputAdornment>
                 }
               >
                 a
@@ -133,17 +226,28 @@ export default class Form extends Component {
                 className="borderHover inputH4"
                 endAdornment={
                   <React.Fragment>
-                    <InputAdornment position="end">edit</InputAdornment>
-                    <InputAdornment position="end">remove</InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
                   </React.Fragment>
                 }
                 startAdornment={
-                  <InputAdornment position="start">Email: </InputAdornment>
+                  <InputAdornment position="start" className="prefix">
+                    Email:{" "}
+                  </InputAdornment>
                 }
               />
             </Typography>
           </Grid>
         </Grid>
+        <div className="badges">
+          {this.state.badges.map(key => {
+            return this.renderBadge(key);
+          })}
+        </div>
       </div>
     );
   }

@@ -114,14 +114,12 @@ class Index extends React.Component {
           Submit <i>{this.state.addressType}</i> Metadata
         </h2>
         <p className="capital" id="addressInput">
-          ETH Registry stores information you submit about an Ethereum address
-          on the blockchain and IPFS to make it{" "}
-          <b>openly accessible to users, wallets and apps</b> without having to
-          go through third parties that lock your data behind APIs. We wish to
-          provide the Ethereum ecosystem with an easy way to add, edit and
-          access information such as logo, url, token information or scam type
-          to the Ethereum blockchain. The current version of this contract is{" "}
-          <b>deployed on Mainnet</b>.
+          ETH Registry stores information you submit about an address to make it{" "}
+          <b>readily accessible to users, wallets and apps</b> without having to
+          go through third parties that lock your data in API silos. Add, edit
+          and access information such as logo, url, token details, or use the
+          Registry to report a scam. All the information can be accessed though
+          the Ethereum blockchain and IPFS.
         </p>
         <form noValidate autoComplete="off" className="form">
           <TextField

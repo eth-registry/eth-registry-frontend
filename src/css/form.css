@@ -26,16 +26,15 @@
 }
 
 .editform .form {
+  box-sizing: border-box;
   margin: -0.75rem -1.75rem 0 -1.75rem;
-  padding: 4rem 1.75rem 3rem 1.75rem;
-  border-image: linear-gradient(#fff 0%, rgba(0, 0, 0, 0.12) 100%);
-  border-image-slice: 1;
-  border-width: 1px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-  border-left: 1px solid rgba(0, 0, 0, 0.07);
-  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 4rem 1.75rem 1rem 1.75rem;
+  border-radius: 12px;
+  border-image: linear-gradient(#fff 0%, rgba(0, 0, 0, 0.12) 100%) 1 stretch;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
   border-top: none;
-  border-radius: 4px;
   background: #fefefe;
 }
 
@@ -57,7 +56,9 @@
 
 .form input,
 .form textarea,
-.form p {
+.form p,
+.form button,
+.form .prefix {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
@@ -66,7 +67,8 @@
   font-family: "Hack", monospace;
   color: rgba(170, 170, 170, 1);
   margin-top: 2px;
-  font-size: 11pt;
+  font-size: 10pt;
+  font-weight: 200;
 }
 
 .form h2 {
@@ -81,46 +83,143 @@
   border-bottom: 0;
   margin-bottom: 0;
   padding-bottom: 0;
+  letter-spacing: normal !important;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .form hr {
   margin-top: 0.5em;
 }
 
-.form .inputH2 {
+.form textarea,
+.form input {
+  font-size: 14.4px;
+  font-weight: 300;
+  font-kerning: normal;
+}
+
+.form .prefix {
+  font-size: 10pt;
+  color: rgba(0, 0, 0, 0.3);
+  min-width: 64px;
+  max-width: 64px;
+  text-transform: lowercase;
+}
+
+.form .inputH2 input {
   font-size: 1.5rem !important;
 }
 
-.form .inputH4 {
+.form .inputH4 input {
   font-size: 0.875rem !important;
+}
+
+.form .borderHover input {
+  color: rgba(0, 0, 0, 0.9);
+}
+.form .borderHover:hover input {
+  color: rgba(0, 0, 0, 1);
 }
 
 .form .borderHover {
   border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
 
-.form .borderHover p {
+.form .borderHover p,
+.form .borderHover .action {
   opacity: 0;
-  vertical-align: bottom;
-  margin-right: 12px;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .form .borderHover:hover {
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.3) !important;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2) !important;
   transition: 0.1s all;
 }
 
-.form .borderHover:hover p {
+.form .borderHover:hover p,
+.form .borderHover:hover .action {
   opacity: 1;
 }
 
 .form .multilineHover {
-  padding: 12px !important;
+  padding: 7px 12px 12px !important;
   margin-left: -12px;
   border: 1px solid rgba(0, 0, 0, 0);
 }
 
 .form .multilineHover:hover {
-  border: 1px dashed rgba(0, 0, 0, 0.3) !important;
+  border: 1px dashed rgba(0, 0, 0, 0.2) !important;
   border-radius: 4px;
+}
+
+.form .action {
+  margin-right: 5px;
+  margin-left: -2px;
+}
+
+.badgeIcon svg {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.badgeIcon.selfAttested {
+  color: #56ccf2;
+}
+
+.badgeIcon.verified {
+  color: #219653;
+}
+
+.badgeIcon.curated {
+  color: #bdbdbd; /*#56ccf2*/
+}
+
+.badgeIcon.scam {
+  color: #eb5757;
+}
+
+.badges {
+  margin-top: 2em;
+  padding-top: 3em;
+  margin-bottom: -2em;
+  margin-left: -1em;
+}
+
+.badge {
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  padding: 3px 8px 2px 8px;
+  border-radius: 5px;
+  margin-right: 10px;
+  filter: blur(0.3px);
+  box-shadow: -26px 0px 0px 0px rgba(255, 255, 255, 0.3) inset;
+}
+
+.badge svg {
+  font-weight: 600;
+  font-size: 18px;
+  vertical-align: top;
+  margin-left: 4px;
+  padding-left: 4px;
+}
+
+.badge.selfAttested {
+  background: #56ccf2;
+  display: inline-block;
+}
+
+.badge.verified {
+  background: #119653;
+  display: inline-block;
+}
+
+.badge.curated {
+  background: #bdbdbd;
+  display: inline-block;
+}
+
+.badge.scam {
+  background: #eb5757;
+  display: inline-block;
 }
