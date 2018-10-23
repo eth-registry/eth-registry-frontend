@@ -1,7 +1,28 @@
 {
-  "name": "theregistry.online",
+  "name": "ethregistry-frontend",
   "version": "1.0.0",
   "description": "ETHEREUM ADDRESS METADATA REGISTRY",
+  "license": "LGPL-3.0",
+  "author": "ETH Registry <ethregistry.org>",
+  "homepage": "https://ethregistry.org",
+  "bugs": {
+    "url": "https://github.com/ethregistry/ethregistry-frontend/issues"
+  },
+  "keywords": [
+    "Ethereum",
+    "Blockchain",
+    "Metadata",
+    "Address",
+    "Smart Contract",
+    "Dapp",
+    "ABI",
+    "Registry"
+  ],
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom"
+  },
   "dependencies": {
     "@material-ui/core": "^3.1.2",
     "@material-ui/icons": "^3.0.1",
@@ -21,27 +42,13 @@
     "typography-theme-github": "^0.15.10"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.7.0",
+    "eslint-config-react-app": "^3.0.4",
+    "eslint-plugin-flowtype": "^3.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
     "prettier": "^1.14.2"
-  },
-  "engines": {
-    "node": "10.1.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "deploy": "npm run build && now ./build -e NODE_ENV='production' -e PUBLIC_URL='https://theregistry.online' --dotenv -n theregistry && now alias"
-  },
-  "author": "Alexander Mangel",
-  "keywords": [
-    "Ethereum",
-    "Blockchain",
-    "Metadata",
-    "Address"
-  ],
-  "license": "GNU LGPLv3",
-  "bugs": {
-    "url": "https://github.com/ethtective/cafe/issues"
-  },
-  "homepage": "https://theregistry.online"
+  }
 }

@@ -502,7 +502,7 @@ class Index extends React.Component {
                             "http://canary.ethtective.com/" +
                             metaData.contractAddress
                         }
-                        target="_blank"
+                        target="_blank" rel="noopener noreferrer"
                     >
                         <code>{metaData.contractAddress}</code>
                     </a>

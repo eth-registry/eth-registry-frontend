@@ -1,279 +1,280 @@
 @import url("https://fonts.googleapis.com/css?family=Miss+Fajardose|Noto+Serif+JP:300,400,500|Roboto");
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background: #fdfdfc;
-    color: #2c2b28 !important;
-    font-size: 90%;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    font-smooth: 10em;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #fdfdfc;
+  color: #2c2b28 !important;
+  font-size: 90%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* font-smooth: 10em; */
+  box-sizing: border-box;
+  margin-top: 4rem !important;
 }
 
 *:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 *,
 ::after,
 ::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 p.capital {
-    text-align: justify;
-    margin-bottom: 1rem;
+  text-align: justify;
+  margin-bottom: 1rem;
 }
 
 p.capital::first-letter {
-    font-family: "Noto Serif JP", serif;
-    font-size: 2.5rem;
-    line-height: 0;
-    position: relative;
-    line-height: 20px;
-    padding: 10px 10px 10px 10px;
-    float: left;
+  font-family: "Noto Serif JP", serif;
+  font-size: 2.5rem;
+  line-height: 0;
+  position: relative;
+  line-height: 20px;
+  padding: 10px 10px 10px 10px;
+  float: left;
 }
 
 h1 {
-    color: #ff7151 !important;
+  color: #ff7151 !important;
 }
 
 h2.logo {
-    margin-top: 7rem !important;
+  margin-top: 7rem !important;
 }
 
 img.shield {
-    position: absolute;
-    text-align: center;
-    width: 550px;
-    top: 4.7rem;
-    left: calc(50% - 275px);
-    z-index: -10;
-    opacity: 0.17;
+  position: absolute;
+  text-align: center;
+  width: 550px;
+  top: 4.7rem;
+  left: calc(50% - 275px);
+  z-index: -10;
+  opacity: 0.17;
 }
 
 span[role="img"] {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 .json-pretty {
-    line-height: 1.75;
-    color: #66d9ef;
+  line-height: 1.75;
+  color: #66d9ef;
 }
 
 .json-pretty .json-key {
-    color: #aaa;
-    font-weight: lighter;
+  color: #aaa;
+  font-weight: lighter;
 }
 
 .json-pretty .json-value {
-    color: #3b4252;
+  color: #3b4252;
 }
 
 .json-pretty .json-string {
-    color: #434c5e;
+  color: #434c5e;
 }
 
 .json-pretty .json-boolean {
-    color: #ac81fe;
+  color: #ac81fe;
 }
 
 .top-padding {
-    margin-top: 10px !important;
+  margin-top: 10px !important;
 }
 
 .monofont input {
-    font-family: monospace;
-    font-size: 120%;
+  font-family: monospace;
+  font-size: 120%;
 }
 
 .normal {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 img {
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    left: 10%;
-    position: relative;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  left: 10%;
+  position: relative;
 }
 
 .App {
-    margin-bottom: 4em;
+  margin-bottom: 4em;
 }
 
 .markdown {
-    max-width: 42rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1.5rem 2rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .editform {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .editform .form {
-    margin: -0.75rem -1.75rem 0 -1.75rem;
-    padding: 0.75rem 1.75rem 1rem 1.75rem;
-    border: 1px dashed #ddd;
-    border-radius: 10px;
-    background: #fefefe;
+  margin: -0.75rem -1.75rem 0 -1.75rem;
+  padding: 0.75rem 1.75rem 1rem 1.75rem;
+  border: 1px dashed #ddd;
+  border-radius: 10px;
+  background: #fefefe;
 }
 
 .editform .form img {
-    margin: 0;
+  margin: 0;
 }
 
 .editform h4 {
-    font-family: "Roboto", serif;
-    text-align: left;
-    font-weight: bolder;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+  font-family: "Roboto", serif;
+  text-align: left;
+  font-weight: bolder;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
 }
 
 .uploadbuttons {
-    margin: 20px 0 0 0;
+  margin: 20px 0 0 0;
 }
 
 .formExpanded {
-    max-height: 0px;
-    overflow: hidden;
-    transition: max-height 0.6s ease, margin-bottom 0.6s ease;
-    margin-bottom: 0px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.6s ease, margin-bottom 0.6s ease;
+  margin-bottom: 0px;
 }
 
 .formExpanded.expanded {
-    max-height: 500px;
-    transition: max-height 0.6s ease, margin-bottom 0.6s ease;
-    margin-bottom: 25px;
+  max-height: 500px;
+  transition: max-height 0.6s ease, margin-bottom 0.6s ease;
+  margin-bottom: 25px;
 }
 
 .button {
-    margin-right: 10px !important;
+  margin-right: 10px !important;
 }
 
 .button-aligner {
-    float: right;
+  float: right;
 }
 
 .editform .button-aligner {
-    margin-top: 15px;
-    float: right;
-    margin-right: -1.75rem;
+  margin-top: 15px;
+  float: right;
+  margin-right: -1.75rem;
 }
 
 .imageUploader {
-    padding: 1rem 0 1rem 0;
+  padding: 1rem 0 1rem 0;
 }
 
 .warning {
-    text-align: centered;
-    font-size: 90%;
-    margin-bottom: 0;
-    padding-top: 1rem;
+  text-align: centered;
+  font-size: 90%;
+  margin-bottom: 0;
+  padding-top: 1rem;
 }
 
 .imageUploader {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
 .preview {
-    display: inline-flex;
-    width: 16%;
-    position: absolute;
-    top: 32px;
+  display: inline-flex;
+  width: 16%;
+  position: absolute;
+  top: 32px;
 }
 
 .preview img {
-    left: calc(50% - 32px);
-    width: 64px;
-    height: 64px;
-    position: "relative";
+  left: calc(50% - 32px);
+  width: 64px;
+  height: 64px;
+  position: "relative";
 }
 
 .Dropzone-input {
-    background-color: white;
-    line-height: normal;
-    align-self: center;
-    border-radius: 2px;
-    margin: 40px 0;
-    border: none;
-    height: 52px;
-    width: 100%;
-    font-size: 1.1em;
-    font-family: normal 1em Helvetica, sans-serif;
-    padding: 0px 22px;
-    color: rgb(64, 64, 64);
-    box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 2px 0px,
-        rgba(0, 0, 0, 0.0784314) 0px 0px 0px 1px;
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  line-height: normal;
+  align-self: center;
+  border-radius: 2px;
+  margin: 40px 0;
+  border: none;
+  height: 52px;
+  width: 100%;
+  font-size: 1.1em;
+  font-family: normal 1em Helvetica, sans-serif;
+  padding: 0px 22px;
+  color: rgb(64, 64, 64);
+  box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 2px 0px,
+    rgba(0, 0, 0, 0.0784314) 0px 0px 0px 1px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .Dropzone-input:hover {
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 9px 0px,
-        rgba(0, 0, 0, 0.0784314) 0px 0px 0px 1px;
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 9px 0px,
+    rgba(0, 0, 0, 0.0784314) 0px 0px 0px 1px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .Dropzone-img {
-    margin: 5px;
-    width: 100px;
-    height: 100px;
-    border: thin solid rgba(64, 64, 64, 0.15);
-    border-radius: 5px;
-    object-fit: cover;
+  margin: 5px;
+  width: 100px;
+  height: 100px;
+  border: thin solid rgba(64, 64, 64, 0.15);
+  border-radius: 5px;
+  object-fit: cover;
 }
 
 .Dropzone {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: thin dashed #c2c2c2;
-    background: #fcfcfc;
-    width: 100%;
-    padding: 16px 11px;
-    border-radius: 5px;
-    font-family: "Roboto";
-    font-size: 0.8125rem;
-    font-kerning: normal;
-    font-weight: 400;
-    height: calc(64px + 2rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: thin dashed #c2c2c2;
+  background: #fcfcfc;
+  width: 100%;
+  padding: 16px 11px;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-size: 0.8125rem;
+  font-kerning: normal;
+  font-weight: 400;
+  height: calc(64px + 2rem);
 }
 
 .historyItem {
-    width: 100%;
-    position: relative;
-    margin-bottom: 1rem;
+  width: 100%;
+  position: relative;
+  margin-bottom: 1rem;
 }
 
 .historyItem img {
-    width: 16px;
-    height: 16px;
-    position: relative;
-    left: 0px;
-    margin: 0 2px 0 0;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  left: 0px;
+  margin: 0 2px 0 0;
 }
 .historyItem span {
-    position: relative;
-    left: 5px;
-    top: -2px;
+  position: relative;
+  left: 5px;
+  top: -2px;
 }
 
 .icon {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    vertical-align: middle;
-    left: auto;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  vertical-align: middle;
+  left: auto;
 }
