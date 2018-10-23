@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Libre+Barcode+128+Text|Monoton|Press+Start+2P");
+
+* {
+  box-sizing: border-box;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+
+  background-size: 100%;
+  /*-webkit-background-clip: text;*/
+  /*-webkit-text-fill-color: transparent;*/
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+}
+
+.wrap {
+  /*mix-blend-mode: difference;*/
+  z-index: -1;
+}
+
+.editform {
+  margin-top: 7rem;
+}
+
+.editform .form {
+  margin: -0.75rem -1.75rem 0 -1.75rem;
+  padding: 4rem 1.75rem 3rem 1.75rem;
+  border-image: linear-gradient(#fff 0%, rgba(0, 0, 0, 0.12) 100%);
+  border-image-slice: 1;
+  border-width: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  border-left: 1px solid rgba(0, 0, 0, 0.07);
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  border-top: none;
+  border-radius: 4px;
+  background: #fefefe;
+}
+
+.editform .form img {
+  margin: 0;
+}
+
+.form {
+  /*top: -100px;*/
+  /*width: 80%;*/
+  min-height: 100% !important;
+  height: 100% !important;
+  max-width: 800px;
+}
+
+.form img {
+  left: auto;
+}
+
+.form input,
+.form textarea,
+.form p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+.form .monospace {
+  font-family: "Hack", monospace;
+  color: rgba(170, 170, 170, 1);
+  margin-top: 2px;
+  font-size: 11pt;
+}
+
+.form h2 {
+  font-size: 12pt;
+  font-weight: 500;
+}
+
+.form h2,
+.form h3,
+.form h4 {
+  text-align: left;
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.form hr {
+  margin-top: 0.5em;
+}
+
+.form .inputH2 {
+  font-size: 1.5rem !important;
+}
+
+.form .inputH4 {
+  font-size: 0.875rem !important;
+}
+
+.form .borderHover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+
+.form .borderHover p {
+  opacity: 0;
+  vertical-align: bottom;
+  margin-right: 12px;
+}
+
+.form .borderHover:hover {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.3) !important;
+  transition: 0.1s all;
+}
+
+.form .borderHover:hover p {
+  opacity: 1;
+}
+
+.form .multilineHover {
+  padding: 12px !important;
+  margin-left: -12px;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.form .multilineHover:hover {
+  border: 1px dashed rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px;
+}

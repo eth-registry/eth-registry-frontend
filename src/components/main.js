@@ -153,6 +153,8 @@ class Index extends React.Component {
             color="secondary"
             onClick={this.etherscan}
             className="button"
+            elevation={0}
+            style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
             // onClick={this.view}
           >
             View on Etherscan
@@ -162,6 +164,8 @@ class Index extends React.Component {
             color="secondary"
             variant="contained"
             onClick={this.ethtective}
+            elevation={0}
+            style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
             // onClick={this.view}
           >
             View on Ethtective

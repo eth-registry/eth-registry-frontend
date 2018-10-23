@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Main from "./components/main.js";
+import Header from "./components/Header";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Typography from "typography";
+import InputBase from "@material-ui/core/InputBase";
 import githubTheme from "typography-theme-github";
 
 githubTheme.headerFontFamily = ["Roboto", "sans-serif"];
@@ -75,6 +77,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header />
         <MuiThemeProvider theme={theme}>
           <Main params={this.props.match.params} />
         </MuiThemeProvider>
