@@ -29,7 +29,7 @@ let metaData = {};
 
 const styles = theme => ({
   popper: {
-    opacity: 1
+    opacity: 1,
   },
   lightTooltip: {
     background: "#fefefe",
@@ -38,14 +38,14 @@ const styles = theme => ({
       "0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 3px 2px 0px rgba(0, 0, 0, 0.01), 0px 3px 1px -2px rgba(0, 0, 0, 0.01)",
     fontFamily: "Hack, Source Code Pro",
     fontSize: 9,
-    opacity: 1
+    opacity: 1,
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   input: {
-    display: "none"
-  }
+    display: "none",
+  },
 });
 
 class Editor extends React.Component {
@@ -76,7 +76,7 @@ class Editor extends React.Component {
       mConstructor: "",
       mInterfaces: [],
       knownInterfaces: [],
-      isScam: false
+      isScam: false,
     };
   }
 
@@ -105,7 +105,7 @@ class Editor extends React.Component {
         window.scrollBy({
           top: offset - 30,
           left: 0,
-          behavior: "instant"
+          behavior: "instant",
         });
       }
     }, 700);
@@ -154,7 +154,7 @@ class Editor extends React.Component {
       knownInterfaces: [],
       isContract: false,
       isScam: false,
-      file: null
+      file: null,
     });
   }
 
@@ -184,7 +184,7 @@ class Editor extends React.Component {
         (md.contract.name && md.contract.name.length > 0) ||
         md.contract.interfaces.length > 0,
       isScam: md.reputation.category === "scam",
-      file: null
+      file: null,
     });
   }
 
@@ -230,7 +230,7 @@ class Editor extends React.Component {
       address: this.state.address,
       open: true,
       notification: "Transaction waiting for approval",
-      variant: "info"
+      variant: "info",
     });
     metaData
       .storeMetadata(data.address, this.state.mName, data, () => {
@@ -241,7 +241,7 @@ class Editor extends React.Component {
           address: this.state.address,
           open: true,
           notification: "Transaction submitted",
-          variant: "success"
+          variant: "success",
         });
       })
       .catch(error => {
@@ -249,7 +249,7 @@ class Editor extends React.Component {
         this.setState({
           open: true,
           notification: "Error submitting transaction",
-          variant: "error"
+          variant: "error",
         });
       });
   };
@@ -264,7 +264,7 @@ class Editor extends React.Component {
     this.setState({
       open: open,
       notification: notification,
-      variant: variant
+      variant: variant,
     });
   }
 
@@ -281,11 +281,11 @@ class Editor extends React.Component {
             image/jpeg, image/png, .jpg, .jpeg, .png, .svg
           </span>
         ),
-        variant: "error"
+        variant: "error",
       });
     } else
       this.setState({
-        file: accepted
+        file: accepted,
       });
   };
 
@@ -322,7 +322,7 @@ class Editor extends React.Component {
         ? event.target.value
         : event.target.checked
           ? event.target.checked
-          : ""
+          : "",
     });
   };
 
@@ -354,12 +354,12 @@ class Editor extends React.Component {
       }
       return {
         allowed: false,
-        reason: "Contract is self attested or curated"
+        reason: "Contract is self attested or curated",
       };
     }
     return {
       allowed: true,
-      reason: "You are logged in and can edit this data"
+      reason: "You are logged in and can edit this data",
     };
   }
 
@@ -367,12 +367,12 @@ class Editor extends React.Component {
     if (!metaData.isValidAddress(this.state.address))
       return {
         allowed: false,
-        reason: "Please enter a valid address to submit information"
+        reason: "Please enter a valid address to submit information",
       };
     if (!(this.state.mName.length > 0))
       return {
         allowed: false,
-        reason: "Enter a name to submit information"
+        reason: "Enter a name to submit information",
       };
     if (!contractdata) return { allowed: false, reason: "Nothing to submit" };
     return this.canEdit(contractdata);
@@ -386,7 +386,7 @@ class Editor extends React.Component {
       return "This address metadata has been submitted by the owner of this address and cannot be edited";
     if (!this.state.curator && contractdata.curated)
       return "This address is curated and can only be edited by curators.";
-    return "this is a prototype registry contract, data may or may not be lost (but still counts towards funding our efforts!)";
+    return "";
   }
 
   implementsTokenInterface() {
@@ -425,7 +425,7 @@ class Editor extends React.Component {
                 <Indicator
                   type={this.permissionText(this.state.contractdata)}
                 />
-              )
+              ),
             }}
           />
           <TextField
@@ -568,7 +568,7 @@ class Editor extends React.Component {
                     boxShadow: "none",
                     backgroundColor:
                       this.state.mAbi.length > 0 ? "rgb(175, 234, 79)" : "#eee",
-                    color: this.state.mAbi.length > 0 ? "#fff" : "#000"
+                    color: this.state.mAbi.length > 0 ? "#fff" : "#000",
                   }}
                 >
                   {this.state.mAbi.length > 0
@@ -598,7 +598,7 @@ class Editor extends React.Component {
                       this.state.mSource.length > 0
                         ? "rgb(175, 234, 79)"
                         : "#eee",
-                    color: this.state.mSource.length > 0 ? "#fff" : "#000"
+                    color: this.state.mSource.length > 0 ? "#fff" : "#000",
                   }}
                 >
                   {this.state.mSource.length > 0
@@ -650,12 +650,6 @@ class Editor extends React.Component {
             className="warning"
             style={{ textAlign: "center", fontSize: "80%" }}
           >
-            <b style={{ color: "#00ffd9" }}>
-              <span role="img" aria-label="warning">
-                ⚠️
-              </span>{" "}
-              Attention:
-            </b>{" "}
             {this.attentionText(this.state.contractdata)}
           </p>
         </form>
@@ -669,7 +663,7 @@ class Editor extends React.Component {
             }
             classes={{
               tooltip: this.props.classes.lightTooltip,
-              popper: this.props.classes.popper
+              popper: this.props.classes.popper,
             }}
             enterDelay={200}
             leaveDelay={200}
@@ -705,7 +699,7 @@ class Editor extends React.Component {
 }
 
 Editor.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Editor);

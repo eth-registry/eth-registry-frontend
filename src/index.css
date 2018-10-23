@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Miss+Fajardose|Noto+Serif+JP:300,400,500|Roboto");
+@import url("https://fonts.googleapis.com/css?family=Miss+Fajardose|Roboto");
 
 body {
   margin: 0;
@@ -12,6 +12,8 @@ body {
   /* font-smooth: 10em; */
   box-sizing: border-box;
   margin-top: 4rem !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Helvetica Neue", Arial, sans-serif;
 }
 
 *:focus {
@@ -27,10 +29,11 @@ body {
 p.capital {
   text-align: justify;
   margin-bottom: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Helvetica Neue", Arial, sans-serif;
 }
 
 p.capital::first-letter {
-  font-family: "Noto Serif JP", serif;
   font-size: 2.5rem;
   line-height: 0;
   position: relative;
@@ -45,6 +48,13 @@ h1 {
 
 h2.logo {
   margin-top: 7rem !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat" !important;
 }
 
 img.shield {
@@ -87,9 +97,10 @@ span[role="img"] {
   margin-top: 10px !important;
 }
 
-.monofont input {
-  font-family: monospace;
-  font-size: 120%;
+.monofont input,
+code {
+  font-family: "Hack", monospace;
+  font-size: 11pt;
 }
 
 .normal {
@@ -124,8 +135,8 @@ img {
 .editform .form {
   margin: -0.75rem -1.75rem 0 -1.75rem;
   padding: 0.75rem 1.75rem 1rem 1.75rem;
-  border: 1px dashed #ddd;
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 2px;
   background: #fefefe;
 }
 
@@ -134,7 +145,8 @@ img {
 }
 
 .editform h4 {
-  font-family: "Roboto", serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Helvetica Neue", Arial, sans-serif;
   text-align: left;
   font-weight: bolder;
   border-bottom: 1px solid #eee;
@@ -244,8 +256,7 @@ img {
   background: #fcfcfc;
   width: 100%;
   padding: 16px 11px;
-  border-radius: 5px;
-  font-family: "Roboto";
+  border-radius: 2px;
   font-size: 0.8125rem;
   font-kerning: normal;
   font-weight: 400;
@@ -269,6 +280,10 @@ img {
   position: relative;
   left: 5px;
   top: -2px;
+}
+.historyItem span code {
+  position: relative;
+  left: 21px;
 }
 
 .icon {

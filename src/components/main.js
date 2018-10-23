@@ -12,17 +12,17 @@ let metaData = {};
 
 const styles = theme => ({
   popper: {
-    opacity: 1
+    opacity: 1,
   },
   lightTooltip: {
     background: "#fefefe",
     color: theme.palette.text.primary,
     boxShadow:
       "0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 3px 2px 0px rgba(0, 0, 0, 0.01), 0px 3px 1px -2px rgba(0, 0, 0, 0.01)",
-    fontFamily: "Hack, Source Code Pro",
+    fontFamily: "Hack, monospace",
     fontSize: 9,
-    opacity: 1
-  }
+    opacity: 1,
+  },
 });
 
 class Index extends React.Component {
@@ -45,7 +45,7 @@ class Index extends React.Component {
       saveDecimals: 18,
       saveInterfaces: [],
       isToken: false,
-      isContract: false
+      isContract: false,
     };
   }
 
@@ -74,7 +74,7 @@ class Index extends React.Component {
         ? event.target.value
         : event.target.checked
           ? event.target.checked
-          : ""
+          : "",
     });
   };
 
@@ -93,7 +93,7 @@ class Index extends React.Component {
     // console.error("wut");
     window.open(
       "https://canary.ethtective.com/" + this.state.editAddress,
-      "_blank"
+      "_blank",
     );
   };
 
@@ -101,7 +101,7 @@ class Index extends React.Component {
     // console.error("wut");
     window.open(
       "https://ropsten.etherscan.io/address/" + this.state.editAddress,
-      "_blank"
+      "_blank",
     );
   };
 
@@ -136,7 +136,7 @@ class Index extends React.Component {
             onChange={this.saveProperty("editAddress")}
             className="top-padding monofont addressbar"
             InputProps={{
-              endAdornment: <LoadingIndicator />
+              endAdornment: <LoadingIndicator />,
             }}
             helperText={
               !metaData.isValidAddress(this.state.editAddress) &&
@@ -150,6 +150,7 @@ class Index extends React.Component {
           <Button
             size="small"
             variant="contained"
+            color="secondary"
             onClick={this.etherscan}
             className="button"
             // onClick={this.view}
@@ -158,6 +159,7 @@ class Index extends React.Component {
           </Button>
           <Button
             size="small"
+            color="secondary"
             variant="contained"
             onClick={this.ethtective}
             // onClick={this.view}
@@ -170,29 +172,12 @@ class Index extends React.Component {
           setType={this.setType}
           metadata={this.state.metadata}
         />
+        <h2>Recent Submissions</h2>
+        <Recent metadata={this.state.metadata} />
+
         <h2>Further Reading</h2>
         <p>
-          <span role="img" aria-label="info">
-            ☕
-          </span>{" "}
-          Check out the following examples:{" "}
-          <a href="https://ethregistry.org/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef">
-            Ethereum Name Service
-          </a>
-          ,{" "}
-          <a href="https://ethregistry.org/edit/0x42d6622dece394b54999fbd73d108123806f6a18">
-            Spankchain
-          </a>
-          ,{" "}
-          <a href="https://ethregistry.org/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0">
-            Kraken
-          </a>
-        </p>
-        <p>
-          <span role="img" aria-label="ethtective">
-            🕵️
-          </span>{" "}
-          Metadata Prototype Contract:{" "}
+          <b>Metadata Contract:</b>{" "}
           <a
             href={"http://canary.ethtective.com/" + metaData.contractAddress}
             target="_blank"
@@ -202,9 +187,12 @@ class Index extends React.Component {
           </a>
         </p>
         <p>
-          <span role="img" aria-label="info">
-            🈺
-          </span>{" "}
+          <b>NPM Package: </b>{" "}
+          <a href="http://www.github.com/eth-registry">
+            http://www.github.com/eth-registry
+          </a>
+        </p>
+        <p>
           The metadata stored in this contract is retrieved by calling{" "}
           <code>.getByAddress(address)</code> on the contract. If metadata is
           available, JSON can be retrieved by looking up the IPFS address. This
@@ -218,17 +206,6 @@ class Index extends React.Component {
             <span style={{ color: "orange" }}>address</span> submittedBy)
           </code>
         </p>
-        <p>
-          <span role="img" aria-label="info">
-            🤖
-          </span>{" "}
-          The current iteration of this contract prioritizes self-attested data
-          (submitted by the address itself) over data submitted by other
-          addresses. This website is a sample implementation for interfacing
-          with the contract.
-        </p>
-        <h2>Recent Submissions</h2>
-        <Recent metadata={this.state.metadata} />
       </div>
     );
   }
