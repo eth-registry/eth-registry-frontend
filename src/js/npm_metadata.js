@@ -15,7 +15,13 @@ export default class Metadata {
    */
   constructor(provider) {
     this.provider = provider;
-    this.contract = Eth.contract(abi).at(contractAddress);
+    const network = provider.network || "mainnet";
+    const eth = new Eth(
+      new Eth.HttpProvider(
+        `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`
+      )
+    );
+    this.contract = eth.contract(abi).at(contractAddress);
   }
 
   async isCurator() {}
