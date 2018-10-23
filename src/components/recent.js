@@ -6,7 +6,7 @@ export default class Recent extends React.Component {
     super(props);
     this.state = {
       recent: [],
-      history: []
+      history: [],
     };
   }
 
@@ -37,6 +37,7 @@ export default class Recent extends React.Component {
                 <a href={"https://ethregistry.org/edit/" + sub.data.address}>
                   {sub.name}
                 </a>{" "}
+                <br />
                 <code>
                   <a href={"https://www.ethtective.com/" + sub.address}>
                     {sub.address}
