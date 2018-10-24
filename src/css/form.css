@@ -164,12 +164,13 @@
   border: 1px solid rgba(0, 0, 0, 0.04);
   border-radius: 3px;
   padding: 3px 0px 3px 6px;
-  background: #efefef;
+  /*background: #efefef;*/
 }
 
 .barBadges,
 .barAddress {
   display: inline-flex;
+  margin-right: 4px;
 }
 
 .badgeIcon svg {
@@ -184,7 +185,7 @@
 }
 
 .badgeIcon.verified {
-  color: #219653;
+  color: #27ae60;
 }
 
 .badgeIcon.curated {
@@ -216,11 +217,11 @@
 
 .badge svg {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   vertical-align: top;
   margin-left: 8px;
   padding-left: 4px;
-  margin-right: -2px;
+  margin-right: -3px;
 }
 
 .badge.selfAttested {
@@ -229,7 +230,7 @@
 }
 
 .badge.verified {
-  background: #119653;
+  background: #27ae60;
   display: inline-block;
 }
 

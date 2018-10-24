@@ -8,9 +8,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import Delete from "@material-ui/icons/Delete";
-import VerifiedUser from "@material-ui/icons/VerifiedUserRounded";
+import VerifiedUser from "@material-ui/icons/People";
+// import VerifiedUser from "@material-ui/icons/HowToReg";
 import SelfAttested from "@material-ui/icons/RecordVoiceOver";
-import Lock from "@material-ui/icons/VoiceOverOff";
+import Lock from "@material-ui/icons/MicOff";
 import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
 import "../css/form.css";
@@ -19,7 +20,7 @@ class Badge extends Component {}
 
 export default class Form extends Component {
   state = {
-    badges: ["scam", "locked", "self"],
+    badges: ["verified", "scam", "locked", "self"],
   };
 
   renderIcon(type) {
