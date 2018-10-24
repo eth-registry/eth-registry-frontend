@@ -44,28 +44,26 @@ export default class Form extends Component {
             <LogoDrop />
           </Grid>
           <Grid item xs={10}>
-            <Typography gutterBottom component="h2">
-              <InputBase
-                fullWidth
-                defaultValue={"SpankChain"}
-                className="borderHover inputH2"
-                placeholder="Name"
-                startAdornment={
-                  <React.Fragment>
-                    <InputAdornment position="start">
-                      <Registry single icon type={this.state.badges} />
-                    </InputAdornment>
-                  </React.Fragment>
-                }
-                endAdornment={
-                  <React.Fragment>
-                    <InputAdornment position="end" className="badgeIcon action">
-                      <Edit fontSize="inherit" />
-                    </InputAdornment>
-                  </React.Fragment>
-                }
-              />
-            </Typography>
+            <InputBase
+              fullWidth
+              defaultValue={"SpankChain"}
+              className="borderHover inputH2"
+              placeholder="Name"
+              startAdornment={
+                <React.Fragment>
+                  <InputAdornment position="start">
+                    <Registry single icon type={this.state.badges} />
+                  </InputAdornment>
+                </React.Fragment>
+              }
+              endAdornment={
+                <React.Fragment>
+                  <InputAdornment position="end" className="badgeIcon action">
+                    <Edit fontSize="inherit" />
+                  </InputAdornment>
+                </React.Fragment>
+              }
+            />
             <FormComponent
               defaultValue="https://spankchain.com"
               type="url"
@@ -80,11 +78,10 @@ export default class Form extends Component {
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
             />
-            <br />
-            <Typography variant="h6" gutterBottom component="h2">
+            <h2>
               Contact Information
               <Divider light />
-            </Typography>
+            </h2>
             <FormComponent
               value="@spankchain"
               deletable
@@ -103,12 +100,10 @@ export default class Form extends Component {
               onDelete={() => {}}
               label="phone"
             />
-            <br />
-            <br />
-            <Typography variant="h6" gutterBottom component="h2">
+            <h2>
               Contract Details
               <Divider light />
-            </Typography>
+            </h2>
             <FormComponent label="abi" upload />
             <FormComponent
               label="source"
@@ -121,12 +116,10 @@ export default class Form extends Component {
             <FormComponent label="optimizer" defaultValue="200" />
             <FormComponent label="swarm" />
             <FormComponent label="constructor" />
-            <br />
-            <br />
-            <Typography variant="h6" gutterBottom component="h2">
+            <h2>
               Reputation
               <Divider light />
-            </Typography>
+            </h2>
             <div className="formbadges">
               <Registry type={this.state.badges} />
             </div>

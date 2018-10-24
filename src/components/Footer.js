@@ -37,7 +37,7 @@ class FooterPage extends React.Component {
             <h2>Recent Submissions</h2>
             <Recent metadata={metadata} />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={3} style={{ marginRight: "3rem" }}>
             <h2>Resources</h2>
             <b>Metadata Contract:</b>{" "}
             <p>
@@ -59,18 +59,24 @@ class FooterPage extends React.Component {
                 http://www.github.com/eth-registry
               </a>
             </p>
+            <b>EIP 1456 (Address Metadata JSON Specification): </b>{" "}
+            <p>
+              <a href="https://ethereum-magicians.org/t/erc-1456-address-metadata-json-schema/">
+                Discussion link
+              </a>
+            </p>
             <p>
               The metadata stored in this contract is retrieved by calling{" "}
               <code>.getByAddress(address)</code> on the contract. If metadata
               is available, JSON can be retrieved by looking up the IPFS
               address. This function returns the following tuple: <br />
               <code style={{ fontSize: 12 }}>
-                (<span style={{ color: "orange" }}>address</span> address,{" "}
-                <span style={{ color: "orange" }}>string</span> name,{" "}
-                <span style={{ color: "orange" }}>string</span> ipfsHash,{" "}
-                <span style={{ color: "orange" }}>bool</span> isSelfAttested,{" "}
-                <span style={{ color: "orange" }}>bool</span> isCurated,{" "}
-                <span style={{ color: "orange" }}>address</span> submittedBy)
+                (<span style={{ color: "#DA4C8A" }}>address</span> address,{" "}
+                <span style={{ color: "#DA4C8A" }}>string</span> name,{" "}
+                <span style={{ color: "#DA4C8A" }}>string</span> ipfsHash,{" "}
+                <span style={{ color: "#DA4C8A" }}>bool</span> isSelfAttested,{" "}
+                <span style={{ color: "#DA4C8A" }}>bool</span> isCurated,{" "}
+                <span style={{ color: "#DA4C8A" }}>address</span> submittedBy)
               </code>
             </p>
           </Grid>
