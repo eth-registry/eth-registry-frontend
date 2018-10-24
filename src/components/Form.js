@@ -42,7 +42,7 @@ export default class Form extends Component {
           <Grid item xs={2}>
             <Avatar
               alt="Adelle Charles"
-              src="spankchain.png"
+              src="unicorn.jpg"
               style={{
                 width: 60,
                 height: 60,
