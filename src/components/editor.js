@@ -446,10 +446,7 @@ class Editor extends React.Component {
             {this.state.curator ? 0 : this.state.price} Ξ
           </Button>
         </div>
-        <br />
-        <br />
-        <h2>Metadata JSON</h2>
-        <JSONPretty json={JSON.stringify(this.state.contractdata)} />
+
         <Notification
           open={this.state.open}
           message={this.state.notification}
@@ -459,6 +456,11 @@ class Editor extends React.Component {
     );
   }
 }
+
+// <br />
+// <br />
+// <h2>Metadata JSON</h2>
+// <JSONPretty json={JSON.stringify(this.state.contractdata)} />
 
 Editor.propTypes = {
   classes: PropTypes.object.isRequired,

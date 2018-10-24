@@ -2,11 +2,11 @@ import React from "react";
 import metadata from "../js/metadata.js";
 import { withStyles } from "@material-ui/core/styles";
 import Editor from "./editor";
-import Recent from "./recent";
 import TextField from "@material-ui/core/TextField";
 import LoadingIndicator from "./loadingIndicator";
 import Button from "@material-ui/core/Button";
 import LogoBanner from "../assets/logo_banner.png";
+import Footer from "./Footer";
 
 let metaData = {};
 
@@ -107,108 +107,77 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div className="markdown">
-        <img src={LogoBanner} alt="logo" />
-        <h3>Ethereum Metadata Directory</h3>
-        <h2 className="logo">
-          Submit <i>{this.state.addressType}</i> Metadata
-        </h2>
-        <p className="capital" id="addressInput">
-          ETH Registry stores information about addresses to make it{" "}
-          <b>readily accessible to users, wallets and web3 apps</b> without
-          third parties that lock your data in API silos. Add, edit and access
-          information such as logo, url, token details, or use the Registry to
-          report a scam. All the information can be freely accessed though the
-          Ethereum blockchain and IPFS.
-        </p>
-        <form noValidate autoComplete="off" className="form">
-          <TextField
-            fullWidth
-            error={
-              !metaData.isValidAddress(this.state.editAddress) &&
-              this.state.editAddress.length > 0
-            }
-            spellCheck={"off"}
-            placeholder="0x"
-            value={this.state.editAddress}
-            onChange={this.saveProperty("editAddress")}
-            className="top-padding monofont addressbar bigbar"
-            InputProps={{
-              endAdornment: <LoadingIndicator />,
-            }}
-            helperText={
-              !metaData.isValidAddress(this.state.editAddress) &&
-              this.state.editAddress.length >= 42
-                ? "The address is not a valid Ethereum address"
-                : ""
-            }
+      <React.Fragment>
+        <div className="markdown">
+          <img src={LogoBanner} alt="logo" />
+          <h3>Ethereum Metadata Directory</h3>
+          <h2 className="logo">
+            Submit <i>{this.state.addressType}</i> Metadata
+          </h2>
+          <p className="capital" id="addressInput">
+            ETH Registry stores information about addresses to make it{" "}
+            <b>accessible to users, wallets and web3 apps</b> without third
+            parties that lock your data in API silos. Add, edit and access
+            information such as logo, url, token details, or use the Registry to
+            report a scam. All the information can be freely accessed through
+            the Ethereum blockchain and IPFS.
+          </p>
+          <form noValidate autoComplete="off" className="form">
+            <TextField
+              fullWidth
+              error={
+                !metaData.isValidAddress(this.state.editAddress) &&
+                this.state.editAddress.length > 0
+              }
+              spellCheck={"off"}
+              placeholder="0x"
+              value={this.state.editAddress}
+              onChange={this.saveProperty("editAddress")}
+              className="top-padding monofont addressbar bigbar"
+              InputProps={{
+                endAdornment: <LoadingIndicator />,
+              }}
+              helperText={
+                !metaData.isValidAddress(this.state.editAddress) &&
+                this.state.editAddress.length >= 42
+                  ? "The address is not a valid Ethereum address"
+                  : ""
+              }
+            />
+          </form>
+          <div className="button-aligner">
+            <Button
+              size="small"
+              variant="contained"
+              color="secondary"
+              onClick={this.etherscan}
+              className="button"
+              elevation={0}
+              style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
+              // onClick={this.view}
+            >
+              View on Etherscan
+            </Button>
+            <Button
+              size="small"
+              color="secondary"
+              variant="contained"
+              onClick={this.ethtective}
+              elevation={0}
+              style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
+              // onClick={this.view}
+            >
+              View on Ethtective
+            </Button>
+          </div>
+          <Editor
+            address={this.state.editAddress}
+            setType={this.setType}
+            metadata={this.state.metadata}
           />
-        </form>
-        <div className="button-aligner">
-          <Button
-            size="small"
-            variant="contained"
-            color="secondary"
-            onClick={this.etherscan}
-            className="button"
-            elevation={0}
-            style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
-            // onClick={this.view}
-          >
-            View on Etherscan
-          </Button>
-          <Button
-            size="small"
-            color="secondary"
-            variant="contained"
-            onClick={this.ethtective}
-            elevation={0}
-            style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
-            // onClick={this.view}
-          >
-            View on Ethtective
-          </Button>
         </div>
-        <Editor
-          address={this.state.editAddress}
-          setType={this.setType}
-          metadata={this.state.metadata}
-        />
-        <h2>Recent Submissions</h2>
-        <Recent metadata={this.state.metadata} />
-
-        <h2>Further Reading</h2>
-        <p>
-          <b>Metadata Contract:</b>{" "}
-          <a
-            href={"http://canary.ethtective.com/" + metaData.contractAddress}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <code>{metaData.contractAddress}</code>
-          </a>
-        </p>
-        <p>
-          <b>NPM Package: </b>{" "}
-          <a href="http://www.github.com/eth-registry">
-            http://www.github.com/eth-registry
-          </a>
-        </p>
-        <p>
-          The metadata stored in this contract is retrieved by calling{" "}
-          <code>.getByAddress(address)</code> on the contract. If metadata is
-          available, JSON can be retrieved by looking up the IPFS address. This
-          function returns the following tuple: <br />
-          <code style={{ fontSize: 10 }}>
-            (<span style={{ color: "orange" }}>address</span> address,{" "}
-            <span style={{ color: "orange" }}>string</span> name,{" "}
-            <span style={{ color: "orange" }}>string</span> ipfsHash,{" "}
-            <span style={{ color: "orange" }}>bool</span> isSelfAttested,{" "}
-            <span style={{ color: "orange" }}>bool</span> isCurated,{" "}
-            <span style={{ color: "orange" }}>address</span> submittedBy)
-          </code>
-        </p>
-      </div>
+        <Footer metadata={metaData} />
+      </React.Fragment>
     );
   }
 }
