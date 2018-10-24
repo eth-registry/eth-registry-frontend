@@ -8,7 +8,6 @@ import Form from "./Form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import MagicDropzone from "react-magic-dropzone";
 import JSONPretty from "./JSONPretty";
 import Indicator from "./verificationIndicator";
 import Notification from "./notification";
@@ -447,6 +446,8 @@ class Editor extends React.Component {
             {this.state.curator ? 0 : this.state.price} Ξ
           </Button>
         </div>
+        <br />
+        <br />
         <h2>Metadata JSON</h2>
         <JSONPretty json={JSON.stringify(this.state.contractdata)} />
         <Notification
