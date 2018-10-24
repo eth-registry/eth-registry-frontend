@@ -87,7 +87,7 @@ export default class Registry extends Component {
         if (type.includes("verified")) return "verified";
         if (type.includes("self")) return "self";
         if (type.includes("info")) return "info";
-        if (type.inclused("locked")) return "locked";
+        if (type.includes("locked")) return "locked";
         return null;
     }
 
@@ -139,7 +139,18 @@ export default class Registry extends Component {
 
     render() {
         let { type, icon, single } = this.props;
+        if (type.includes("scam"))
+            type = type.filter(e => {
+                return e !== "verified";
+            });
+        if (type.includes("self"))
+            type = type.filter(e => {
+                return e !== "info";
+            });
         let series = single ? [this.priorityType(type)] : type;
+        series.sort((a, b) => {
+            return a.priority > b.priority ? -1 : 0;
+        });
         return series.map(key => {
             return icon ? this.renderIcon(key) : this.renderBadge(key);
         });

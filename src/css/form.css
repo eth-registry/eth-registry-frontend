@@ -102,8 +102,8 @@
 .form .prefix {
   font-size: 10pt;
   color: rgba(0, 0, 0, 0.3);
-  min-width: 64px;
-  max-width: 64px;
+  min-width: 96px;
+  max-width: 96px;
   text-transform: lowercase;
 }
 
@@ -160,6 +160,13 @@
   margin-left: -2px;
 }
 
+.form .action:hover {
+  margin-right: 5px;
+  margin-left: -2px;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+
 .form .monospace {
   border: 1px solid rgba(0, 0, 0, 0.04);
   border-radius: 3px;
@@ -178,6 +185,11 @@
   font-size: 16px;
   vertical-align: middle;
   cursor: help;
+}
+
+.formbadges {
+  margin-top: 12px;
+  margin-left: -2px;
 }
 
 .badges {
