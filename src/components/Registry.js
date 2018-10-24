@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
-import VerifiedUser from "@material-ui/icons/SupervisorAccount";
+// import VerifiedUser from "@material-ui/icons/SupervisorAccount";
 // import VerifiedUser from "@material-ui/icons/People";
-// import VerifiedUser from "@material-ui/icons/HowToReg";
+import Group from "@material-ui/icons/People";
+import VerifiedUser from "@material-ui/icons/HowToReg";
 import SelfAttested from "@material-ui/icons/RecordVoiceOver";
 import Info from "@material-ui/icons/ErrorOutline";
 import Lock from "@material-ui/icons/MicOff";
@@ -39,7 +40,7 @@ const registryTypes = [
     {
         type: "info",
         text: "Hearsay",
-        icon: <Info />,
+        icon: <Group />,
         description:
             "Metadata for this address was submitted by an unknown party to the ETH Registry, it could be false or misleading",
         color: "#F2C94C",
@@ -153,7 +154,12 @@ export default class Registry extends Component {
         let { type, icon, single } = this.props;
         if (type.includes("scam"))
             type = type.filter(e => {
-                return e !== "verified";
+                return (
+                    e !== "verified" &&
+                    e !== "info" &&
+                    e !== "unknown" &&
+                    e !== "self"
+                );
             });
         if (type.includes("self"))
             type = type.filter(e => {

@@ -30,9 +30,10 @@ export default class Form extends Component {
   //"self" -- info submitted by same address
   //"info" -- info available but not attested by same address
   //"locked" -- address info is locked from submissions for "reasons"
+  //"unknown" -- dunno.. never heard of 'em
 
   state = {
-    badges: ["unknown"],
+    badges: ["info", "verified"],
   };
 
   render() {
