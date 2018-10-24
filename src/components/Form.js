@@ -19,34 +19,34 @@ class Badge extends Component {}
 
 export default class Form extends Component {
   state = {
-    badges: ["locked", "scam"],
+    badges: ["verified", "locked", "self"],
   };
 
   renderIcon(type) {
     switch (type) {
       case "verified":
         return (
-          <InputAdornment position="start" className="badgeIcon verified">
+          <span className="badgeIcon verified">
             <VerifiedUser />
-          </InputAdornment>
+          </span>
         );
       case "scam":
         return (
-          <InputAdornment position="start" className="badgeIcon scam">
+          <span className="badgeIcon scam">
             <Warning />
-          </InputAdornment>
+          </span>
         );
       case "self":
         return (
-          <InputAdornment position="start" className="badgeIcon selfAttested">
+          <span className="badgeIcon selfAttested">
             <SelfAttested />
-          </InputAdornment>
+          </span>
         );
       case "locked":
         return (
-          <InputAdornment position="start" className="badgeIcon curated">
+          <span className="badgeIcon curated">
             <Lock />
-          </InputAdornment>
+          </span>
         );
     }
   }
@@ -108,15 +108,15 @@ export default class Form extends Component {
                     <InputAdornment position="end" className="badgeIcon action">
                       <Edit fontSize="inherit" />
                     </InputAdornment>
-                    {this.state.badges.map(key => {
-                      return this.renderIcon(key);
-                    })}
                   </React.Fragment>
                 }
               />
             </Typography>
 
             <div class="monospace address">
+              {this.state.badges.map(key => {
+                return this.renderIcon(key);
+              })}
               0x03236093522cdCBaC662ffBebD6a951349082b72
             </div>
             <Typography gutterBottom component="h4">
