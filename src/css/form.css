@@ -176,7 +176,6 @@
 .badgeIcon svg {
   font-weight: 600;
   font-size: 16px;
-  margin-right: 5px;
   vertical-align: middle;
 }
 
@@ -189,6 +188,10 @@
 }
 
 .badgeIcon.curated {
+  color: #bdbdbd; /*#56ccf2*/
+}
+
+.badgeIcon.info {
   color: #bdbdbd; /*#56ccf2*/
 }
 
@@ -235,6 +238,11 @@
 }
 
 .badge.curated {
+  background: #bdbdbd;
+  display: inline-block;
+}
+
+.badge.info {
   background: #bdbdbd;
   display: inline-block;
 }

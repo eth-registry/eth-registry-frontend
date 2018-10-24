@@ -14,72 +14,28 @@ import SelfAttested from "@material-ui/icons/RecordVoiceOver";
 import Lock from "@material-ui/icons/MicOff";
 import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
+
+// custom icon/badge components
+import AddressBar from "./AddressBar"; //address bar plus all icons
+import ColoredIcon from "./ColoredIcon"; //registry icon
+import RegistryIcon from "./RegistryIcon"; //single priority icon
+import RegistryBadge from "./RegistryBadge"; //single priority icon
+
+// THE COMPONENT TO END ALL COMPONENTS
+import Registry from "./Registry"; //single priority icon
+
 import "../css/form.css";
 
-class Badge extends Component {}
-
 export default class Form extends Component {
+  //"scam" -- reported scam prio 1
+  //"verified" -- verified by curators of ETH registry
+  //"self" -- info submitted by same address
+  //"info" -- info available but not attested by same address
+  //"locked" -- address info is locked from submissions for "reasons"
+
   state = {
-    badges: ["verified", "scam", "locked", "self"],
+    badges: ["verified", "info", "locked"],
   };
-
-  renderIcon(type) {
-    switch (type) {
-      case "verified":
-        return (
-          <span className="badgeIcon verified">
-            <VerifiedUser />
-          </span>
-        );
-      case "scam":
-        return (
-          <span className="badgeIcon scam">
-            <Warning />
-          </span>
-        );
-      case "self":
-        return (
-          <span className="badgeIcon selfAttested">
-            <SelfAttested />
-          </span>
-        );
-      case "locked":
-        return (
-          <span className="badgeIcon curated">
-            <Lock />
-          </span>
-        );
-    }
-  }
-
-  renderBadge(type) {
-    switch (type) {
-      case "scam":
-        return (
-          <div className="badge scam">
-            Malicious <Warning />
-          </div>
-        );
-      case "locked":
-        return (
-          <div className="badge curated">
-            Locked <Lock />
-          </div>
-        );
-      case "self":
-        return (
-          <div className="badge selfAttested">
-            Self Attested <SelfAttested />
-          </div>
-        );
-      case "verified":
-        return (
-          <div className="badge verified">
-            Verified <VerifiedUser />
-          </div>
-        );
-    }
-  }
 
   render() {
     return (
@@ -103,7 +59,13 @@ export default class Form extends Component {
                 fullWidth
                 value={"SpankChain"}
                 className="borderHover inputH2"
-                startAdornment={<React.Fragment />}
+                startAdornment={
+                  <React.Fragment>
+                    <InputAdornment position="start">
+                      <Registry single icon type={this.state.badges} />
+                    </InputAdornment>
+                  </React.Fragment>
+                }
                 endAdornment={
                   <React.Fragment>
                     <InputAdornment position="end" className="badgeIcon action">
@@ -113,17 +75,6 @@ export default class Form extends Component {
                 }
               />
             </Typography>
-
-            <div class="monospace address">
-              <div class="barBadges">
-                {this.state.badges.map(key => {
-                  return this.renderIcon(key);
-                })}
-              </div>
-              <div class="barAddress">
-                0x03236093522cdCBaC662ffBebD6a951349082b72
-              </div>
-            </div>
             <Typography gutterBottom component="h4">
               <InputBase
                 fullWidth
@@ -205,6 +156,116 @@ export default class Form extends Component {
             <Typography component="p">
               <InputBase
                 fullWidth
+                value=""
+                className="borderHover inputH4"
+                endAdornment={
+                  <React.Fragment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
+                  </React.Fragment>
+                }
+                startAdornment={
+                  <InputAdornment position="start" className="prefix">
+                    abi:{" "}
+                  </InputAdornment>
+                }
+              >
+                a
+              </InputBase>
+              <InputBase
+                fullWidth
+                value=""
+                className="borderHover inputH4"
+                endAdornment={
+                  <React.Fragment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
+                  </React.Fragment>
+                }
+                startAdornment={
+                  <InputAdornment position="start" className="prefix">
+                    source:{" "}
+                  </InputAdornment>
+                }
+              />
+              <InputBase
+                fullWidth
+                value=""
+                className="borderHover inputH4"
+                endAdornment={
+                  <React.Fragment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
+                  </React.Fragment>
+                }
+                startAdornment={
+                  <InputAdornment position="start" className="prefix">
+                    compiler:{" "}
+                  </InputAdornment>
+                }
+              />
+              <InputBase
+                fullWidth
+                value=""
+                className="borderHover inputH4"
+                endAdornment={
+                  <React.Fragment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
+                  </React.Fragment>
+                }
+                startAdornment={
+                  <InputAdornment position="start" className="prefix">
+                    language:{" "}
+                  </InputAdornment>
+                }
+              />
+              <InputBase
+                fullWidth
+                value=""
+                className="borderHover inputH4"
+                endAdornment={
+                  <React.Fragment>
+                    <InputAdornment position="end" className="action">
+                      <Edit fontSize="inherit" />
+                    </InputAdornment>
+                    <InputAdornment position="end" className="action">
+                      <Delete fontSize="inherit" />
+                    </InputAdornment>
+                  </React.Fragment>
+                }
+                startAdornment={
+                  <InputAdornment position="start" className="prefix">
+                    optimizer:{" "}
+                  </InputAdornment>
+                }
+              />
+            </Typography>
+            <br />
+            <br />
+            <Typography variant="h6" gutterBottom component="h2">
+              Reputation
+              <Divider light />
+            </Typography>
+            <Typography component="p">
+              <InputBase
+                fullWidth
                 value="@spankchain"
                 className="borderHover inputH4"
                 endAdornment={
@@ -227,7 +288,7 @@ export default class Form extends Component {
               </InputBase>
               <InputBase
                 fullWidth
-                value="info@spankchain.com"
+                value=""
                 className="borderHover inputH4"
                 endAdornment={
                   <React.Fragment>
@@ -249,9 +310,7 @@ export default class Form extends Component {
           </Grid>
         </Grid>
         <div className="badges">
-          {this.state.badges.map(key => {
-            return this.renderBadge(key);
-          })}
+          <Registry type={this.state.badges} />
         </div>
       </div>
     );
