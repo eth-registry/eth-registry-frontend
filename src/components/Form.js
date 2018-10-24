@@ -34,7 +34,7 @@ export default class Form extends Component {
   //"locked" -- address info is locked from submissions for "reasons"
 
   state = {
-    badges: ["verified", "info", "locked"],
+    badges: ["verified", "self", "info", "locked"],
   };
 
   render() {
