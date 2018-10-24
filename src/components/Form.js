@@ -31,7 +31,7 @@ export default class Form extends Component {
   //"locked" -- address info is locked from submissions for "reasons"
 
   state = {
-    badges: ["scam", "verified", "info", "locked", "self"],
+    badges: ["verified", "info", "locked", "self"],
   };
 
   render() {
@@ -86,7 +86,6 @@ export default class Form extends Component {
               />
             </Typography>
             <br />
-            <br />
             <Typography variant="h6" gutterBottom component="h2">
               Contact Information
               <Divider light />
@@ -115,10 +114,14 @@ export default class Form extends Component {
             <br />
             <Typography variant="h6" gutterBottom component="h2">
               Contract Details
-              <Divider light />
+              <Divider light gutterBottom />
             </Typography>
             <FormComponent label="abi" upload />
-            <FormComponent label="source" />
+            <FormComponent
+              label="source"
+              upload
+              file={{ name: "sourcecode.sol" }}
+            />
             <FormComponent label="compiler" />
             <FormComponent label="language" defaultValue="Solidity" />
             <FormComponent label="optimizer" defaultValue="200" />
@@ -154,11 +157,6 @@ export default class Form extends Component {
               <FormComponent
                 label="Addresses"
                 placeholder="Related addresses (separated by comma)"
-                deletable
-                disabled
-                onDelete={() => {
-                  alert("delete");
-                }}
               />
             </Typography>
           </Grid>
