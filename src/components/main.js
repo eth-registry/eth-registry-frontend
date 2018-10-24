@@ -114,12 +114,12 @@ class Index extends React.Component {
           Submit <i>{this.state.addressType}</i> Metadata
         </h2>
         <p className="capital" id="addressInput">
-          ETH Registry stores information you submit about an address to make it{" "}
-          <b>readily accessible to users, wallets and apps</b> without having to
-          go through third parties that lock your data in API silos. Add, edit
-          and access information such as logo, url, token details, or use the
-          Registry to report a scam. All the information can be accessed though
-          the Ethereum blockchain and IPFS.
+          ETH Registry stores information about addresses to make it{" "}
+          <b>readily accessible to users, wallets and web3 apps</b> without
+          third parties that lock your data in API silos. Add, edit and access
+          information such as logo, url, token details, or use the Registry to
+          report a scam. All the information can be freely accessed though the
+          Ethereum blockchain and IPFS.
         </p>
         <form noValidate autoComplete="off" className="form">
           <TextField
@@ -128,11 +128,11 @@ class Index extends React.Component {
               !metaData.isValidAddress(this.state.editAddress) &&
               this.state.editAddress.length > 0
             }
-            required={true}
-            label="Address"
+            spellcheck={false}
+            placeholder="0x"
             value={this.state.editAddress}
             onChange={this.saveProperty("editAddress")}
-            className="top-padding monofont addressbar"
+            className="top-padding monofont addressbar bigbar"
             InputProps={{
               endAdornment: <LoadingIndicator />,
             }}

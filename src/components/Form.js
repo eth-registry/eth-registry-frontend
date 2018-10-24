@@ -15,6 +15,7 @@ import Lock from "@material-ui/icons/MicOff";
 import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
 import FormComponent from "./FormComponent";
+import LogoDrop from "./LogoDrop";
 // custom icon/badge components
 import AddressBar from "./AddressBar"; //address bar plus all icons
 

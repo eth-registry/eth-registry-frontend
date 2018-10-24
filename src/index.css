@@ -32,15 +32,17 @@ p.capital {
   margin-bottom: 1rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+  font-size: 12pt;
 }
 
 p.capital::first-letter {
-  font-size: 2.5rem;
+  font-size: 3rem;
   line-height: 0;
   position: relative;
-  line-height: 20px;
+  line-height: 28px;
   padding: 10px 10px 10px 10px;
   float: left;
+  font-weight: 200;
 }
 
 h1 {
@@ -75,12 +77,6 @@ span[role="img"] {
 button {
   box-shadow: none;
   padding: 12px 24px 12px 24px !important;
-}
-
-textarea {
-  font-size: 14.4px;
-  font-weight: 300;
-  font-kerning: normal;
 }
 
 .markdown form {
@@ -188,6 +184,15 @@ img {
   font-size: 90%;
   margin-bottom: 0;
   padding-top: 1rem;
+}
+
+.bigbar > div:before {
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.07) !important;
+}
+
+.bigbar > div:after {
+  border-image: linear-gradient(to Right, #28d3da, #d9548b, #0463d8);
+  border-image-slice: 1;
 }
 
 .imageUploader {
