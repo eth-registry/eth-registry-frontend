@@ -32,7 +32,7 @@ export default class LogoDrop extends Component {
     };
 
     render() {
-        const empty = this.state.file
+        const file = this.state.file
             ? this.state.file.preview
             : this.state.loadedFile || undefined;
         console.log();
@@ -44,8 +44,8 @@ export default class LogoDrop extends Component {
             >
                 <Avatar
                     alt="Adelle Charles"
-                    src={empty || "placeholder.png"}
-                    className={"avatarDropzone" + (empty ? " empty" : "")}
+                    src={file || "placeholder.png"}
+                    className={"avatarDropzone" + (!file ? " empty" : "")}
                     style={{
                         width: 60,
                         height: 60,
