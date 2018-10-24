@@ -19,6 +19,7 @@ export default class Header extends Component {
                                 classes={{ underline: "underline" }}
                                 autoComplete={"off"}
                                 placeholder="Lookup address"
+                                spellcheck="false"
                             />
                             <ul
                                 className="d-flex pl-2 flex-items-center text-bold list-style-none"

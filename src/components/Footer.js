@@ -33,41 +33,9 @@ class FooterPage extends React.Component {
       <footer className="font-small pt-4 mt-4">
         <Grid container spacing={16}>
           <Grid item xs={2} />
-          <Grid item xs={2}>
-            <img src={LogoBanner} alt="logo" className="logo" />
-            <p className="disclaimer">
-              ETH Registry is an open-source tool for storing metadata on the
-              Ethereum blockchain, reporting malicious websites and safeguarding
-              users from malicious actors. We're officially maintained, curated
-              and supported by{" "}
-              <a href="https://walletconnect.org/" className="supported">
-                WalletConnect
-              </a>
-              ,{" "}
-              <a href="https://walleth.org/" className="supported">
-                WALLΞTH
-              </a>{" "}
-              and{" "}
-              <a href="https://ethtective.com" className="supported">
-                Ethtective
-              </a>
-            </p>
-            <h2>Contact</h2>
-            <p>
-              <a href="https://discord.gg/ZtfGyKZ" className="social">
-                <SvgIcon>{discord}</SvgIcon>
-              </a>
-              <a href="https://twitter.com/ethregistry" className="social">
-                <SvgIcon>{twitter}</SvgIcon>
-              </a>
-              <a href="https://github.com/eth-registry" className="social">
-                <SvgIcon>{github}</SvgIcon>
-              </a>
-              <a href="https://reddit.com/ethregistry" className="social">
-                <SvgIcon>{reddit}</SvgIcon>
-              </a>
-            </p>
-            <p className="copyright">© 2018 Eth Registry</p>
+          <Grid item xs={3}>
+            <h2>Recent Submissions</h2>
+            <Recent metadata={metadata} />
           </Grid>
           <Grid item xs={3}>
             <h2>Resources</h2>
@@ -106,9 +74,41 @@ class FooterPage extends React.Component {
               </code>
             </p>
           </Grid>
-          <Grid item xs={3}>
-            <h2>Recent Submissions</h2>
-            <Recent metadata={metadata} />
+          <Grid item xs={2}>
+            <img src={LogoBanner} alt="logo" className="logo" />
+            <p className="disclaimer">
+              ETH Registry is an open-source tool for storing metadata on the
+              Ethereum blockchain, reporting malicious websites and safeguarding
+              users from malicious actors. We're officially maintained, curated
+              and supported by{" "}
+              <a href="https://walletconnect.org/" className="supported">
+                WalletConnect
+              </a>
+              ,{" "}
+              <a href="https://walleth.org/" className="supported">
+                WALLΞTH
+              </a>{" "}
+              and{" "}
+              <a href="https://ethtective.com" className="supported">
+                Ethtective
+              </a>
+            </p>
+            <h2>Contact</h2>
+            <p>
+              <a href="https://discord.gg/ZtfGyKZ" className="social">
+                <SvgIcon>{discord}</SvgIcon>
+              </a>
+              <a href="https://twitter.com/ethregistry" className="social">
+                <SvgIcon>{twitter}</SvgIcon>
+              </a>
+              <a href="https://github.com/eth-registry" className="social">
+                <SvgIcon>{github}</SvgIcon>
+              </a>
+              <a href="https://reddit.com/ethregistry" className="social">
+                <SvgIcon>{reddit}</SvgIcon>
+              </a>
+            </p>
+            <p className="copyright">© 2018 Eth Registry</p>
           </Grid>
           <Grid item xs={2} />
         </Grid>
