@@ -126,6 +126,7 @@
 
 .form .borderHover {
   border-bottom: 1px solid rgba(0, 0, 0, 0);
+  position: relative;
 }
 
 .form .borderHover p,
@@ -139,6 +140,30 @@
   transition: 0.1s all;
 }
 
+.form .borderHover:focus-within {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0) !important;
+  transition: 0.4s all;
+}
+
+.form .borderHover:after {
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  content: "";
+  position: absolute;
+  transform: scaleX(0);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.form .borderHover:focus-within:after {
+  transform: scaleX(1);
+  border-image-slice: 1;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
 .form .dropzone .action {
   opacity: 0;
 }
@@ -150,15 +175,49 @@
 }
 
 .form .multilineHover {
-  padding: 7px 12px 12px !important;
+  padding: 5px 12px 12px !important;
+  margin-top: 3px;
   margin-left: -12px;
   border: 1px solid rgba(0, 0, 0, 0);
   width: calc(100% + 24px);
+  position: relative;
 }
 
-.form .multilineHover:hover {
+.form .multilineHover:after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  position: absolute;
+  transform: scale(1.08);
+  transition: all 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  border: 2px solid rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+.form .multilineHover:focus-within:after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  position: absolute;
+  transform: scale(1);
+  transition: all 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.form .multilineHover:hover:not(:focus-within) {
   border: 1px dashed rgba(0, 0, 0, 0.2) !important;
   border-radius: 4px;
+}
+
+.form .multilineHover:focus-within {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0) !important;
+  transition: 0.3s all;
 }
 
 .form .inputAdornment {
@@ -188,7 +247,33 @@
   /*background: #efefef;*/
 }
 
+.form .avatarDropzone {
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  position: relative;
+  margin: auto;
+}
+
+.form .avatarDropzone.empty {
+  border: 1px dashed rgba(0, 0, 0, 0.05);
+  top: 0px;
+}
+
+.form .avatarDropzone:hover {
+  padding: 5px;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  margin: calc(auto - 5px) 0 0 -5px;
+  width: 70px !important;
+  height: 70px !important;
+  top: -5px;
+}
+
+.form .dropmagic {
+  margin: auto;
+  text-align: center;
+}
 .form .dropzone {
+  margin: auto;
 }
 
 .form .dropzone.empty input {

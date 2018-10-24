@@ -54,6 +54,15 @@ const registryTypes = [
         color: "#bdbdbd",
         priority: 1,
     },
+    {
+        type: "unknown",
+        text: "Unkown",
+        icon: <Info />,
+        description:
+            "There is no metadata available for this address on the ETH Registry",
+        color: "#bdbdbd",
+        priority: 1,
+    },
 ];
 
 const classes = {
@@ -88,6 +97,7 @@ export default class Registry extends Component {
         if (type.includes("self")) return "self";
         if (type.includes("info")) return "info";
         if (type.includes("locked")) return "locked";
+        if (type.includes("unknown")) return "unknown";
         return null;
     }
 
@@ -100,11 +110,12 @@ export default class Registry extends Component {
         return null;
     }
 
-    renderBadge(type) {
+    renderBadge(type, i) {
         let t = this.registryType(type);
         if (t)
             return (
-                <div
+                <span
+                    key={i}
                     role="reputation badge"
                     className={`badge`}
                     title={t.description}
@@ -112,16 +123,17 @@ export default class Registry extends Component {
                     style={{ background: t.color }}
                 >
                     {t.text} {t.icon}
-                </div>
+                </span>
             );
         else return <React.Fragment />;
     }
 
-    renderIcon(type) {
+    renderIcon(type, i) {
         let t = this.registryType(type);
         if (t)
             return (
                 <span
+                    key={i}
                     role="reputation icon"
                     className={"badgeIcon"}
                     title={t.description}
@@ -151,8 +163,10 @@ export default class Registry extends Component {
         series.sort((a, b) => {
             return a.priority > b.priority ? -1 : 0;
         });
+        let i = 0;
         return series.map(key => {
-            return icon ? this.renderIcon(key) : this.renderBadge(key);
+            i++;
+            return icon ? this.renderIcon(key, i) : this.renderBadge(key, i);
         });
     }
 }

@@ -128,7 +128,7 @@ class Index extends React.Component {
               !metaData.isValidAddress(this.state.editAddress) &&
               this.state.editAddress.length > 0
             }
-            spellcheck={false}
+            spellCheck={"off"}
             placeholder="0x"
             value={this.state.editAddress}
             onChange={this.saveProperty("editAddress")}

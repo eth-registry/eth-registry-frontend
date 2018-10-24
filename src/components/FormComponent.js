@@ -61,12 +61,13 @@ export default class FormComponent extends Component {
     }
 
     render() {
+        const { deletable, onDelete, ...props } = this.props;
         return this.props.upload ? (
             this.renderUploader()
         ) : (
             <InputBase
                 fullWidth
-                {...this.props}
+                {...props}
                 className={
                     this.props.multiline
                         ? "multilineHover"
@@ -90,7 +91,7 @@ export default class FormComponent extends Component {
                                     title="Copy to clipboard"
                                 />
                             </InputAdornment>
-                            {this.props.deletable ? (
+                            {deletable ? (
                                 <InputAdornment
                                     position="end"
                                     className="action"

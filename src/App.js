@@ -71,7 +71,7 @@ typography.injectStyles();
 
 class App extends Component {
   componentWillMount() {
-    console.log(this.props.match.params);
+    // console.log(this.props.match.params);
   }
 
   render() {

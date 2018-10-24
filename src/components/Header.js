@@ -17,7 +17,7 @@ export default class Header extends Component {
                             <input
                                 className="header-search"
                                 classes={{ underline: "underline" }}
-                                autoComplete={false}
+                                autoComplete={"off"}
                                 placeholder="Lookup address"
                             />
                             <ul

@@ -32,31 +32,23 @@ export default class Form extends Component {
   //"locked" -- address info is locked from submissions for "reasons"
 
   state = {
-    badges: ["verified", "info", "locked", "self"],
+    badges: ["unknown"],
   };
 
   render() {
     return (
       <div className="form">
-        <Grid container spacing={11}>
+        <Grid container>
           <Grid item xs={2}>
-            <Avatar
-              alt="Adelle Charles"
-              src="unicorn.jpg"
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 4,
-                margin: "auto",
-              }}
-            />
+            <LogoDrop />
           </Grid>
           <Grid item xs={10}>
             <Typography gutterBottom component="h2">
               <InputBase
                 fullWidth
-                value={"SpankChain"}
+                defaultValue={"SpankChain"}
                 className="borderHover inputH2"
+                placeholder="Name"
                 startAdornment={
                   <React.Fragment>
                     <InputAdornment position="start">
@@ -73,55 +65,55 @@ export default class Form extends Component {
                 }
               />
             </Typography>
-            <Typography gutterBottom component="h4">
-              <FormComponent defaultValue="https://spankchain.com" type="url" />
-            </Typography>
-            <Typography component="p">
-              <FormComponent
-                fullWidth
-                multiline
-                rows="5"
-                rowsMax="5"
-                value="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
-                className="multilineHover"
-              />
-            </Typography>
+            <FormComponent
+              defaultValue="https://spankchain.com"
+              type="url"
+              placeholder={"Website"}
+            />
+            <FormComponent
+              fullWidth
+              multiline
+              rows="5"
+              rowsMax="5"
+              placeholder={"Description"}
+              defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
+              className="multilineHover"
+            />
             <br />
             <Typography variant="h6" gutterBottom component="h2">
               Contact Information
               <Divider light />
             </Typography>
-            <Typography component="p">
-              <FormComponent
-                value="@spankchain"
-                deletable
-                onDelete={() => {}}
-                label="twitter"
-              />
-              <FormComponent
-                value="info@spankchain.com"
-                deletable
-                onDelete={() => {}}
-                label="Email"
-              />
-              <FormComponent
-                value="+46 444 039 123"
-                deletable
-                onDelete={() => {}}
-                label="phone"
-              />
-            </Typography>
+            <FormComponent
+              value="@spankchain"
+              deletable
+              onDelete={() => {}}
+              label="twitter"
+            />
+            <FormComponent
+              value="info@spankchain.com"
+              deletable
+              onDelete={() => {}}
+              label="Email"
+            />
+            <FormComponent
+              value="+46 444 039 123"
+              deletable
+              onDelete={() => {}}
+              label="phone"
+            />
             <br />
             <br />
             <Typography variant="h6" gutterBottom component="h2">
               Contract Details
-              <Divider light gutterBottom />
+              <Divider light />
             </Typography>
             <FormComponent label="abi" upload />
             <FormComponent
               label="source"
               upload
               file={{ name: "sourcecode.sol" }}
+              onDelete={() => {}}
             />
             <FormComponent label="compiler" />
             <FormComponent label="language" defaultValue="Solidity" />
@@ -137,29 +129,27 @@ export default class Form extends Component {
             <div className="formbadges">
               <Registry type={this.state.badges} />
             </div>
-            <Typography component="p">
-              <FormComponent
-                label="Status"
-                placeholder="disabled"
-                deletable
-                disabled
-                onDelete={() => {
-                  alert("delete");
-                }}
-              />
-              <FormComponent
-                label="Description"
-                placeholder="placeholder"
-                deletable
-                onDelete={() => {
-                  alert("delete");
-                }}
-              />
-              <FormComponent
-                label="Addresses"
-                placeholder="Related addresses (separated by comma)"
-              />
-            </Typography>
+            <FormComponent
+              label="Status"
+              placeholder="disabled"
+              deletable
+              disabled
+              onDelete={() => {
+                alert("delete");
+              }}
+            />
+            <FormComponent
+              label="Description"
+              placeholder="placeholder"
+              deletable
+              onDelete={() => {
+                alert("delete");
+              }}
+            />
+            <FormComponent
+              label="Addresses"
+              placeholder="Related addresses (separated by comma)"
+            />
           </Grid>
         </Grid>
         <div className="badges">
