@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import Delete from "@material-ui/icons/Delete";
 import VerifiedUser from "@material-ui/icons/VerifiedUserRounded";
 import SelfAttested from "@material-ui/icons/RecordVoiceOver";
-import Lock from "@material-ui/icons/Lock";
+import Lock from "@material-ui/icons/VoiceOverOff";
 import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
 import "../css/form.css";
@@ -19,7 +19,7 @@ class Badge extends Component {}
 
 export default class Form extends Component {
   state = {
-    badges: ["verified", "locked", "self"],
+    badges: ["scam", "locked", "self"],
   };
 
   renderIcon(type) {
@@ -56,7 +56,7 @@ export default class Form extends Component {
       case "scam":
         return (
           <div className="badge scam">
-            Scam <Warning />
+            Malicious <Warning />
           </div>
         );
       case "locked":
@@ -114,10 +114,14 @@ export default class Form extends Component {
             </Typography>
 
             <div class="monospace address">
-              {this.state.badges.map(key => {
-                return this.renderIcon(key);
-              })}
-              0x03236093522cdCBaC662ffBebD6a951349082b72
+              <div class="barBadges">
+                {this.state.badges.map(key => {
+                  return this.renderIcon(key);
+                })}
+              </div>
+              <div class="barAddress">
+                0x03236093522cdCBaC662ffBebD6a951349082b72
+              </div>
             </div>
             <Typography gutterBottom component="h4">
               <InputBase
