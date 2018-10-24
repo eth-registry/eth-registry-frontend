@@ -17,9 +17,6 @@ import Warning from "@material-ui/icons/Warning";
 
 // custom icon/badge components
 import AddressBar from "./AddressBar"; //address bar plus all icons
-import ColoredIcon from "./ColoredIcon"; //registry icon
-import RegistryIcon from "./RegistryIcon"; //single priority icon
-import RegistryBadge from "./RegistryBadge"; //single priority icon
 
 // THE COMPONENT TO END ALL COMPONENTS
 import Registry from "./Registry"; //single priority icon
