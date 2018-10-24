@@ -14,7 +14,7 @@ import SelfAttested from "@material-ui/icons/RecordVoiceOver";
 import Lock from "@material-ui/icons/MicOff";
 import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
-
+import FormComponent from "./FormComponent";
 // custom icon/badge components
 import AddressBar from "./AddressBar"; //address bar plus all icons
 
@@ -283,26 +283,7 @@ export default class Form extends Component {
               >
                 a
               </InputBase>
-              <InputBase
-                fullWidth
-                value=""
-                className="borderHover inputH4"
-                endAdornment={
-                  <React.Fragment>
-                    <InputAdornment position="end" className="action">
-                      <Edit fontSize="inherit" />
-                    </InputAdornment>
-                    <InputAdornment position="end" className="action">
-                      <Delete fontSize="inherit" />
-                    </InputAdornment>
-                  </React.Fragment>
-                }
-                startAdornment={
-                  <InputAdornment position="start" className="prefix">
-                    Email:{" "}
-                  </InputAdornment>
-                }
-              />
+              <FormComponent label="Email" deletable />
             </Typography>
           </Grid>
         </Grid>
