@@ -191,7 +191,12 @@ img {
 }
 
 .bigbar > div:after {
-  border-image: linear-gradient(to Right, #28d3da, #d9548b, #0463d8);
+  border-image: linear-gradient(
+    90deg,
+    rgba(40, 211, 218, 1),
+    rgba(4, 99, 216, 1),
+    rgba(217, 84, 139, 1)
+  );
   border-image-slice: 1;
 }
 
