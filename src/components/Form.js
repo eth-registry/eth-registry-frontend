@@ -34,29 +34,29 @@ export default class Form extends Component {
 
   state = {
     badges: ["info", "verified"],
-    metadata: {},
+    metadata: this.props.metadata,
   };
-
-  componentWillMount() {
-    this.setState({ metadata: this.props.metadata });
-  }
 
   handleChange = name => event => {
     const value = event.target ? event.target.value : event;
-    const newState = this.state.metadata;
+    const newState = {};
     const keyChain = name.split(".");
     let temp = {};
     keyChain.reverse().forEach((key, idx, arr) => {
-      if (idx !== arr.length - 1) {
-        if (idx === 0) {
-          temp[key] = value;
-        } else {
-          let _temp = temp;
-          temp = {};
-          temp[key] = _temp;
-        }
-      } else {
+      if (arr.length === 1) {
         newState[key] = temp;
+      } else {
+        if (idx !== arr.length - 1) {
+          if (idx === 0) {
+            temp[key] = value;
+          } else {
+            let _temp = temp;
+            temp = {};
+            temp[key] = _temp;
+          }
+        } else {
+          newState[key] = temp;
+        }
       }
     });
     this.setState(newState);
