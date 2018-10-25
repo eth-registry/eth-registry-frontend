@@ -69,6 +69,7 @@ export default class Form extends Component {
       }
     });
     const state = defaultsDeep({ ...this.state, ...newState }, this.state);
+    console.log(state);
     this.setState(state);
   };
 
@@ -80,7 +81,10 @@ export default class Form extends Component {
       <div className="form">
         <Grid container>
           <Grid item xs={2}>
-            <LogoDrop file={metadata.logo} />
+            <LogoDrop
+              file={metadata.logo}
+              onChange={this.handleChange("metadata.logo")}
+            />
           </Grid>
           <Grid item xs={10}>
             <InputBase
