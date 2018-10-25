@@ -36,8 +36,15 @@ export default class Form extends Component {
 
   state = {
     badges: ["info", "verified", ...this.props.badges],
-    metadata: this.props.metadata
+    metadata: this.props.metadata,
   };
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.metadata) {
+      this.setState({ metadata: nextProps.metadata });
+    }
+  }
 
   handleChange = name => event => {
     const value = event.target ? event.target.value : event;
@@ -191,7 +198,7 @@ export default class Form extends Component {
               label="constructor"
               value={metadata.contract.constructor_arguments || ""}
               onChange={this.handleChange(
-                "metadata.contract.constructor_arguments"
+                "metadata.contract.constructor_arguments",
               )}
             />
             <h2>
@@ -224,7 +231,7 @@ export default class Form extends Component {
                   ? "#eb5757"
                   : badges.includes("verified")
                     ? "#27ae60"
-                    : "#bdbdbd"
+                    : "#bdbdbd",
               }}
             />
             <FormComponent

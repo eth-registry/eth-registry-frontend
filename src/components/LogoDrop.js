@@ -28,6 +28,7 @@ export default class LogoDrop extends Component {
             this.setState({
                 file: accepted[0],
             });
+            this.props.onChange(accepted[0]);
         }
     };
 
