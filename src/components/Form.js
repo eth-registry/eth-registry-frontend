@@ -14,6 +14,8 @@ import SelfAttested from "@material-ui/icons/RecordVoiceOver";
 import Lock from "@material-ui/icons/MicOff";
 import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
+import defaultsDeep from "lodash.defaultsdeep";
+
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
 // custom icon/badge components
@@ -33,8 +35,8 @@ export default class Form extends Component {
   //"unknown" -- dunno.. never heard of 'em
 
   state = {
-    badges: ["info", "verified"],
-    metadata: this.props.metadata,
+    badges: ["info", "verified", ...this.props.badges],
+    metadata: this.props.metadata
   };
 
   handleChange = name => event => {
@@ -44,7 +46,7 @@ export default class Form extends Component {
     let temp = {};
     keyChain.reverse().forEach((key, idx, arr) => {
       if (arr.length === 1) {
-        newState[key] = temp;
+        newState[key] = value;
       } else {
         if (idx !== arr.length - 1) {
           if (idx === 0) {
@@ -59,24 +61,25 @@ export default class Form extends Component {
         }
       }
     });
-    this.setState(newState);
+    const state = defaultsDeep({ ...this.state, ...newState }, this.state);
+    this.setState(state);
   };
 
   render() {
     const { state, props } = this;
-    const { badges, metadata } = this.props;
+    const { badges, metadata } = state;
 
     return (
       <div className="form">
         <Grid container>
           <Grid item xs={2}>
-            <LogoDrop file={state.logo || metadata.logo} />
+            <LogoDrop file={metadata.logo} />
           </Grid>
           <Grid item xs={10}>
             <InputBase
               fullWidth
-              value={state.metadata.name || metadata.name}
-              defaultValue={"SpankChain"}
+              value={metadata.name || ""}
+              defaultValue={"SpankChain" || ""}
               className="borderHover inputH2"
               placeholder="Name"
               onChange={this.handleChange("metadata.name")}
@@ -96,7 +99,7 @@ export default class Form extends Component {
               }
             />
             <FormComponent
-              value={state.metadata.url || metadata.url}
+              value={metadata.url || ""}
               defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
@@ -107,7 +110,7 @@ export default class Form extends Component {
               multiline
               rowsMax="5"
               placeholder={"Description"}
-              value={state.metadata.description || metadata.description}
+              value={metadata.description || ""}
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
               onChange={this.handleChange("metadata.description")}
@@ -119,16 +122,16 @@ export default class Form extends Component {
             {Object.keys(metadata.contact).map(key => {
               return (
                 <FormComponent
-                  value={metadata.contact[key]}
+                  value={metadata.contact[key] || ""}
                   deletable
                   onDelete={() => {}}
                   label={key}
-                  onChange={this.handleChange(key)}
+                  onChange={this.handleChange(`metadata.contact.${key}`)}
                 />
               );
             })}
             <FormComponent
-              value={state.email || props.email}
+              value={metadata.email || ""}
               deletable
               onDelete={() => {}}
               label="testing"
@@ -145,10 +148,10 @@ export default class Form extends Component {
               to use Human Readable Machine Verifyable transactions.
             </p>
             <FormComponent
-              file={state.abi || metadata.contract.abi}
+              file={metadata.contract.abi}
               label="abi"
               upload
-              value={state.abi || metadata.contract.abi}
+              value={metadata.contract.abi || ""}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.abi")}
               accept="text/plain"
@@ -156,39 +159,39 @@ export default class Form extends Component {
             <FormComponent
               label="source"
               upload
-              file={state.source || metadata.contract.source}
-              value={state.source || metadata.contract.source}
+              file={metadata.contract.source}
+              value={metadata.contract.source || ""}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.source")}
               accept="text/plain"
             />
             <FormComponent
               label="compiler"
-              value={state.compiler || metadata.contract.compiler}
+              value={metadata.contract.compiler || ""}
               onChange={this.handleChange("metadata.contract.compiler")}
             />
             <FormComponent
               label="language"
               defaultValue="Solidity"
-              value={state.language || metadata.contract.language}
+              value={metadata.contract.language || ""}
               onChange={this.handleChange("metadata.contract.language")}
             />
             <FormComponent
               label="optimizer"
               defaultValue="200"
-              value={state.optimizer || metadata.contract.optimizer}
+              value={metadata.contract.optimizer || ""}
               onChange={this.handleChange("metadata.contract.optimizer")}
             />
             <FormComponent
               label="swarm"
-              value={state.swarm || metadata.contract.swarm}
+              value={metadata.contract.swarm || ""}
               onChange={this.handleChange("metadata.contract.swarm")}
             />
             <FormComponent
               label="constructor"
-              value={state.construct || metadata.contract.constructor_arguments}
+              value={metadata.contract.constructor_arguments || ""}
               onChange={this.handleChange(
-                "metadata.contract.constructor_arguments",
+                "metadata.contract.constructor_arguments"
               )}
             />
             <h2>
@@ -221,7 +224,7 @@ export default class Form extends Component {
                   ? "#eb5757"
                   : badges.includes("verified")
                     ? "#27ae60"
-                    : "#bdbdbd",
+                    : "#bdbdbd"
               }}
             />
             <FormComponent
@@ -239,7 +242,7 @@ export default class Form extends Component {
             <FormComponent
               className="reputation inputmono"
               label="Submitted by"
-              value={state.submitter || props.submitter}
+              value={props.submitter || ""}
               disabled
             />
           </Grid>
