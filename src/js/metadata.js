@@ -7,13 +7,13 @@ const network = "mainnet";
 let reader = {};
 const eth = new Eth(
   new Eth.HttpProvider(
-    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`
-  )
+    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`,
+  ),
 );
 const ethRead = new Eth(
   new Eth.HttpProvider(
-    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`
-  )
+    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`,
+  ),
 );
 
 let json = {
@@ -21,7 +21,7 @@ let json = {
   address: "",
   submission: {
     comments: "",
-    ipfs: []
+    ipfs: [],
   },
   metadata: {
     name: "",
@@ -40,11 +40,11 @@ let json = {
       swarm: "",
       constructor_arguments: "",
       interfaces: [],
-      erc: []
+      erc: [],
     },
     token: {
       ticker: "",
-      decimals: 18
+      decimals: 18,
     },
     reputation: {
       verified: [],
@@ -52,15 +52,15 @@ let json = {
       category: "",
       subcategory: "",
       description: "",
-      related: []
-    }
+      related: [],
+    },
   },
-  scamdb: {}
+  scamdb: {},
 };
 const ipfs = new IPFS({
   host: "ipfs.infura.io",
   port: 5001,
-  protocol: "https"
+  protocol: "https",
 });
 
 export default class MetaDataContract {
@@ -79,12 +79,19 @@ export default class MetaDataContract {
     let index = await this.contractView.getIndex();
     index = index[0].toNumber() - 1;
     this.history = [];
-    for (let i = index; i > index - 5; i--) {
+    for (let i = index; i > index - 10; i--) {
       let h = await this.contractView.getByIndex(i);
       h.key = i;
       this.history.push(h);
     }
-    return this.history;
+    let unique = [];
+    console.log(this.history);
+    return this.history.filter((item, index) => {
+      console.log(item[0]);
+      let exists = unique.indexOf(item[0]) === -1;
+      unique.push(item[0]);
+      return exists;
+    });
   }
 
   getMetamask() {
@@ -141,20 +148,21 @@ export default class MetaDataContract {
             data: JSON.parse(JSON.stringify(ipfs)),
             self_attested: result[3],
             curated: result[4],
-            submitter: result[5]
+            submitter: result[5],
           };
         })
         .catch(err => {
           return {
             address: result[0],
             name: result[1],
-            data: { data: "no data for this address" }
+            data: { data: "no data for this address" },
           };
         });
     });
   }
 
   getCurrentAccount() {
+    console.log(window.web3.eth.accounts[0]);
     if (window.web3) return window.web3.eth.accounts[0];
     else return null;
   }
@@ -165,17 +173,19 @@ export default class MetaDataContract {
   }
 
   async storeMetadata(address, _name, data, _onReceipt) {
+    console.log(address, _name, data, _onReceipt);
     return new Promise((resolve, reject) => {
       ipfs.addJSON(data, (err, result) => {
-        // console.log(`IPFS Hash: ${result}`);
+        console.log(`IPFS Hash: ${result}`);
         if (result === undefined || err)
           reject(new DOMException("Couldn't add metadata to IPFS"));
         console.log(address, _name, result);
+        // return;
         if (this.curator) {
           // console.log("curator");
           return this.contract
             .addByCurator(address, _name, result, {
-              from: window.web3.eth.accounts[0]
+              from: window.web3.eth.accounts[0],
             })
             .then(result => {
               // onReceipt(result, {
@@ -195,7 +205,7 @@ export default class MetaDataContract {
           return this.contract
             .addAddress(address, _name, result, {
               from: window.web3.eth.accounts[0],
-              value: this.price
+              value: this.price,
             })
             .then(result => {
               // onReceipt(result, {
@@ -264,7 +274,7 @@ export default class MetaDataContract {
         resolve(reader.result);
       };
       console.log(blob);
-      reader.readAsDataURL(blob[0]);
+      reader.readAsDataURL(blob);
     });
   }
 

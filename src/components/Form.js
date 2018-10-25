@@ -35,12 +35,11 @@ export default class Form extends Component {
   //"unknown" -- dunno.. never heard of 'em
 
   state = {
-    badges: ["info", "verified", ...this.props.badges],
+    badges: [...this.props.badges],
     metadata: this.props.metadata,
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.metadata) {
       this.setState({ metadata: nextProps.metadata });
     }
@@ -69,7 +68,6 @@ export default class Form extends Component {
       }
     });
     const state = defaultsDeep({ ...this.state, ...newState }, this.state);
-    console.log(state);
     this.setState(state);
   };
 
@@ -165,7 +163,7 @@ export default class Form extends Component {
               value={metadata.contract.abi || ""}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.abi")}
-              accept="text/plain"
+              accept="application/json"
             />
             <FormComponent
               label="source"
@@ -174,7 +172,7 @@ export default class Form extends Component {
               value={metadata.contract.source || ""}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.source")}
-              accept="text/plain"
+              accept=".sol"
             />
             <FormComponent
               label="compiler"

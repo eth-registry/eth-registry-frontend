@@ -17,7 +17,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 // http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
 // http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
 
-let metaData = {};
+let Registry = {};
 
 const styles = theme => ({
   popper: {
@@ -59,30 +59,30 @@ class Editor extends React.Component {
   }
 
   componentWillMount() {
-    metaData = new metadata();
+    Registry = new metadata();
     if (this.state.address !== this.props.address) {
       this.setState({ address: this.props.address });
     }
-    metaData.getPrice().then(result => {
+    Registry.getPrice().then(result => {
       this.setState({ price: result });
     });
-    metaData.isCurator().then(result => {
+    Registry.isCurator().then(result => {
       this.setState({ curator: result });
     });
-    this.setState({ userAddress: metaData.getCurrentAccount() });
+    this.setState({ userAddress: Registry.getCurrentAccount() });
     this.clearEditor();
     this.getAddress(this.props.address);
   }
 
   componentDidMount() {
-    metaData.getMetamask();
+    Registry.getMetamask();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.address !== this.props.address) {
-      // console.log(metaData.isValidAddress(this.props.address));
+      // console.log(Registry.isValidAddress(this.props.address));
       this.setState({ address: this.props.address });
-      if (metaData.isValidAddress(this.props.address))
+      if (Registry.isValidAddress(this.props.address))
         this.getAddress(this.props.address);
       else this.clearEditor();
     }
@@ -90,15 +90,15 @@ class Editor extends React.Component {
   }
 
   getAddress(address) {
-    if (metaData.isValidAddress(address))
-      metaData.getAddressData(address).then(contractdata => {
+    if (Registry.isValidAddress(address))
+      Registry.getAddressData(address).then(contractdata => {
         this.populateEditor(contractdata);
         this.props.setType(contractdata);
       });
   }
 
   clearEditor() {
-    let json = metaData.getEmptyObject();
+    let json = Registry.getEmptyObject();
     json.address = this.props.address;
     this.setState({
       metadata: json.metadata,
@@ -111,6 +111,7 @@ class Editor extends React.Component {
     if (!contractdata) return;
     let md = contractdata.data.metadata;
     console.log(contractdata);
+    if (!md) return;
     this.setState({
       metadata: md,
       contractdata: contractdata,
@@ -124,58 +125,55 @@ class Editor extends React.Component {
   }
 
   onSubmit = async e => {
-    let data = metaData.getEmptyObject();
+    let data = Registry.getEmptyObject();
     // console.log(data);
-    console.log(this.form);
-    console.log(this.form.metadata);
+
+    const { props } = this.form.current;
+    const { metadata } = this.form.current.state;
+    console.log(this.form, data, metadata);
+    metadata.address = this.state.address;
     data.address = this.state.address;
-    data.metadata.name = this.state.mName;
-    data.metadata.url = this.state.mUrl;
-    data.metadata.description = this.state.mDescription;
-    // console.log(this.state.mScam);
-    if (this.state.isScam === true) {
-      // console.log("WHY");
-      data.metadata.reputation.status = "blocked";
-      data.metadata.reputation.category = "scam";
-    }
-    if (this.state.isContract === true) {
-      data.metadata.contract.name = this.state.mContractName;
-      data.metadata.contract.compiler = this.state.mCompiler;
-      data.metadata.contract.optimizer = this.state.mOptimizer;
-      data.metadata.contract.language = this.state.mLanguage;
-      data.metadata.contract.swarm = this.state.mSwarm;
-      data.metadata.contract.source = this.state.mSource;
-      data.metadata.contract.abi = this.state.mAbi;
-      data.metadata.contract.constructor_arguments = this.state.mConstructor;
-      if (this.state.mInterfaces.length > 0) {
-        let interfaces = this.state.mInterfaces.split(",").map(Number);
-        data.metadata.contract.interfaces = interfaces;
+
+    //check if files are string or not
+    if (typeof metadata.logo !== "string") {
+      try {
+        let logo = await Registry.convertBlobToBase64(metadata.logo);
+        metadata.logo = logo;
+      } catch (e) {
+        throw e + "go blob yourself! (this should not appear in production)";
       }
     }
-    if (this.implementsTokenInterface()) {
-      // console.log("WHY");
-      data.metadata.token.ticker = this.state.mSymbol;
-      data.metadata.token.decimals = this.state.mDecimals;
+    if (typeof metadata.contract.abi !== "string") {
+      try {
+        let abi = await Registry.storeJsonIPFS(metadata.contract.abi);
+        metadata.contract.abi = abi;
+      } catch (e) {
+        throw e + "go abi yourself! (this should not appear in production)";
+      }
     }
-    if (this.state.file)
-      data.metadata.logo = await metaData.convertBlobToBase64(this.state.file);
-    else if (this.state.metadata.logo) {
-      data.metadata.logo = this.state.metadata.logo;
+    if (typeof metadata.contract.source !== "string") {
+      try {
+        let source = await Registry.storeDataIPFS(metadata.contract.source);
+        metadata.contract.source = source;
+      } catch (e) {
+        throw e + "go source yourself! (this should not appear in production)";
+      }
     }
-
+    // data.metadata = metadata;
+    Object.assign(data.metadata, metadata);
     this.setState({
-      address: this.state.address,
+      address: data.address,
+      metadata: metadata,
       open: true,
       notification: "Transaction waiting for approval",
       variant: "info",
     });
-    metaData
-      .storeMetadata(data.address, this.state.mName, data, () => {
-        this.onTransactionReceipt();
-      })
+    Registry.storeMetadata(metadata.address, metadata.name, data, () => {
+      this.onTransactionReceipt();
+    })
       .then(response => {
         this.setState({
-          address: this.state.address,
+          address: data.address,
           open: true,
           notification: "Transaction submitted",
           variant: "success",
@@ -206,7 +204,7 @@ class Editor extends React.Component {
   }
 
   permissionText(contractdata) {
-    let currentAccount = metaData.getCurrentAccount();
+    let currentAccount = Registry.getCurrentAccount();
     if (!contractdata) return "disconnected";
     if (contractdata.self_attested || contractdata.curated) {
       if (currentAccount && currentAccount === contractdata.address)
@@ -229,7 +227,7 @@ class Editor extends React.Component {
   }
 
   canEdit(contractdata) {
-    let currentAccount = metaData.getCurrentAccount();
+    let currentAccount = Registry.getCurrentAccount();
     if (!currentAccount) return { allowed: false, reason: "Not logged in" };
     if (this.state.curator)
       return { allowed: true, reason: "You are a curator" };
@@ -254,8 +252,11 @@ class Editor extends React.Component {
   }
 
   canSubmit(contractdata) {
-    return true;
-    if (!metaData.isValidAddress(this.state.address))
+    // return {
+    //   allowed: true,
+    //   reason: "You hacked it",
+    // };
+    if (!Registry.isValidAddress(this.state.address))
       return {
         allowed: false,
         reason: "Please enter a valid address to submit information",
@@ -272,7 +273,7 @@ class Editor extends React.Component {
   attentionText(contractdata) {
     if (
       contractdata.self_attested &&
-      contractdata.address !== metaData.getCurrentAccount()
+      contractdata.address !== Registry.getCurrentAccount()
     )
       return "This address metadata has been submitted by the owner of this address and cannot be edited";
     if (!this.state.curator && contractdata.curated)
