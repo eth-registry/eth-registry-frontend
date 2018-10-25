@@ -79,6 +79,7 @@ class Editor extends React.Component {
       knownInterfaces: [],
       isScam: false,
     };
+    this.form = React.createRef();
   }
 
   componentWillMount() {
@@ -163,6 +164,7 @@ class Editor extends React.Component {
   populateEditor(contractdata) {
     if (!contractdata) return;
     let md = contractdata.data.metadata;
+    console.log(contractdata);
     this.setState({
       metadata: md,
       contractdata: contractdata,
@@ -194,6 +196,8 @@ class Editor extends React.Component {
   onSubmit = async e => {
     let data = metaData.getEmptyObject();
     // console.log(data);
+    console.log(this.form);
+    console.log(this.form.name);
     data.address = this.state.address;
     data.metadata.name = this.state.mName;
     data.metadata.url = this.state.mUrl;
@@ -444,6 +448,7 @@ class Editor extends React.Component {
     return (
       <div className="editform" id="editform">
         <Form
+          ref={this.form}
           name={state.mName}
           url={state.mUrl}
           description={state.mDescription}
@@ -454,6 +459,7 @@ class Editor extends React.Component {
           language={state.mLanguage}
           optimizer={state.mOptimizer}
           construct={state.mConstructor}
+          submitter={this.state.contractdata.submitter}
           badges={this.getBadges(this.state.contractdata)}
         />
         <div className="button-aligner">

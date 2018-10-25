@@ -221,7 +221,12 @@ export default class Form extends Component {
               value="Submitted and curated, logo might be incorrect"
               disabled
             />
-            <FormComponent className="reputation" label="Addresses" disabled />
+            <FormComponent
+              className="reputation inputmono"
+              label="Submitted by"
+              value={state.submitter || props.submitter}
+              disabled
+            />
           </Grid>
         </Grid>
         <div className="badges">

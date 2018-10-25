@@ -181,7 +181,7 @@ class Index extends React.Component {
             The information submitted will be committed to the blockchain,{" "}
             <b>this is an irreversible action</b>. Please be mindful of the data
             you would like to make publically available and connected to the
-            address you are submitting the data towards. Your submission will be
+            address you are submitting the data for. Your submission will be
             made available immediately when your transaction has been confirmed.
             If you have chosen to have your submission verified by the ETH
             Registry, several curators will verify your data and, upon approval,
