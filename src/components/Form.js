@@ -42,25 +42,21 @@ export default class Form extends Component {
   }
 
   handleChange = name => event => {
-    const value = typeof event === "string" ? event : event.target.value;
+    const value = event.target ? event.target.value : event;
     const newState = this.state.metadata;
     const keyChain = name.split(".");
     let temp = {};
     keyChain.reverse().forEach((key, idx, arr) => {
-      if (arr.length === 1) {
-        newState[key] = value;
-      } else {
-        if (idx !== arr.length - 1) {
-          if (idx === 0) {
-            temp[key] = value;
-          } else {
-            let _temp = temp;
-            temp = {};
-            temp[key] = _temp;
-          }
+      if (idx !== arr.length - 1) {
+        if (idx === 0) {
+          temp[key] = value;
         } else {
-          newState[key] = temp;
+          let _temp = temp;
+          temp = {};
+          temp[key] = _temp;
         }
+      } else {
+        newState[key] = temp;
       }
     });
     this.setState(newState);
