@@ -34,39 +34,32 @@ export default class Form extends Component {
 
   state = {
     badges: ["info", "verified"],
-    metadata: {},
+    metadata: {}
   };
 
   handleChange = name => event => {
-    if (name.length === 1) {
-      this.setState({
-        [name]: event.target.value,
-      });
-    }
-    const value = event.target.value;
+    const value = typeof event === "string" ? event : event.target.value;
     const newState = {};
     const keyChain = name.split(".");
     let temp = {};
     keyChain.reverse().forEach((key, idx, arr) => {
-      if (idx !== arr.length - 1) {
-        if (idx === 0) {
-          temp[key] = value;
-        } else {
-          let _temp = temp;
-          temp = {};
-          temp[key] = _temp;
-        }
+      if (arr.length === 1) {
+        newState[key] = value;
       } else {
-        newState[key] = temp;
+        if (idx !== arr.length - 1) {
+          if (idx === 0) {
+            temp[key] = value;
+          } else {
+            let _temp = temp;
+            temp = {};
+            temp[key] = _temp;
+          }
+        } else {
+          newState[key] = temp;
+        }
       }
     });
     this.setState(newState);
-  };
-
-  handleUpload = name => file => {
-    this.setState({
-      [name]: file,
-    });
   };
 
   render() {
@@ -130,17 +123,10 @@ export default class Form extends Component {
                   deletable
                   onDelete={() => {}}
                   label={key}
-                  onChange={this.handleChange("metadata.contact." + key)}
+                  onChange={this.handleChange(key)}
                 />
               );
             })}
-            <FormComponent
-              value={state.email || props.email}
-              deletable
-              onDelete={() => {}}
-              label="testing"
-              onChange={this.handleChange("metadata.contact.testing")}
-            />
             <h2>
               Contract Details
               <Divider light />
@@ -156,7 +142,7 @@ export default class Form extends Component {
               upload
               value={state.abi || metadata.contract.abi}
               onDelete={() => {}}
-              onUpload={this.handleUpload("contract.abi")}
+              onUpload={this.handleChange("contract.abi")}
               accept="text/plain"
             />
             <FormComponent
@@ -165,7 +151,7 @@ export default class Form extends Component {
               file={state.source || metadata.contract.source}
               value={state.source || metadata.contract.source}
               onDelete={() => {}}
-              onUpload={this.handleUpload("contractsource")}
+              onUpload={this.handleChange("contract.source")}
               accept="text/plain"
             />
             <FormComponent
@@ -225,7 +211,7 @@ export default class Form extends Component {
                   ? "#eb5757"
                   : badges.includes("verified")
                     ? "#27ae60"
-                    : "#bdbdbd",
+                    : "#bdbdbd"
               }}
             />
             <FormComponent
