@@ -7,7 +7,6 @@ import Avatar from "@material-ui/core/Avatar";
 export default class LogoDrop extends Component {
     state = {
         file: undefined,
-        loadedFile: "unicorn.jpg",
     };
     submitFile = (accepted, rejected, links) => {
         if (rejected.length > 0) {
@@ -34,8 +33,7 @@ export default class LogoDrop extends Component {
     render() {
         const file = this.state.file
             ? this.state.file.preview
-            : this.state.loadedFile || undefined;
-        console.log();
+            : this.props.file || undefined;
         return (
             <MagicDropzone
                 accept="image/jpeg, image/png, .jpg, .jpeg, .png"

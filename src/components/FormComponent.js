@@ -21,38 +21,73 @@ export default class FormComponent extends Component {
         return (
             <React.Fragment>
                 <input
-                    accept="image/*"
+                    accept={this.props.accept}
                     id={"flat-button-file" + this.state.key}
                     type="file"
                     style={{ display: "none" }}
+                    onChange={e => {
+                        this.setState({ file: e.target.files[0] });
+                        this.props.onUpload(e.target.files[0]);
+                    }}
                 />
                 <label htmlFor={"flat-button-file" + this.state.key}>
                     <InputBase
                         fullWidth
                         disabled
                         className={
-                            "inputH4 dropzone" +
-                            (this.props.file === undefined ? " empty" : "")
-                        }
-                        defaultValue={
-                            this.props.file !== undefined
-                                ? this.props.file.name
-                                : "Drag a file here or click to upload"
+                            this.props.className +
+                            " " +
+                            ("inputH4 dropzone" +
+                                (this.props.file ? " empty" : ""))
                         }
                         startAdornment={
                             this.props.label ? (
-                                <InputAdornment
-                                    position="start"
-                                    className="prefix"
-                                >
-                                    {this.props.label}:{" "}
-                                </InputAdornment>
+                                <React.Fragment>
+                                    <InputAdornment
+                                        position="start"
+                                        className="prefix"
+                                    >
+                                        {this.props.label}:{" "}
+                                    </InputAdornment>
+                                    <InputAdornment
+                                        position="start"
+                                        className={
+                                            "dropzonecontent" +
+                                            (this.props.file ? "" : " empty")
+                                        }
+                                    >
+                                        {this.props.file !== undefined ? (
+                                            this.props.file.name !==
+                                            undefined ? (
+                                                <div className="inputDropzone">
+                                                    {this.props.file.name}
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className="inputDropzoneLink"
+                                                    onClick={() => {
+                                                        window.open(
+                                                            "https://gateway.ipfs.io/ipfs/" +
+                                                                this.props.file,
+                                                        );
+                                                    }}
+                                                >
+                                                    {this.props.file}
+                                                </div>
+                                            )
+                                        ) : (
+                                            <span className="dropzonetext">
+                                                {"Click to upload"}
+                                            </span>
+                                        )}
+                                    </InputAdornment>
+                                </React.Fragment>
                             ) : (
                                 ""
                             )
                         }
                         endAdornment={
-                            this.props.file !== undefined ? (
+                            this.props.file ? (
                                 <React.Fragment>
                                     <InputAdornment
                                         position="end"
@@ -60,9 +95,10 @@ export default class FormComponent extends Component {
                                     >
                                         <Delete
                                             fontSize="inherit"
-                                            onClick={() =>
-                                                this.props.onDelete()
-                                            }
+                                            onClick={e => {
+                                                console.log(e);
+                                                this.props.onDelete();
+                                            }}
                                             aria-label="Delete item"
                                             title="Delete item"
                                         />
@@ -94,10 +130,12 @@ export default class FormComponent extends Component {
                 fullWidth
                 {...props}
                 className={
-                    this.props.multiline
+                    this.props.className +
+                    " " +
+                    (this.props.multiline
                         ? "multilineHover"
                         : "inputH4" +
-                          (!this.props.disabled ? " borderHover" : "")
+                          (!this.props.disabled ? " borderHover" : ""))
                 }
                 endAdornment={
                     !this.props.disabled && !this.props.multiline ? (

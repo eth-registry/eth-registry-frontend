@@ -63,14 +63,15 @@ class Editor extends React.Component {
       network: 3,
       mName: "",
       mUrl: "https://",
+      mLogo: "",
       mDescription: "",
       mSymbol: "",
       mDecimals: "",
       mCompiler: "",
       mLanguage: "",
       mOptimizer: "",
-      mSource: "",
-      mAbi: "",
+      mSource: undefined,
+      mAbi: undefined,
       mSwarm: "",
       mContractName: "",
       mConstructor: "",
@@ -141,14 +142,15 @@ class Editor extends React.Component {
       mUrl: "https://",
       mDescription: "",
       mSymbol: "",
+      mLogo: "",
       mDecimals: "",
       mCompiler: "",
       mLanguage: "",
       mOptimizer: "",
       mSwarm: "",
       mContractName: "",
-      mSource: "",
-      mAbi: "",
+      mSource: undefined,
+      mAbi: undefined,
       mConstructor: "",
       mInterfaces: [],
       knownInterfaces: [],
@@ -167,6 +169,7 @@ class Editor extends React.Component {
       permission: this.permissionText(contractdata),
       mName: md.name,
       mUrl: md.url,
+      mLogo: md.logo,
       mDescription: md.description,
       mContractName: md.contract.name || "",
       mCompiler: md.contract.compiler,
@@ -338,6 +341,17 @@ class Editor extends React.Component {
     return "any";
   }
 
+  getBadges(contractdata) {
+    let badges = [];
+    if (this.state.isScam) badges.push("scam");
+    if (contractdata.self_attested) badges.push("self");
+    else badges.push("info");
+    if (contractdata.verified) badges.push("verified");
+    if (contractdata.curated) badges.push("locked");
+    if (badges.length === 0) badges.push("unkown");
+    return badges;
+  }
+
   canEdit(contractdata) {
     let currentAccount = metaData.getCurrentAccount();
     if (!currentAccount) return { allowed: false, reason: "Not logged in" };
@@ -408,10 +422,40 @@ class Editor extends React.Component {
         ? this.state.metadata.logo
         : "data:image/png;base64,R0lGODlhAQABAIAAAPr6+gAAACwAAAAAAQABAAACAkQBADs=";
     let preview = <img src={image} alt="Uploaded logo" />;
+    const { state } = this;
+
+    // mName: "",
+    // mUrl: "https://",
+    // mDescription: "",
+    // mSymbol: "",
+    // mDecimals: "",
+    // mCompiler: "",
+    // mLanguage: "",
+    // mOptimizer: "",
+    // mSource: "",
+    // mAbi: "",
+    // mSwarm: "",
+    // mContractName: "",
+    // mConstructor: "",
+    // mInterfaces: [],
+    // knownInterfaces: [],
+    // isScam: false,
 
     return (
       <div className="editform" id="editform">
-        <Form />
+        <Form
+          name={state.mName}
+          url={state.mUrl}
+          description={state.mDescription}
+          logo={state.mLogo}
+          abi={state.mAbi}
+          source={state.mSource}
+          compiler={state.mCompiler}
+          language={state.mLanguage}
+          optimizer={state.mOptimizer}
+          construct={state.mConstructor}
+          badges={this.getBadges(this.state.contractdata)}
+        />
         <div className="button-aligner">
           <Tooltip
             title={

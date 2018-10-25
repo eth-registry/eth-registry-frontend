@@ -36,23 +36,40 @@ export default class Form extends Component {
     badges: ["info", "verified"],
   };
 
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleUpload = name => file => {
+    this.setState({
+      [name]: file,
+    });
+  };
+
   render() {
+    const { state, props } = this;
+    const { badges } = this.props;
+
     return (
       <div className="form">
         <Grid container>
           <Grid item xs={2}>
-            <LogoDrop />
+            <LogoDrop file={state.logo || props.logo} />
           </Grid>
           <Grid item xs={10}>
             <InputBase
               fullWidth
+              value={state.name || props.name}
               defaultValue={"SpankChain"}
               className="borderHover inputH2"
               placeholder="Name"
+              onChange={this.handleChange("name")}
               startAdornment={
                 <React.Fragment>
                   <InputAdornment position="start">
-                    <Registry single icon type={this.state.badges} />
+                    <Registry single icon type={badges} />
                   </InputAdornment>
                 </React.Fragment>
               }
@@ -65,9 +82,11 @@ export default class Form extends Component {
               }
             />
             <FormComponent
+              value={state.url || props.url}
               defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
+              onChange={this.handleChange("url")}
             />
             <FormComponent
               fullWidth
@@ -75,36 +94,42 @@ export default class Form extends Component {
               rows="5"
               rowsMax="5"
               placeholder={"Description"}
+              value={state.description || props.description}
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
+              onChange={this.handleChange("description")}
             />
             <h2>
               Contact Information
               <Divider light />
             </h2>
             <FormComponent
-              value="@spankchain"
+              value={state.twitter || props.twitter}
               deletable
               onDelete={() => {}}
               label="twitter"
+              onChange={this.handleChange("twitter")}
             />
             <FormComponent
-              value="info@spankchain.com"
+              value={state.email || props.email}
               deletable
               onDelete={() => {}}
               label="Email"
+              onChange={this.handleChange("email")}
             />
             <FormComponent
-              value="+46 444 039 123"
+              value={state.phone || props.phone}
               deletable
               onDelete={() => {}}
               label="phone"
+              onChange={this.handleChange("phone")}
             />
             <FormComponent
-              value="https://www.github.com/spankchain"
+              value={state.github || props.github}
               deletable
               onDelete={() => {}}
               label="github"
+              onChange={this.handleChange("github")}
             />
             <h2>
               Contract Details
@@ -115,18 +140,43 @@ export default class Form extends Component {
               of your contracts. If you are using Radspec this also enables you
               to use Human Readable Machine Verifyable transactions.
             </p>
-            <FormComponent label="abi" upload />
+            <FormComponent
+              file={state.abi || props.abi}
+              label="abi"
+              upload
+              value={state.abi || props.abi}
+              onDelete={() => {}}
+              onUpload={this.handleUpload("abi")}
+              accept="text/plain"
+            />
             <FormComponent
               label="source"
               upload
-              file={{ name: "sourcecode.sol" }}
+              file={state.source || props.source}
+              value={state.source || props.source}
               onDelete={() => {}}
+              onUpload={this.handleUpload("source")}
+              accept="text/plain"
             />
-            <FormComponent label="compiler" />
-            <FormComponent label="language" defaultValue="Solidity" />
-            <FormComponent label="optimizer" defaultValue="200" />
-            <FormComponent label="swarm" />
-            <FormComponent label="constructor" />
+            <FormComponent
+              label="compiler"
+              value={state.compiler || props.compiler}
+            />
+            <FormComponent
+              label="language"
+              defaultValue="Solidity"
+              value={state.language || props.language}
+            />
+            <FormComponent
+              label="optimizer"
+              defaultValue="200"
+              value={state.optimizer || props.optimizer}
+            />
+            <FormComponent label="swarm" value={state.swarm || props.swarm} />
+            <FormComponent
+              label="constructor"
+              value={state.construct || props.construct}
+            />
             <h2>
               Reputation
               <Divider light />
@@ -139,33 +189,44 @@ export default class Form extends Component {
               themselves by providing transparency.
             </p>
             <div className="formbadges">
-              <Registry type={this.state.badges} />
+              <Registry type={badges} />
             </div>
             <FormComponent
               label="Status"
-              placeholder="disabled"
-              deletable
+              className="reputation"
+              value={
+                badges.includes("malicious")
+                  ? "Blocked"
+                  : badges.includes("verified")
+                    ? "Trusted"
+                    : "Neutral"
+              }
               disabled
-              onDelete={() => {
-                alert("delete");
+              style={{
+                color: badges.includes("malicious")
+                  ? "#eb5757"
+                  : badges.includes("verified")
+                    ? "#27ae60"
+                    : "#bdbdbd",
               }}
             />
             <FormComponent
+              className="reputation"
+              label="Curated by"
+              value="WalletConnect, Ethtective"
+              disabled
+            />
+            <FormComponent
+              className="reputation"
               label="Description"
-              placeholder="placeholder"
-              deletable
-              onDelete={() => {
-                alert("delete");
-              }}
+              value="Submitted and curated, logo might be incorrect"
+              disabled
             />
-            <FormComponent
-              label="Addresses"
-              placeholder="Related addresses (separated by comma)"
-            />
+            <FormComponent className="reputation" label="Addresses" disabled />
           </Grid>
         </Grid>
         <div className="badges">
-          <Registry single type={this.state.badges} />
+          <Registry single type={badges} />
         </div>
       </div>
     );
