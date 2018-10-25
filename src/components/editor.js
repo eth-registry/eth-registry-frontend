@@ -127,7 +127,7 @@ class Editor extends React.Component {
     let data = metaData.getEmptyObject();
     // console.log(data);
     console.log(this.form);
-    console.log(this.form.name);
+    console.log(this.form.metadata);
     data.address = this.state.address;
     data.metadata.name = this.state.mName;
     data.metadata.url = this.state.mUrl;
