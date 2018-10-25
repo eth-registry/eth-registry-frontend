@@ -38,7 +38,7 @@ export default class Form extends Component {
   };
 
   handleChange = name => event => {
-    const value = typeof event === "string" ? event : event.target.value;
+    const value = event.target ? event.target.value : event;
     const newState = {};
     const keyChain = name.split(".");
     let temp = {};
