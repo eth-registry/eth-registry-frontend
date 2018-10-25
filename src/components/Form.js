@@ -41,7 +41,7 @@ export default class Form extends Component {
 
   handleChange = name => event => {
     const value = event.target ? event.target.value : event;
-    const newState = this.metadata;
+    const newState = {};
     const keyChain = name.split(".");
     let temp = {};
     keyChain.reverse().forEach((key, idx, arr) => {
@@ -78,8 +78,8 @@ export default class Form extends Component {
           <Grid item xs={10}>
             <InputBase
               fullWidth
-              value={metadata.name}
-              defaultValue={"SpankChain"}
+              value={metadata.name || ""}
+              defaultValue={"SpankChain" || ""}
               className="borderHover inputH2"
               placeholder="Name"
               onChange={this.handleChange("metadata.name")}
@@ -99,7 +99,7 @@ export default class Form extends Component {
               }
             />
             <FormComponent
-              value={metadata.url}
+              value={metadata.url || ""}
               defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
@@ -110,7 +110,7 @@ export default class Form extends Component {
               multiline
               rowsMax="5"
               placeholder={"Description"}
-              value={metadata.metadata.description}
+              value={metadata.description || ""}
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
               onChange={this.handleChange("metadata.description")}
@@ -122,7 +122,7 @@ export default class Form extends Component {
             {Object.keys(metadata.contact).map(key => {
               return (
                 <FormComponent
-                  value={metadata.contact[key]}
+                  value={metadata.contact[key] || ""}
                   deletable
                   onDelete={() => {}}
                   label={key}
@@ -131,7 +131,7 @@ export default class Form extends Component {
               );
             })}
             <FormComponent
-              value={metadata.email}
+              value={metadata.email || ""}
               deletable
               onDelete={() => {}}
               label="testing"
@@ -151,7 +151,7 @@ export default class Form extends Component {
               file={metadata.contract.abi}
               label="abi"
               upload
-              value={metadata.contract.abi}
+              value={metadata.contract.abi || ""}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.abi")}
               accept="text/plain"
@@ -160,36 +160,36 @@ export default class Form extends Component {
               label="source"
               upload
               file={metadata.contract.source}
-              value={metadata.contract.source}
+              value={metadata.contract.source || ""}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.source")}
               accept="text/plain"
             />
             <FormComponent
               label="compiler"
-              value={metadata.contract.compiler}
+              value={metadata.contract.compiler || ""}
               onChange={this.handleChange("metadata.contract.compiler")}
             />
             <FormComponent
               label="language"
               defaultValue="Solidity"
-              value={metadata.contract.language}
+              value={metadata.contract.language || ""}
               onChange={this.handleChange("metadata.contract.language")}
             />
             <FormComponent
               label="optimizer"
               defaultValue="200"
-              value={metadata.contract.optimizer}
+              value={metadata.contract.optimizer || ""}
               onChange={this.handleChange("metadata.contract.optimizer")}
             />
             <FormComponent
               label="swarm"
-              value={metadata.contract.swarm}
+              value={metadata.contract.swarm || ""}
               onChange={this.handleChange("metadata.contract.swarm")}
             />
             <FormComponent
               label="constructor"
-              value={metadata.contract.constructor_arguments}
+              value={metadata.contract.constructor_arguments || ""}
               onChange={this.handleChange(
                 "metadata.contract.constructor_arguments"
               )}
@@ -242,7 +242,7 @@ export default class Form extends Component {
             <FormComponent
               className="reputation inputmono"
               label="Submitted by"
-              value={props.submitter}
+              value={props.submitter || ""}
               disabled
             />
           </Grid>
