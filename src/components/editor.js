@@ -17,14 +17,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 // http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
 // http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
 
-//TODO:
-// replace address loads news metadata -> this is sometimes bugged
-// vertical stepper on the left that has a fixed position?
-// progress indicators when loading from infura
-// reputation
-// tags
-// contact
-
 let metaData = {};
 
 const styles = theme => ({
@@ -55,29 +47,13 @@ class Editor extends React.Component {
       address: "",
       metadata: {},
       curator: false,
+      isScam: false,
       userAddress: "",
       open: false,
       notification: "",
       variant: "",
       price: 0,
       network: 3,
-      mName: "",
-      mUrl: "https://",
-      mLogo: "",
-      mDescription: "",
-      mSymbol: "",
-      mDecimals: "",
-      mCompiler: "",
-      mLanguage: "",
-      mOptimizer: "",
-      mSource: undefined,
-      mAbi: undefined,
-      mSwarm: "",
-      mContractName: "",
-      mConstructor: "",
-      mInterfaces: [],
-      knownInterfaces: [],
-      isScam: false,
     };
     this.form = React.createRef();
   }
@@ -100,17 +76,6 @@ class Editor extends React.Component {
 
   componentDidMount() {
     metaData.getMetamask();
-    setTimeout(() => {
-      if (this.props.address) {
-        let el = document.getElementById("addressInput");
-        let offset = Math.floor(el.getBoundingClientRect().top);
-        window.scrollBy({
-          top: offset - 30,
-          left: 0,
-          behavior: "instant",
-        });
-      }
-    }, 700);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -139,25 +104,6 @@ class Editor extends React.Component {
       metadata: json.metadata,
       contractdata: json,
       permission: this.permissionText(json),
-      mName: "",
-      mUrl: "https://",
-      mDescription: "",
-      mSymbol: "",
-      mLogo: "",
-      mDecimals: "",
-      mCompiler: "",
-      mLanguage: "",
-      mOptimizer: "",
-      mSwarm: "",
-      mContractName: "",
-      mSource: undefined,
-      mAbi: undefined,
-      mConstructor: "",
-      mInterfaces: [],
-      knownInterfaces: [],
-      isContract: false,
-      isScam: false,
-      file: null,
     });
   }
 
@@ -169,27 +115,11 @@ class Editor extends React.Component {
       metadata: md,
       contractdata: contractdata,
       permission: this.permissionText(contractdata),
-      mName: md.name,
-      mUrl: md.url,
-      mLogo: md.logo,
-      mDescription: md.description,
-      mContractName: md.contract.name || "",
-      mCompiler: md.contract.compiler,
-      mOptimizer: md.contract.optimizer,
-      mLanguage: md.contract.language,
-      mSwarm: md.contract.swarm_source,
-      mSource: md.contract.source,
-      mAbi: md.contract.abi,
-      mConstructor: md.contract.constructor_arguments || "",
-      mInterfaces: md.contract.interfaces.toString(),
-      knownInterfaces: md.contract.interfaces.toString(),
-      mSymbol: md.token.ticker,
-      mDecimals: md.token.decimals,
       isContract:
         (md.contract.name && md.contract.name.length > 0) ||
         md.contract.interfaces.length > 0,
       isScam: md.reputation.category === "scam",
-      file: null,
+      file: undefined,
     });
   }
 
@@ -275,60 +205,6 @@ class Editor extends React.Component {
     });
   }
 
-  submitFile = (accepted, rejected, links) => {
-    if (rejected.length > 0) {
-      // console.log(rejected);
-      this.setState({
-        open: true,
-        notification: (
-          <span>
-            Couldn't upload your file, please make sure it is of the following
-            type:
-            <br />
-            image/jpeg, image/png, .jpg, .jpeg, .png, .svg
-          </span>
-        ),
-        variant: "error",
-      });
-    } else
-      this.setState({
-        file: accepted,
-      });
-  };
-
-  uploadABI = prop => async event => {
-    if (event.target.files.length > 0) {
-      let file = event.target.files[0];
-      // event.target.files = [];
-      let stored = "";
-      if (prop === "mAbi") {
-        stored = await metaData.storeJsonIPFS(file);
-      } else {
-        stored = await metaData.storeDataIPFS(file);
-      }
-      console.log(prop, stored);
-      this.setState({ [prop]: stored });
-    }
-  };
-
-  saveProperty = prop => event => {
-    if (prop === "address") {
-      this.getAddress(event.target.value);
-      this.forceUpdate();
-    }
-    if (prop === "mInterfaces") {
-      let interfaces = event.target.value.split(",").map(Number);
-      this.setState({ knownInterfaces: interfaces });
-    }
-    this.setState({
-      [prop]: event.target.value
-        ? event.target.value
-        : event.target.checked
-          ? event.target.checked
-          : "",
-    });
-  };
-
   permissionText(contractdata) {
     let currentAccount = metaData.getCurrentAccount();
     if (!contractdata) return "disconnected";
@@ -383,7 +259,7 @@ class Editor extends React.Component {
         allowed: false,
         reason: "Please enter a valid address to submit information",
       };
-    if (!(this.state.mName.length > 0))
+    if (!(this.state.metadata.name.length > 0))
       return {
         allowed: false,
         reason: "Enter a name to submit information",
@@ -423,23 +299,6 @@ class Editor extends React.Component {
         : "data:image/png;base64,R0lGODlhAQABAIAAAPr6+gAAACwAAAAAAQABAAACAkQBADs=";
     let preview = <img src={image} alt="Uploaded logo" />;
     const { state } = this;
-
-    // mName: "",
-    // mUrl: "https://",
-    // mDescription: "",
-    // mSymbol: "",
-    // mDecimals: "",
-    // mCompiler: "",
-    // mLanguage: "",
-    // mOptimizer: "",
-    // mSource: "",
-    // mAbi: "",
-    // mSwarm: "",
-    // mContractName: "",
-    // mConstructor: "",
-    // mInterfaces: [],
-    // knownInterfaces: [],
-    // isScam: false,
 
     return (
       <div className="editform" id="editform">

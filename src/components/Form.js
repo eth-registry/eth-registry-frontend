@@ -38,9 +38,29 @@ export default class Form extends Component {
   };
 
   handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
+    if (name.length === 1) {
+      this.setState({
+        [name]: event.target.value,
+      });
+    }
+    const value = event.target.value;
+    const newState = {};
+    const keyChain = name.split(".");
+    let temp = {};
+    keyChain.reverse().forEach((key, idx, arr) => {
+      if (idx !== arr.length - 1) {
+        if (idx === 0) {
+          temp[key] = value;
+        } else {
+          let _temp = temp;
+          temp = {};
+          temp[key] = _temp;
+        }
+      } else {
+        newState[key] = temp;
+      }
     });
+    this.setState(newState);
   };
 
   handleUpload = name => file => {
@@ -110,10 +130,17 @@ export default class Form extends Component {
                   deletable
                   onDelete={() => {}}
                   label={key}
-                  onChange={this.handleChange(key)}
+                  onChange={this.handleChange("metadata.contact." + key)}
                 />
               );
             })}
+            <FormComponent
+              value={state.email || props.email}
+              deletable
+              onDelete={() => {}}
+              label="testing"
+              onChange={this.handleChange("metadata.contact.testing")}
+            />
             <h2>
               Contract Details
               <Divider light />
