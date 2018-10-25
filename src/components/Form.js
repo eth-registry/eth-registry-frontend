@@ -82,12 +82,6 @@ export default class Form extends Component {
               Contact Information
               <Divider light />
             </h2>
-            <p className="sectionDescription">
-              Contact information allows us to physically identify you and send
-              your details of to the secret government services that will
-              associate your account with your spending habits instead of having
-              regular corporations without extra-legal capaticity do this.
-            </p>
             <FormComponent
               value="@spankchain"
               deletable
@@ -106,16 +100,20 @@ export default class Form extends Component {
               onDelete={() => {}}
               label="phone"
             />
+            <FormComponent
+              value="https://www.github.com/spankchain"
+              deletable
+              onDelete={() => {}}
+              label="github"
+            />
             <h2>
               Contract Details
               <Divider light />
             </h2>
             <p className="sectionDescription">
-              Submit contract information in order to allow the public to
-              validate the source code of your contracts. If you are using
-              Radspec we also verify whether the submitted radspec matches the
-              contract. This allows you to properly use Human Readable Machine
-              Verifyable transactions.
+              Contract details allow users to validate and trust the source code
+              of your contracts. If you are using Radspec this also enables you
+              to use Human Readable Machine Verifyable transactions.
             </p>
             <FormComponent label="abi" upload />
             <FormComponent
@@ -134,9 +132,11 @@ export default class Form extends Component {
               <Divider light />
             </h2>
             <p className="sectionDescription">
-              Reputation describes you, the way we trust this address, the way
-              we position ourselves in the media and the way we fuck with your
-              perception of reality
+              Reputation is attributed by ETH Registry, malicious sites that are
+              reported to us will be tagged as malicious upon further
+              investigation. This allows wallets to better protect users from
+              malicious actors and creates a way for good actors to distinguish
+              themselves by providing transparency.
             </p>
             <div className="formbadges">
               <Registry type={this.state.badges} />
