@@ -34,7 +34,7 @@ export default class Form extends Component {
 
   state = {
     badges: ["info", "verified"],
-    metadata: {}
+    metadata: {},
   };
 
   handleChange = name => event => {
@@ -127,6 +127,14 @@ export default class Form extends Component {
                 />
               );
             })}
+            <FormComponent
+              value={state.email || props.email}
+              deletable
+              onDelete={() => {}}
+              label="testing"
+              onChange={this.handleChange("metadata.contact.testing")}
+            />
+
             <h2>
               Contract Details
               <Divider light />
@@ -211,7 +219,7 @@ export default class Form extends Component {
                   ? "#eb5757"
                   : badges.includes("verified")
                     ? "#27ae60"
-                    : "#bdbdbd"
+                    : "#bdbdbd",
               }}
             />
             <FormComponent
