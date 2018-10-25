@@ -39,26 +39,26 @@ export default class Form extends Component {
     metadata: this.props.metadata
   };
 
-  componentWillMount() {
-    this.setState({ metadata: this.props.metadata });
-  }
-
   handleChange = name => event => {
     const value = event.target ? event.target.value : event;
-    const newState = this.state.metadata;
+    const newState = this.metadata;
     const keyChain = name.split(".");
     let temp = {};
     keyChain.reverse().forEach((key, idx, arr) => {
-      if (idx !== arr.length - 1) {
-        if (idx === 0) {
-          temp[key] = value;
-        } else {
-          let _temp = temp;
-          temp = {};
-          temp[key] = _temp;
-        }
+      if (arr.length === 1) {
+        newState[key] = value;
       } else {
-        newState[key] = temp;
+        if (idx !== arr.length - 1) {
+          if (idx === 0) {
+            temp[key] = value;
+          } else {
+            let _temp = temp;
+            temp = {};
+            temp[key] = _temp;
+          }
+        } else {
+          newState[key] = temp;
+        }
       }
     });
     const state = defaultsDeep({ ...this.state, ...newState }, this.state);
@@ -67,18 +67,18 @@ export default class Form extends Component {
 
   render() {
     const { state, props } = this;
-    const { badges } = state;
+    const { badges, metadata } = state;
 
     return (
       <div className="form">
         <Grid container>
           <Grid item xs={2}>
-            <LogoDrop file={state.metadata.logo} />
+            <LogoDrop file={metadata.logo} />
           </Grid>
           <Grid item xs={10}>
             <InputBase
               fullWidth
-              value={state.metadata.name}
+              value={metadata.name}
               defaultValue={"SpankChain"}
               className="borderHover inputH2"
               placeholder="Name"
@@ -99,7 +99,7 @@ export default class Form extends Component {
               }
             />
             <FormComponent
-              value={state.metadata.url}
+              value={metadata.url}
               defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
@@ -110,7 +110,7 @@ export default class Form extends Component {
               multiline
               rowsMax="5"
               placeholder={"Description"}
-              value={state.metadata.metadata.description}
+              value={metadata.metadata.description}
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
               onChange={this.handleChange("metadata.description")}
@@ -119,10 +119,10 @@ export default class Form extends Component {
               Contact Information
               <Divider light />
             </h2>
-            {Object.keys(state.metadata.contact).map(key => {
+            {Object.keys(metadata.contact).map(key => {
               return (
                 <FormComponent
-                  value={state.metadata.contact[key]}
+                  value={metadata.contact[key]}
                   deletable
                   onDelete={() => {}}
                   label={key}
@@ -131,7 +131,7 @@ export default class Form extends Component {
               );
             })}
             <FormComponent
-              value={state.metadata.email}
+              value={metadata.email}
               deletable
               onDelete={() => {}}
               label="testing"
@@ -148,10 +148,10 @@ export default class Form extends Component {
               to use Human Readable Machine Verifyable transactions.
             </p>
             <FormComponent
-              file={state.metadata.contract.abi}
+              file={metadata.contract.abi}
               label="abi"
               upload
-              value={state.metadata.contract.abi}
+              value={metadata.contract.abi}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.abi")}
               accept="text/plain"
@@ -159,37 +159,37 @@ export default class Form extends Component {
             <FormComponent
               label="source"
               upload
-              file={state.contract.source}
-              value={state.contract.source}
+              file={metadata.contract.source}
+              value={metadata.contract.source}
               onDelete={() => {}}
               onUpload={this.handleChange("metadata.contract.source")}
               accept="text/plain"
             />
             <FormComponent
               label="compiler"
-              value={state.metadata.contract.compiler}
+              value={metadata.contract.compiler}
               onChange={this.handleChange("metadata.contract.compiler")}
             />
             <FormComponent
               label="language"
               defaultValue="Solidity"
-              value={state.metadata.contract.language}
+              value={metadata.contract.language}
               onChange={this.handleChange("metadata.contract.language")}
             />
             <FormComponent
               label="optimizer"
               defaultValue="200"
-              value={state.metadata.contract.optimizer}
+              value={metadata.contract.optimizer}
               onChange={this.handleChange("metadata.contract.optimizer")}
             />
             <FormComponent
               label="swarm"
-              value={state.metadata.contract.swarm}
+              value={metadata.contract.swarm}
               onChange={this.handleChange("metadata.contract.swarm")}
             />
             <FormComponent
               label="constructor"
-              value={state.metadata.contract.constructor_arguments}
+              value={metadata.contract.constructor_arguments}
               onChange={this.handleChange(
                 "metadata.contract.constructor_arguments"
               )}
