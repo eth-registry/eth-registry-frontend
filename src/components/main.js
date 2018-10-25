@@ -12,7 +12,7 @@ let metaData = {};
 
 const styles = theme => ({
   popper: {
-    opacity: 1,
+    opacity: 1
   },
   lightTooltip: {
     background: "#fefefe",
@@ -21,8 +21,8 @@ const styles = theme => ({
       "0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 3px 2px 0px rgba(0, 0, 0, 0.01), 0px 3px 1px -2px rgba(0, 0, 0, 0.01)",
     fontFamily: "Hack, monospace",
     fontSize: 9,
-    opacity: 1,
-  },
+    opacity: 1
+  }
 });
 
 class Index extends React.Component {
@@ -46,7 +46,7 @@ class Index extends React.Component {
       saveDecimals: 18,
       saveInterfaces: [],
       isToken: false,
-      isContract: false,
+      isContract: false
     };
   }
 
@@ -75,7 +75,7 @@ class Index extends React.Component {
         ? event.target.value
         : event.target.checked
           ? event.target.checked
-          : "",
+          : ""
     });
   };
 
@@ -94,7 +94,7 @@ class Index extends React.Component {
     // console.error("wut");
     window.open(
       "https://canary.ethtective.com/" + this.state.editAddress,
-      "_blank",
+      "_blank"
     );
   };
 
@@ -102,7 +102,7 @@ class Index extends React.Component {
     // console.error("wut");
     window.open(
       "https://ropsten.etherscan.io/address/" + this.state.editAddress,
-      "_blank",
+      "_blank"
     );
   };
 
@@ -130,13 +130,13 @@ class Index extends React.Component {
                 !metaData.isValidAddress(this.state.editAddress) &&
                 this.state.editAddress.length > 0
               }
-              spellcheck="false"
+              spellCheck="false"
               placeholder="0x"
               value={this.state.editAddress}
               onChange={this.saveProperty("editAddress")}
               className="top-padding monofont addressbar bigbar"
               InputProps={{
-                endAdornment: <LoadingIndicator />,
+                endAdornment: <LoadingIndicator />
               }}
               helperText={
                 !metaData.isValidAddress(this.state.editAddress) &&
