@@ -10,53 +10,78 @@ import Copy from "@material-ui/icons/FileCopy";
 import Check from "@material-ui/icons/Check";
 
 export default class FormComponent extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    state = {
+        key: parseInt(Math.random() * 99999),
+    };
     renderUploader() {
         return (
-            <InputBase
-                fullWidth
-                disabled
-                className={
-                    "inputH4 dropzone" +
-                    (this.props.file === undefined ? " empty" : "")
-                }
-                defaultValue={
-                    this.props.file !== undefined
-                        ? this.props.file.name
-                        : "Drag a file here or click to upload"
-                }
-                startAdornment={
-                    this.props.label ? (
-                        <InputAdornment position="start" className="prefix">
-                            {this.props.label}:{" "}
-                        </InputAdornment>
-                    ) : (
-                        ""
-                    )
-                }
-                endAdornment={
-                    this.props.file !== undefined ? (
-                        <React.Fragment>
-                            <InputAdornment position="end" className="action">
-                                <Delete
-                                    fontSize="inherit"
-                                    onClick={() => this.props.onDelete()}
-                                    aria-label="Delete item"
-                                    title="Delete item"
-                                />
-                            </InputAdornment>
-                            <InputAdornment
-                                position="end"
-                                className="inputAdornment"
-                                style={{ color: "#27ae60" }}
-                            >
-                                <Check />
-                            </InputAdornment>
-                        </React.Fragment>
-                    ) : (
-                        ""
-                    )
-                }
-            />
+            <React.Fragment>
+                <input
+                    accept="image/*"
+                    id={"flat-button-file" + this.state.key}
+                    type="file"
+                    style={{ display: "none" }}
+                />
+                <label htmlFor={"flat-button-file" + this.state.key}>
+                    <InputBase
+                        fullWidth
+                        disabled
+                        className={
+                            "inputH4 dropzone" +
+                            (this.props.file === undefined ? " empty" : "")
+                        }
+                        defaultValue={
+                            this.props.file !== undefined
+                                ? this.props.file.name
+                                : "Drag a file here or click to upload"
+                        }
+                        startAdornment={
+                            this.props.label ? (
+                                <InputAdornment
+                                    position="start"
+                                    className="prefix"
+                                >
+                                    {this.props.label}:{" "}
+                                </InputAdornment>
+                            ) : (
+                                ""
+                            )
+                        }
+                        endAdornment={
+                            this.props.file !== undefined ? (
+                                <React.Fragment>
+                                    <InputAdornment
+                                        position="end"
+                                        className="action"
+                                    >
+                                        <Delete
+                                            fontSize="inherit"
+                                            onClick={() =>
+                                                this.props.onDelete()
+                                            }
+                                            aria-label="Delete item"
+                                            title="Delete item"
+                                        />
+                                    </InputAdornment>
+                                    <InputAdornment
+                                        position="end"
+                                        className="inputAdornment"
+                                        style={{ color: "#27ae60" }}
+                                    >
+                                        <Check />
+                                    </InputAdornment>
+                                </React.Fragment>
+                            ) : (
+                                ""
+                            )
+                        }
+                    />
+                </label>
+            </React.Fragment>
         );
     }
 

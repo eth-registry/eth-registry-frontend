@@ -119,6 +119,7 @@
   padding-bottom: 0;
   letter-spacing: normal !important;
   color: rgba(0, 0, 0, 0.3);
+  cursor: default;
 }
 
 .form h2 {
@@ -136,6 +137,11 @@
   font-weight: 300;
   font-kerning: normal;
   line-height: 23.4px;
+}
+
+.form .sectionDescription {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: default;
 }
 
 .form .prefix {

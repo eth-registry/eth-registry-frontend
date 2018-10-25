@@ -82,6 +82,12 @@ export default class Form extends Component {
               Contact Information
               <Divider light />
             </h2>
+            <p className="sectionDescription">
+              Contact information allows us to physically identify you and send
+              your details of to the secret government services that will
+              associate your account with your spending habits instead of having
+              regular corporations without extra-legal capaticity do this.
+            </p>
             <FormComponent
               value="@spankchain"
               deletable
@@ -104,6 +110,13 @@ export default class Form extends Component {
               Contract Details
               <Divider light />
             </h2>
+            <p className="sectionDescription">
+              Submit contract information in order to allow the public to
+              validate the source code of your contracts. If you are using
+              Radspec we also verify whether the submitted radspec matches the
+              contract. This allows you to properly use Human Readable Machine
+              Verifyable transactions.
+            </p>
             <FormComponent label="abi" upload />
             <FormComponent
               label="source"
@@ -120,6 +133,11 @@ export default class Form extends Component {
               Reputation
               <Divider light />
             </h2>
+            <p className="sectionDescription">
+              Reputation describes you, the way we trust this address, the way
+              we position ourselves in the media and the way we fuck with your
+              perception of reality
+            </p>
             <div className="formbadges">
               <Registry type={this.state.badges} />
             </div>
