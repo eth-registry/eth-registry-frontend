@@ -254,6 +254,7 @@ class Editor extends React.Component {
   }
 
   canSubmit(contractdata) {
+    return true;
     if (!metaData.isValidAddress(this.state.address))
       return {
         allowed: false,
