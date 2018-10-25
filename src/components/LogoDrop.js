@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MagicDropzone from "react-magic-dropzone";
 import Avatar from "@material-ui/core/Avatar";
+import Placeholder from "../assets/placeholder.png";
 
 //60
 
@@ -41,8 +42,7 @@ export default class LogoDrop extends Component {
                 className="dropmagic"
             >
                 <Avatar
-                    alt="Adelle Charles"
-                    src={file || "placeholder.png"}
+                    src={file || Placeholder}
                     className={"avatarDropzone" + (!file ? " empty" : "")}
                     style={{
                         width: 60,

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import InputBase from "@material-ui/core/InputBase";
+import LogoTop from "../assets/logo_icon.png";
 import "../css/header.css";
 
 export default class Header extends Component {
@@ -9,7 +10,7 @@ export default class Header extends Component {
                 <div className="d-flex flex-justify-between px-3 ">
                     <div className="d-flex flex-justify-between ">
                         <div className="HeaderLogo">
-                            <img src="logo_icon.png" />
+                            <img src={LogoTop} />
                         </div>
                     </div>
                     <div className="HeaderMenu d-flex flex-justify-between flex-auto">

@@ -65,6 +65,7 @@ export default class FormComponent extends Component {
                                             ) : (
                                                 <div
                                                     className="inputDropzoneLink"
+                                                    title="IPFS Hash"
                                                     onClick={() => {
                                                         window.open(
                                                             "https://gateway.ipfs.io/ipfs/" +

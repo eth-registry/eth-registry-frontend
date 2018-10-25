@@ -29,7 +29,8 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: this.props.address || "",
+      address:
+        this.props.address || "0x6090a6e47849629b7245dfa1ca21d94cd15878ef",
       metadata: {},
       price: 0,
       network: 3,
@@ -175,6 +176,19 @@ class Index extends React.Component {
             setType={this.setType}
             metadata={this.state.metadata}
           />
+          <h2 className="logo">Regarding your Metadata</h2>
+          <p className="capital" id="addressInput">
+            The information submitted will be committed to the blockchain,{" "}
+            <b>this is an irreversible action</b>. Please be mindful of the data
+            you would like to make publically available and connected to the
+            address you are submitting the data towards. Your submission will be
+            made available immediately when your transaction has been confirmed.
+            If you have chosen to have your submission verified by the ETH
+            Registry, several curators will verify your data and, upon approval,
+            sign your submission as validated.{" "}
+            <b>Thank you for your submission and patience,</b>
+            <span className="signature">Eth Registry</span>
+          </p>
         </div>
         <Footer metadata={metaData} />
       </React.Fragment>

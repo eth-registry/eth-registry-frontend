@@ -91,7 +91,6 @@ export default class Form extends Component {
             <FormComponent
               fullWidth
               multiline
-              rows="5"
               rowsMax="5"
               placeholder={"Description"}
               value={state.description || props.description}
