@@ -103,7 +103,7 @@ export default class Form extends Component {
               Contact Information
               <Divider light />
             </h2>
-            {Object.Keys(metadata).contact.map(key => {
+            {Object.keys(metadata.contact).map(key => {
               return (
                 <FormComponent
                   value={metadata.contact[key]}
