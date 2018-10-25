@@ -33,7 +33,8 @@ export default class Form extends Component {
   //"unknown" -- dunno.. never heard of 'em
 
   state = {
-    badges: ["info", "verified"]
+    badges: ["info", "verified"],
+    metadata: {}
   };
 
   handleChange = name => event => {
@@ -74,7 +75,7 @@ export default class Form extends Component {
           <Grid item xs={10}>
             <InputBase
               fullWidth
-              value={state.name || metadata.name}
+              value={state.metadata.name || metadata.name}
               defaultValue={"SpankChain"}
               className="borderHover inputH2"
               placeholder="Name"
@@ -95,7 +96,7 @@ export default class Form extends Component {
               }
             />
             <FormComponent
-              value={state.url || metadata.url}
+              value={state.metadata.url || metadata.url}
               defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
@@ -106,7 +107,7 @@ export default class Form extends Component {
               multiline
               rowsMax="5"
               placeholder={"Description"}
-              value={state.description || metadata.description}
+              value={state.metadata.description || metadata.description}
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
               onChange={this.handleChange("description")}
@@ -115,35 +116,17 @@ export default class Form extends Component {
               Contact Information
               <Divider light />
             </h2>
-            {metadata.contact.map(key => {})}
-            <FormComponent
-              value={state.twitter || props.twitter}
-              deletable
-              onDelete={() => {}}
-              label="twitter"
-              onChange={this.handleChange("contact.twitter")}
-            />
-            <FormComponent
-              value={state.email || props.email}
-              deletable
-              onDelete={() => {}}
-              label="Email"
-              onChange={this.handleChange("contact.email")}
-            />
-            <FormComponent
-              value={state.phone || props.phone}
-              deletable
-              onDelete={() => {}}
-              label="phone"
-              onChange={this.handleChange("contact.phone")}
-            />
-            <FormComponent
-              value={state.github || props.github}
-              deletable
-              onDelete={() => {}}
-              label="github"
-              onChange={this.handleChange("contact.github")}
-            />
+            {Object.keys(metadata.contact).map(key => {
+              return (
+                <FormComponent
+                  value={metadata.contact[key]}
+                  deletable
+                  onDelete={() => {}}
+                  label={key}
+                  onChange={this.handleChange(key)}
+                />
+              );
+            })}
             <h2>
               Contract Details
               <Divider light />
