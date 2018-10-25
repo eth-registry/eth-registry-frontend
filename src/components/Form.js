@@ -50,18 +50,18 @@ export default class Form extends Component {
 
   render() {
     const { state, props } = this;
-    const { badges } = this.props;
+    const { badges, metadata } = this.props;
 
     return (
       <div className="form">
         <Grid container>
           <Grid item xs={2}>
-            <LogoDrop file={state.logo || props.logo} />
+            <LogoDrop file={state.logo || metadata.logo} />
           </Grid>
           <Grid item xs={10}>
             <InputBase
               fullWidth
-              value={state.name || props.name}
+              value={state.name || metadata.name}
               defaultValue={"SpankChain"}
               className="borderHover inputH2"
               placeholder="Name"
@@ -82,7 +82,7 @@ export default class Form extends Component {
               }
             />
             <FormComponent
-              value={state.url || props.url}
+              value={state.url || metadata.url}
               defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
@@ -93,7 +93,7 @@ export default class Form extends Component {
               multiline
               rowsMax="5"
               placeholder={"Description"}
-              value={state.description || props.description}
+              value={state.description || metadata.description}
               defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
               onChange={this.handleChange("description")}
@@ -102,33 +102,34 @@ export default class Form extends Component {
               Contact Information
               <Divider light />
             </h2>
+            {metadata.contact.map(key => {})}
             <FormComponent
               value={state.twitter || props.twitter}
               deletable
               onDelete={() => {}}
               label="twitter"
-              onChange={this.handleChange("twitter")}
+              onChange={this.handleChange("contact.twitter")}
             />
             <FormComponent
               value={state.email || props.email}
               deletable
               onDelete={() => {}}
               label="Email"
-              onChange={this.handleChange("email")}
+              onChange={this.handleChange("contact.email")}
             />
             <FormComponent
               value={state.phone || props.phone}
               deletable
               onDelete={() => {}}
               label="phone"
-              onChange={this.handleChange("phone")}
+              onChange={this.handleChange("contact.phone")}
             />
             <FormComponent
               value={state.github || props.github}
               deletable
               onDelete={() => {}}
               label="github"
-              onChange={this.handleChange("github")}
+              onChange={this.handleChange("contact.github")}
             />
             <h2>
               Contract Details
@@ -140,41 +141,49 @@ export default class Form extends Component {
               to use Human Readable Machine Verifyable transactions.
             </p>
             <FormComponent
-              file={state.abi || props.abi}
+              file={state.abi || metadata.contract.abi}
               label="abi"
               upload
-              value={state.abi || props.abi}
+              value={state.abi || metadata.contract.abi}
               onDelete={() => {}}
-              onUpload={this.handleUpload("abi")}
+              onUpload={this.handleUpload("contract.abi")}
               accept="text/plain"
             />
             <FormComponent
               label="source"
               upload
-              file={state.source || props.source}
-              value={state.source || props.source}
+              file={state.source || metadata.contract.source}
+              value={state.source || metadata.contract.source}
               onDelete={() => {}}
-              onUpload={this.handleUpload("source")}
+              onUpload={this.handleUpload("contractsource")}
               accept="text/plain"
             />
             <FormComponent
               label="compiler"
-              value={state.compiler || props.compiler}
+              value={state.compiler || metadata.contract.compiler}
+              onChange={this.handleChange("contract.compiler")}
             />
             <FormComponent
               label="language"
               defaultValue="Solidity"
-              value={state.language || props.language}
+              value={state.language || metadata.contract.language}
+              onChange={this.handleChange("contract.language")}
             />
             <FormComponent
               label="optimizer"
               defaultValue="200"
-              value={state.optimizer || props.optimizer}
+              value={state.optimizer || metadata.contract.optimizer}
+              onChange={this.handleChange("contract.optimizer")}
             />
-            <FormComponent label="swarm" value={state.swarm || props.swarm} />
+            <FormComponent
+              label="swarm"
+              value={state.swarm || metadata.contract.swarm}
+              onChange={this.handleChange("contract.swarm")}
+            />
             <FormComponent
               label="constructor"
-              value={state.construct || props.construct}
+              value={state.construct || metadata.contract.constructor_arguments}
+              onChange={this.handleChange("contract.constructor_arguments")}
             />
             <h2>
               Reputation

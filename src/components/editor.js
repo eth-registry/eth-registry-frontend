@@ -311,10 +311,6 @@ class Editor extends React.Component {
     }
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   saveProperty = prop => event => {
     if (prop === "address") {
       this.getAddress(event.target.value);
@@ -449,18 +445,9 @@ class Editor extends React.Component {
       <div className="editform" id="editform">
         <Form
           ref={this.form}
-          name={state.mName}
-          url={state.mUrl}
-          description={state.mDescription}
-          logo={state.mLogo}
-          abi={state.mAbi}
-          source={state.mSource}
-          compiler={state.mCompiler}
-          language={state.mLanguage}
-          optimizer={state.mOptimizer}
-          construct={state.mConstructor}
-          submitter={this.state.contractdata.submitter}
-          badges={this.getBadges(this.state.contractdata)}
+          metadata={state.metadata}
+          submitter={state.contractdata.submitter}
+          badges={this.getBadges(state.contractdata)}
         />
         <div className="button-aligner">
           <Tooltip
