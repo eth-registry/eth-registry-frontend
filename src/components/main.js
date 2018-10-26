@@ -156,7 +156,7 @@ class Index extends React.Component {
               style={{
                 boxShadow: "none",
                 padding: "12px 24px 12px 24px",
-                background: "rgb(195, 54, 137)",
+                background: "rgb(41, 208, 219)",
               }}
               // onClick={this.view}
             >
