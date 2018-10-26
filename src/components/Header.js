@@ -9,7 +9,9 @@ export default class Header extends Component {
                 <div className="d-flex flex-justify-between px-3 ">
                     <div className="d-flex flex-justify-between ">
                         <div className="HeaderLogo">
-                            <img src={LogoTop} alt="logo_icon" />
+                            <a href="/">
+                                <img src={LogoTop} alt="logo_icon" />
+                            </a>
                         </div>
                     </div>
                     <div className="HeaderMenu d-flex flex-justify-between flex-auto">
@@ -27,45 +29,40 @@ export default class Header extends Component {
                             >
                                 <li>
                                     <a
-                                        className="js-selected-navigation-item HeaderNavlink px-2"
-                                        data-hotkey="g p"
-                                        data-ga-click="Header, click, Nav menu - item:pulls context:user"
-                                        aria-label="Pull requests you created"
-                                        data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls"
-                                        href="/pulls"
+                                        className="HeaderNavlink px-2"
+                                        data-hotkey="e s"
+                                        aria-label="Submit Metadata"
+                                        data-selected-links="/submit"
+                                        href="/submit"
                                     >
                                         Submit Metadata
                                     </a>{" "}
                                 </li>
                                 <li>
                                     <a
-                                        className="js-selected-navigation-item HeaderNavlink px-2"
-                                        data-hotkey="g p"
-                                        data-ga-click="Header, click, Nav menu - item:pulls context:user"
-                                        aria-label="Pull requests you created"
-                                        data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls"
-                                        href="/pulls"
+                                        className="HeaderNavlink px-2"
+                                        data-hotkey="e r"
+                                        aria-label="Report Address"
+                                        data-selected-links="/report"
+                                        href="/report"
                                     >
                                         Report Address
                                     </a>{" "}
                                 </li>
                             </ul>
                         </div>
-                        <div className="d-flex">
+                        <div className="d-flex" style={{ display: "none" }}>
                             <ul
                                 className="user-nav d-flex flex-items-center list-style-none"
                                 id="user-links"
                             >
                                 <li>
                                     <a
-                                        className="js-selected-navigation-item HeaderNavlink px-2"
+                                        className="HeaderNavlink px-2"
                                         data-hotkey="g n"
-                                        data-ga-click="Header, go to notifications, icon:unread"
-                                        data-channel="notification-changed:2925132"
                                         href="/notifications"
                                     >
                                         Connection
-                                        <span className="mail-status unread" />
                                     </a>
                                 </li>
                             </ul>

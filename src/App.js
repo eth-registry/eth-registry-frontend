@@ -73,7 +73,7 @@ typography.injectStyles();
 
 class App extends Component {
   componentWillMount() {
-    // console.log(this.props.match.params);
+    console.log(this.props);
   }
 
   render() {
@@ -81,7 +81,10 @@ class App extends Component {
       <div className="App">
         <Header />
         <MuiThemeProvider theme={theme}>
-          <Main params={this.props.match.params} />
+          <Main
+            params={this.props.match.params}
+            location={this.props.location}
+          />
         </MuiThemeProvider>
       </div>
     );

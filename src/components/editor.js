@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import metadata from "../js/metadata.js";
 import Form from "./Form";
+import FormReport from "./Form_Report";
 import Button from "@material-ui/core/Button";
 // import JSONPretty from "./JSONPretty";
 import Notification from "./notification";
@@ -248,10 +249,22 @@ class Editor extends React.Component {
   }
 
   getBadges(contractdata) {
+    let currentAccount = Registry.getCurrentAccount();
+
     let badges = [];
+    if (!Registry.isValidAddress(this.state.address)) {
+      badges.push("unknown");
+      return badges;
+    }
     // console.log(contractdata);
     if (this.state.isScam) badges.push("scam");
-    if (contractdata.self_attested) badges.push("self");
+    //TODO: only show self attested badge when form is empty or is actually self attested
+    if (
+      (currentAccount &&
+        this.state.address.toLowerCase() === currentAccount.toLowerCase()) ||
+      contractdata.self_attested
+    )
+      badges.push("self");
     else badges.push("info");
     if (contractdata.verified) badges.push("verified");
     if (contractdata.curated) badges.push("locked");
@@ -335,16 +348,30 @@ class Editor extends React.Component {
   render() {
     const { state } = this;
     const { permissions } = state;
+
+    const form = this.props.location.pathname.includes("report") ? (
+      <FormReport
+        ref={this.form}
+        metadata={state.metadata}
+        contractdata={state.contractdata}
+        submitter={state.contractdata.submitter}
+        badges={this.getBadges(state.contractdata)}
+        updatePermissions={() => this.editorFormDidChange()}
+      />
+    ) : (
+      <Form
+        ref={this.form}
+        metadata={state.metadata}
+        contractdata={state.contractdata}
+        submitter={state.contractdata.submitter}
+        badges={this.getBadges(state.contractdata)}
+        updatePermissions={() => this.editorFormDidChange()}
+      />
+    );
+
     return (
       <div className="editform" id="editform">
-        <Form
-          ref={this.form}
-          metadata={state.metadata}
-          contractdata={state.contractdata}
-          submitter={state.contractdata.submitter}
-          badges={this.getBadges(state.contractdata)}
-          updatePermissions={() => this.editorFormDidChange()}
-        />
+        {form}
         <div className="button-aligner">
           <Tooltip
             title={

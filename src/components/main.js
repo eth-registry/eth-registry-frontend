@@ -59,7 +59,7 @@ class Index extends React.Component {
     });
     if (this.props.params && this.props.params.address) {
       //we're matching edit params
-
+      // if (this.props.params.)
       let match = this.props.params.address;
       this.setState({ editAddress: match });
     } else {
@@ -107,10 +107,13 @@ class Index extends React.Component {
   // };
 
   render() {
-    return (
-      <React.Fragment>
-        <div className="markdown">
-          <img src={LogoBanner} alt="logo" />
+    // console.log(this.props.location.)
+    const banner =
+      this.props.location.pathname === "/" ? (
+        <React.Fragment>
+          <a href="/">
+            <img src={LogoBanner} alt="logo" />
+          </a>
           <h3>Ethereum Metadata Directory</h3>
           <h2 className="logo">
             Submit <i>{this.state.addressType}</i> Metadata
@@ -123,6 +126,15 @@ class Index extends React.Component {
             report a scam. All the information can be freely accessed through
             the Ethereum blockchain and IPFS.
           </p>
+        </React.Fragment>
+      ) : (
+        <React.Fragment />
+      );
+
+    return (
+      <React.Fragment>
+        <div className="markdown">
+          {banner}
           <form noValidate autoComplete="off" className="form">
             <TextField
               fullWidth
@@ -167,6 +179,7 @@ class Index extends React.Component {
             address={this.state.editAddress}
             setType={this.setType}
             metadata={this.state.metadata}
+            location={this.props.location}
           />
           <h2 className="logo">Regarding your Metadata</h2>
           <p className="capital">

@@ -12,13 +12,17 @@ ReactGA.initialize(google_analytics);
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route path="/edit/:address" component={App} />
-      <Route path="/edit/:address" component={App} />
-      <Route component={App} />
-    </Switch>
-  </Router>,
-  document.getElementById("root")
+    <Router>
+        <Switch>
+            <Route path="/edit/:address" component={App} />
+            <Route path="/edit/:address" component={App} />
+            <Route
+                path="/submit/:address"
+                render={props => <App location="submit" />}
+            />
+            <Route component={App} />
+        </Switch>
+    </Router>,
+    document.getElementById("root"),
 );
 registerServiceWorker();
