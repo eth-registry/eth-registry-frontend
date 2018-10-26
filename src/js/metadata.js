@@ -85,9 +85,7 @@ export default class MetaDataContract {
       this.history.push(h);
     }
     let unique = [];
-    console.log(this.history);
     return this.history.filter((item, index) => {
-      console.log(item[0]);
       let exists = unique.indexOf(item[0]) === -1;
       unique.push(item[0]);
       return exists;
@@ -162,7 +160,6 @@ export default class MetaDataContract {
   }
 
   getCurrentAccount() {
-    console.log(window.web3.eth.accounts[0]);
     if (window.web3) return window.web3.eth.accounts[0];
     else return null;
   }
@@ -173,14 +170,12 @@ export default class MetaDataContract {
   }
 
   async storeMetadata(address, _name, data, _onReceipt) {
-    console.log(address, _name, data, _onReceipt);
     return new Promise((resolve, reject) => {
       ipfs.addJSON(data, (err, result) => {
-        console.log(`IPFS Hash: ${result}`);
+        // console.log(`IPFS Hash: ${result}`);
         if (result === undefined || err)
           reject(new DOMException("Couldn't add metadata to IPFS"));
-        console.log(address, _name, result);
-        // return;
+        // console.log(address, _name, result);
         if (this.curator) {
           // console.log("curator");
           return this.contract

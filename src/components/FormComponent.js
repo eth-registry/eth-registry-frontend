@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
 
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
@@ -10,13 +9,10 @@ import Copy from "@material-ui/icons/FileCopy";
 import Check from "@material-ui/icons/Check";
 
 export default class FormComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
-        key: parseInt(Math.random() * 99999),
+        key: parseInt(Math.random() * 99999, 10),
     };
+
     renderUploader() {
         return (
             <React.Fragment>
@@ -96,10 +92,7 @@ export default class FormComponent extends Component {
                                     >
                                         <Delete
                                             fontSize="inherit"
-                                            onClick={e => {
-                                                console.log(e);
-                                                this.props.onDelete();
-                                            }}
+                                            onClick={e => {}}
                                             aria-label="Delete item"
                                             title="Delete item"
                                         />
@@ -123,7 +116,7 @@ export default class FormComponent extends Component {
     }
 
     render() {
-        const { deletable, onDelete, ...props } = this.props;
+        const { deletable, onDelete, defaultValue, ...props } = this.props;
         return this.props.upload ? (
             this.renderUploader()
         ) : (

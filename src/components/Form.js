@@ -1,25 +1,13 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
-import Input from "@material-ui/core/Input";
 import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Divider from "@material-ui/core/Divider";
-import Delete from "@material-ui/icons/Delete";
-import VerifiedUser from "@material-ui/icons/People";
-// import VerifiedUser from "@material-ui/icons/HowToReg";
-import SelfAttested from "@material-ui/icons/RecordVoiceOver";
-import Lock from "@material-ui/icons/MicOff";
 import Edit from "@material-ui/icons/Edit";
-import Warning from "@material-ui/icons/Warning";
 import defaultsDeep from "lodash.defaultsdeep";
 
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
-// custom icon/badge components
-import AddressBar from "./AddressBar"; //address bar plus all icons
+// import AddressBar from "./AddressBar"; //address bar plus all icons
 
 // THE COMPONENT TO END ALL COMPONENTS
 import Registry from "./Registry"; //single priority icon
@@ -28,6 +16,7 @@ import "../css/form.css";
 
 export default class Form extends Component {
   //"scam" -- reported scam prio 1
+  //"malicious" -- verified to be malicious by ETH registry
   //"verified" -- verified by curators of ETH registry
   //"self" -- info submitted by same address
   //"info" -- info available but not attested by same address
@@ -37,15 +26,23 @@ export default class Form extends Component {
   state = {
     badges: [...this.props.badges],
     metadata: this.props.metadata,
+    contractdata: this.props.contractdata,
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.metadata) {
       this.setState({ metadata: nextProps.metadata });
     }
+    if (nextProps.contractdata) {
+      this.setState({ contractdata: nextProps.contractdata });
+    }
+    if (nextProps.badges) {
+      this.setState({ badges: nextProps.badges });
+    }
   }
 
   handleChange = name => event => {
+    if (event === undefined) return;
     const value = event.target ? event.target.value : event;
     const newState = {};
     const keyChain = name.split(".");
@@ -72,8 +69,8 @@ export default class Form extends Component {
   };
 
   render() {
-    const { state, props } = this;
-    const { badges, metadata } = state;
+    const { state } = this;
+    const { badges, metadata, contractdata } = state;
 
     return (
       <div className="form">
@@ -88,7 +85,6 @@ export default class Form extends Component {
             <InputBase
               fullWidth
               value={metadata.name || ""}
-              defaultValue={"SpankChain" || ""}
               className="borderHover inputH2"
               placeholder="Name"
               onChange={this.handleChange("metadata.name")}
@@ -126,7 +122,7 @@ export default class Form extends Component {
             />
             <h2>
               Contact Information
-              <Divider light />
+              <hr />
             </h2>
             {Object.keys(metadata.contact).map(key => {
               return (
@@ -149,7 +145,7 @@ export default class Form extends Component {
 
             <h2>
               Contract Details
-              <Divider light />
+              <hr />
             </h2>
             <p className="sectionDescription">
               Contract details allow users to validate and trust the source code
@@ -205,7 +201,7 @@ export default class Form extends Component {
             />
             <h2>
               Reputation
-              <Divider light />
+              <hr />
             </h2>
             <p className="sectionDescription">
               Reputation is attributed by ETH Registry, malicious sites that are
@@ -239,19 +235,19 @@ export default class Form extends Component {
             <FormComponent
               className="reputation"
               label="Curated by"
-              value="WalletConnect, Ethtective"
+              value="Ethtective, WalletConnect"
               disabled
             />
             <FormComponent
               className="reputation"
               label="Description"
-              value="Submitted and curated, logo might be incorrect"
+              value={contractdata.description}
               disabled
             />
             <FormComponent
               className="reputation inputmono"
               label="Submitted by"
-              value={props.submitter || ""}
+              value={contractdata.submitter || ""}
               disabled
             />
           </Grid>

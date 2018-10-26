@@ -7,7 +7,6 @@ import VerifiedUser from "@material-ui/icons/HowToReg";
 import SelfAttested from "@material-ui/icons/RecordVoiceOver";
 import Info from "@material-ui/icons/ErrorOutline";
 import Lock from "@material-ui/icons/MicOff";
-import Edit from "@material-ui/icons/Edit";
 import Warning from "@material-ui/icons/Warning";
 
 const registryTypes = [
@@ -66,29 +65,29 @@ const registryTypes = [
     },
 ];
 
-const classes = {
-    badge: {
-        fontWeight: 600,
-        fontSize: 12,
-        color: "white",
-        padding: "3px 8px 2px 8px",
-        borderRadius: 5,
-        marginRight: 10,
-        boxShadow: "-26px 0px 0px 0px rgba(255, 255, 255, 0.3) inset",
-        textShadow: "0px 0px 7px rgba(255, 255, 255, 0.2)",
-        border: "1px solid rgba(255, 255, 255, 0.5)",
-        cursor: "help",
-        display: "inline-block",
-    },
-    icon: {
-        fontWeight: 600,
-        fontSize: 20,
-        verticalAlign: "top",
-        marginLeft: 8,
-        paddingLeft: 4,
-        marginRight: -3,
-    },
-};
+// const classes = {
+//     badge: {
+//         fontWeight: 600,
+//         fontSize: 12,
+//         color: "white",
+//         padding: "3px 8px 2px 8px",
+//         borderRadius: 5,
+//         marginRight: 10,
+//         boxShadow: "-26px 0px 0px 0px rgba(255, 255, 255, 0.3) inset",
+//         textShadow: "0px 0px 7px rgba(255, 255, 255, 0.2)",
+//         border: "1px solid rgba(255, 255, 255, 0.5)",
+//         cursor: "help",
+//         display: "inline-block",
+//     },
+//     icon: {
+//         fontWeight: 600,
+//         fontSize: 20,
+//         verticalAlign: "top",
+//         marginLeft: 8,
+//         paddingLeft: 4,
+//         marginRight: -3,
+//     },
+// };
 
 export default class Registry extends Component {
     //TODO: map this to the priorities above
@@ -117,7 +116,7 @@ export default class Registry extends Component {
             return (
                 <span
                     key={i}
-                    role="reputation badge"
+                    role="alert" //TODO: test with screen reader, may be overkill when appears multiple times on page
                     className={`badge`}
                     title={t.description}
                     aria-label={t.description}
@@ -135,7 +134,7 @@ export default class Registry extends Component {
             return (
                 <span
                     key={i}
-                    role="reputation icon"
+                    role="alert" //TODO: test with screen reader, may be overkill when appears multiple times on page
                     className={"badgeIcon"}
                     title={t.description}
                     aria-label={t.description}

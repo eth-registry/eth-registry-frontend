@@ -17,8 +17,8 @@ export default class Recent extends React.Component {
 
   async getHistory() {
     let response = await this.props.metadata.getHistory();
-    console.log(response);
     let recent = [];
+
     for (let r of response) {
       let data = await this.props.metadata.getAddressData(r[0]);
       data.key = r.key;
@@ -29,12 +29,10 @@ export default class Recent extends React.Component {
   }
 
   render() {
-    console.log(this.state.recent);
     return (
       <div>
         {this.state.recent.map(sub => {
           if (!sub.data) return "";
-          console.log(sub.data);
           return (
             <div key={sub.key} className="historyItem">
               <img

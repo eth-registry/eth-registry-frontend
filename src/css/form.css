@@ -130,6 +130,7 @@
 
 .form hr {
   margin-top: 0.5em;
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .form textarea,

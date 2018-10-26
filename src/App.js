@@ -3,7 +3,6 @@ import Main from "./components/main.js";
 import Header from "./components/Header";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Typography from "typography";
-import InputBase from "@material-ui/core/InputBase";
 import githubTheme from "typography-theme-github";
 
 githubTheme.headerFontFamily = ["Roboto", "sans-serif"];
@@ -63,6 +62,9 @@ const theme = createMuiTheme({
     primary: { light: "#00ffd9", main: "#00ffd9", dark: "#00ffd9" },
     secondary: { light: "#F44A24", main: "#F44A24", dark: "#F44A24" },
     tertiary: { light: "green", main: "green", dark: "green" },
+  },
+  typography: {
+    useNextVariants: true,
   },
 });
 

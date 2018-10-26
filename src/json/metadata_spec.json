@@ -1,6 +1,6 @@
 [
     {
-        "version": "0.2",
+        "version": "0.5",
         "address": "",
         "submission": {
             "comments": "",
@@ -11,12 +11,13 @@
             "url": "",
             "logo": "",
             "description": "",
-            "contact": [
-                { "twitter": "" },
-                { "facebook": "" },
-                { "email": "" },
-                { "github": "" }
-            ],
+            "tags": [],
+            "contact": {
+                "twitter": "",
+                "facebook": "",
+                "email": "",
+                "github": ""
+            },
             "contract": {
                 "abi": "",
                 "source": "",

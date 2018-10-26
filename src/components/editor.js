@@ -2,20 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import metadata from "../js/metadata.js";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Form from "./Form";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import JSONPretty from "./JSONPretty";
-import Indicator from "./verificationIndicator";
+// import JSONPretty from "./JSONPretty";
 import Notification from "./notification";
 import Tooltip from "@material-ui/core/Tooltip";
 
 // http://localhost:3000/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0 kraken
 // http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
 // http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
+
+// 1st iteration of contract depends on external logic, not contract logic, to determine it's assumptions. This is a trade-off in making extra contract calls to make assumptions for contract simplicity & security.
+
+// Current curation logic:
+
+// Prioritize what we display:
+// - Malicious > Verified > Scam > Self attested > Hearsay
+
+// - Anyone can submit at any time
+// - Curation logic is external from contract
+// - Instead we use the version history
+// - Version history is used for the curational aspect
+// - Latest re-submission by a curator counts as the verified version
+
+// Future:
+
+// Add 'tags' to JSON spec
+// How to deal with versioning?
 
 let Registry = {};
 
@@ -126,11 +139,8 @@ class Editor extends React.Component {
 
   onSubmit = async e => {
     let data = Registry.getEmptyObject();
-    // console.log(data);
-
-    const { props } = this.form.current;
     const { metadata } = this.form.current.state;
-    console.log(this.form, data, metadata);
+    // console.log(this.form, data, metadata);
     metadata.address = this.state.address;
     data.address = this.state.address;
 
@@ -140,7 +150,7 @@ class Editor extends React.Component {
         let logo = await Registry.convertBlobToBase64(metadata.logo);
         metadata.logo = logo;
       } catch (e) {
-        throw e + "go blob yourself! (this should not appear in production)";
+        throw console.warn(e);
       }
     }
     if (typeof metadata.contract.abi !== "string") {
@@ -148,7 +158,7 @@ class Editor extends React.Component {
         let abi = await Registry.storeJsonIPFS(metadata.contract.abi);
         metadata.contract.abi = abi;
       } catch (e) {
-        throw e + "go abi yourself! (this should not appear in production)";
+        throw console.warn(e);
       }
     }
     if (typeof metadata.contract.source !== "string") {
@@ -156,7 +166,7 @@ class Editor extends React.Component {
         let source = await Registry.storeDataIPFS(metadata.contract.source);
         metadata.contract.source = source;
       } catch (e) {
-        throw e + "go source yourself! (this should not appear in production)";
+        throw console.warn(e);
       }
     }
     // data.metadata = metadata;
@@ -293,13 +303,6 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-    let image = this.state.file
-      ? this.state.file[0].preview
-      : this.state.metadata.logo
-        ? this.state.metadata.logo
-        : "data:image/png;base64,R0lGODlhAQABAIAAAPr6+gAAACwAAAAAAQABAAACAkQBADs=";
-    let preview = <img src={image} alt="Uploaded logo" />;
     const { state } = this;
 
     return (
@@ -307,6 +310,7 @@ class Editor extends React.Component {
         <Form
           ref={this.form}
           metadata={state.metadata}
+          contractdata={state.contractdata}
           submitter={state.contractdata.submitter}
           badges={this.getBadges(state.contractdata)}
         />
