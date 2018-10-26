@@ -63,7 +63,14 @@ class Index extends React.Component {
       let match = this.props.params.address;
       this.setState({ editAddress: match });
     } else {
-      this.setState({ editAddress: "" });
+      if (this.props.location.pathname === "/")
+        this.setState({
+          editAddress: "0x6090a6e47849629b7245dfa1ca21d94cd15878ef",
+        });
+      else
+        this.setState({
+          editAddress: "",
+        });
     }
   }
 
