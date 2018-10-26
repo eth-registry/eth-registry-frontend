@@ -41,7 +41,7 @@ const registryTypes = [
         text: "Hearsay",
         icon: <Group />,
         description:
-            "Metadata for this address was submitted by an unknown party to the ETH Registry, it could be false or misleading",
+            "Metadata for this address was submitted by a third party to the ETH Registry, it could be false or misleading",
         color: "#F2C94C",
         priority: 2,
     },

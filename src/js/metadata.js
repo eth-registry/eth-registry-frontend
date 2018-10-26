@@ -136,7 +136,7 @@ export default class MetaDataContract {
   async getUSD() {
     return axios
       .get(
-        "http://api.etherscan.io/api?module=stats&ohai&action=ethprice&apikey=EJ9XCX8ZNI65MUH9JGN6Y4CRM1TGK32MUF",
+        "https://api.etherscan.io/api?module=stats&ohai&action=ethprice&apikey=EJ9XCX8ZNI65MUH9JGN6Y4CRM1TGK32MUF",
       )
       .then(function(response) {
         return parseFloat(response.data.result.ethusd);

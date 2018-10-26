@@ -249,6 +249,7 @@ class Editor extends React.Component {
 
   getBadges(contractdata) {
     let badges = [];
+    // console.log(contractdata);
     if (this.state.isScam) badges.push("scam");
     if (contractdata.self_attested) badges.push("self");
     else badges.push("info");
