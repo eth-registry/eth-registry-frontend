@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import AccountManager from "./AccountManager";
 import LogoTop from "../assets/logo_icon.png";
 import "../css/header.css";
 
 export default class Header extends Component {
     render() {
+        // const sticky = window.
         return (
             <nav id="navigation">
                 <div className="d-flex flex-justify-between px-3 ">
@@ -51,21 +53,10 @@ export default class Header extends Component {
                                 </li>
                             </ul>
                         </div>
-                        <div className="d-flex" style={{ display: "none" }}>
-                            <ul
-                                className="user-nav d-flex flex-items-center list-style-none"
-                                id="user-links"
-                            >
-                                <li>
-                                    <a
-                                        className="HeaderNavlink px-2"
-                                        data-hotkey="g n"
-                                        href="/notifications"
-                                    >
-                                        Connection
-                                    </a>
-                                </li>
-                            </ul>
+                        <div className="d-flex">
+                            <AccountManager
+                                ethregistry={this.props.ethregistry}
+                            />
                         </div>
                     </div>
                 </div>

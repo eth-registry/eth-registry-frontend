@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import EthRegistry from "./js/metadata.js";
 import Main from "./components/main.js";
 import Header from "./components/Header";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -57,6 +58,8 @@ githubTheme.overrideThemeStyles = ({ rhythm }, options) => ({
   },
 });
 
+let ethregistry = {};
+
 const theme = createMuiTheme({
   palette: {
     primary: { light: "#00ffd9", main: "#00ffd9", dark: "#00ffd9" },
@@ -72,18 +75,22 @@ const typography = new Typography(githubTheme);
 typography.injectStyles();
 
 class App extends Component {
-  componentWillMount() {
-    console.log(this.props);
+  constructor(props) {
+    super(props);
+    ethregistry = new EthRegistry();
   }
+
+  componentWillMount() {}
 
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header ethregistry={ethregistry} />
         <MuiThemeProvider theme={theme}>
           <Main
             params={this.props.match.params}
             location={this.props.location}
+            ethregistry={ethregistry}
           />
         </MuiThemeProvider>
       </div>

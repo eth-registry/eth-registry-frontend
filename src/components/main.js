@@ -1,5 +1,4 @@
 import React from "react";
-import metadata from "../js/metadata.js";
 import { withStyles } from "@material-ui/core/styles";
 import Editor from "./editor";
 import TextField from "@material-ui/core/TextField";
@@ -7,8 +6,6 @@ import LoadingIndicator from "./loadingIndicator";
 import Button from "@material-ui/core/Button";
 import LogoBanner from "../assets/logo_banner.png";
 import Footer from "./Footer";
-
-let metaData = {};
 
 const styles = theme => ({
   popper: {
@@ -51,9 +48,8 @@ class Index extends React.Component {
   }
 
   componentWillMount() {
-    metaData = new metadata();
-    this.setState({ metadata: metaData });
-    metaData.getPrice().then(result => {
+    this.setState({ metadata: this.props.ethregistry });
+    this.props.ethregistry.getPrice().then(result => {
       // console.log(result);
       this.setState({ price: result });
     });
@@ -73,8 +69,6 @@ class Index extends React.Component {
         });
     }
   }
-
-  componentDidMount() {}
 
   saveProperty = prop => event => {
     this.setState({
@@ -100,18 +94,10 @@ class Index extends React.Component {
   ethtective = () => {
     // console.error("wut");
     window.open(
-      "https://canary.ethtective.com/" + this.state.editAddress,
+      "https://www.ethtective.com/" + this.state.editAddress,
       "_blank",
     );
   };
-
-  // etherscan = () => {
-  //   // console.error("wut");
-  //   window.open(
-  //     "https://etherscan.io/address/" + this.state.editAddress,
-  //     "_blank",
-  //   );
-  // };
 
   render() {
     // console.log(this.props.location.)
@@ -146,8 +132,9 @@ class Index extends React.Component {
             <TextField
               fullWidth
               error={
-                !metaData.isValidAddress(this.state.editAddress) &&
-                this.state.editAddress.length > 0
+                !this.props.ethregistry.isValidAddress(
+                  this.state.editAddress,
+                ) && this.state.editAddress.length > 0
               }
               spellCheck="false"
               placeholder="0x"
@@ -158,8 +145,9 @@ class Index extends React.Component {
                 endAdornment: <LoadingIndicator />,
               }}
               helperText={
-                !metaData.isValidAddress(this.state.editAddress) &&
-                this.state.editAddress.length >= 42
+                !this.props.ethregistry.isValidAddress(
+                  this.state.editAddress,
+                ) && this.state.editAddress.length >= 42
                   ? "The address is not a valid Ethereum address"
                   : ""
               }
@@ -202,7 +190,7 @@ class Index extends React.Component {
             <span className="signature">Eth Registry</span>
           </p>
         </div>
-        <Footer metadata={metaData} />
+        <Footer metadata={this.props.ethregistry} />
       </React.Fragment>
     );
   }
