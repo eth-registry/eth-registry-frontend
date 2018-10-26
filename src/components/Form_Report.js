@@ -96,12 +96,21 @@ class Form extends Component {
                 Address report
                 <hr />
               </h2>
+              <p className="sectionDescription">
+                Please describe below why you consider this address malicious.
+                Keep in mind that your report is being saved to the Ethereum
+                blockchain and can be read by everyone.{" "}
+                <b style={{ fontWeight: 700, color: "rgb(255, 48, 27)" }}>
+                  We strongly suggest you do not post information that
+                  identifies you personally.
+                </b>
+              </p>
               <FormComponent
                 fullWidth
                 multiline
                 rowsMax="5"
                 placeholder={"Description"}
-                value={metadata.description || ""}
+                value={""}
                 defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
                 className="multilineHover"
                 onChange={this.handleChange("metadata.description")}
@@ -115,8 +124,7 @@ class Form extends Component {
                 are reported to us will be tagged as malicious upon further
                 investigation. This allows wallets to better protect users from
                 malicious actors and creates a way for good actors to
-                distinguish themselves by providing transparency. Please
-                describe below why you consider this address malicious.
+                distinguish themselves by providing transparency.
               </p>
               <FormComponent
                 label="Status"
