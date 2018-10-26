@@ -98,13 +98,13 @@ class Index extends React.Component {
     );
   };
 
-  etherscan = () => {
-    // console.error("wut");
-    window.open(
-      "https://ropsten.etherscan.io/address/" + this.state.editAddress,
-      "_blank",
-    );
-  };
+  // etherscan = () => {
+  //   // console.error("wut");
+  //   window.open(
+  //     "https://etherscan.io/address/" + this.state.editAddress,
+  //     "_blank",
+  //   );
+  // };
 
   render() {
     return (
@@ -149,23 +149,15 @@ class Index extends React.Component {
           <div className="button-aligner">
             <Button
               size="small"
-              variant="contained"
-              color="secondary"
-              onClick={this.etherscan}
-              className="button"
-              elevation={0}
-              style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
-              // onClick={this.view}
-            >
-              View on Etherscan
-            </Button>
-            <Button
-              size="small"
               color="secondary"
               variant="contained"
               onClick={this.ethtective}
               elevation={0}
-              style={{ boxShadow: "none", padding: "12px 24px 12px 24px" }}
+              style={{
+                boxShadow: "none",
+                padding: "12px 24px 12px 24px",
+                background: "rgb(195, 54, 137)",
+              }}
               // onClick={this.view}
             >
               View on Ethtective

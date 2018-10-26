@@ -68,6 +68,14 @@ class Form extends Component {
     this.props.updatePermissions();
   };
 
+  //   <FormComponent
+  //   value={metadata.email || ""}
+  //   deletable
+  //   onDelete={() => {}}
+  //   label="testing"
+  //   onChange={this.handleChange("metadata.contact.testing")}
+  // />
+
   render() {
     const { state } = this;
     const { badges, metadata, contractdata } = state;
@@ -135,13 +143,6 @@ class Form extends Component {
                 />
               );
             })}
-            <FormComponent
-              value={metadata.email || ""}
-              deletable
-              onDelete={() => {}}
-              label="testing"
-              onChange={this.handleChange("metadata.contact.testing")}
-            />
 
             <h2>
               Contract Details
