@@ -67,8 +67,17 @@ class Editor extends React.Component {
       variant: "",
       price: 0,
       network: 3,
+      permissions: {},
     };
     this.form = React.createRef();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.address !== this.state.address) {
+      this.setState({ address: nextProps.address });
+      this.clearEditor();
+      this.getAddress(nextProps.address);
+    }
   }
 
   componentWillMount() {
@@ -102,11 +111,21 @@ class Editor extends React.Component {
     return true;
   }
 
+  //probably the dirtiest way to do this
+  editorFormDidChange() {
+    this.setState({
+      permissions: this.canSubmit(this.state.contractdata),
+    });
+  }
+
   getAddress(address) {
     if (Registry.isValidAddress(address))
       Registry.getAddressData(address).then(contractdata => {
-        this.populateEditor(contractdata);
-        this.props.setType(contractdata);
+        if (this.populateEditor(contractdata)) {
+          this.props.setType(contractdata);
+        } else {
+          this.clearEditor();
+        }
       });
   }
 
@@ -118,12 +137,12 @@ class Editor extends React.Component {
       contractdata: json,
       permission: this.permissionText(json),
     });
+    if (this.form.current) this.form.current.populateForm(json.metadata, json);
   }
 
   populateEditor(contractdata) {
     if (!contractdata) return;
     let md = contractdata.data.metadata;
-    console.log(contractdata);
     if (!md) return;
     this.setState({
       metadata: md,
@@ -135,6 +154,9 @@ class Editor extends React.Component {
       isScam: md.reputation.category === "scam",
       file: undefined,
     });
+
+    this.form.current.populateForm(md, contractdata);
+    return true;
   }
 
   onSubmit = async e => {
@@ -262,6 +284,12 @@ class Editor extends React.Component {
   }
 
   canSubmit(contractdata) {
+    if (!this.form.current)
+      return {
+        allowed: false,
+        reason: "Can't hack this, https://www.youtube.com/watch?v=otCpCn0l4Wo",
+      };
+    const { metadata } = this.form.current.state;
     // return {
     //   allowed: true,
     //   reason: "You hacked it",
@@ -271,7 +299,8 @@ class Editor extends React.Component {
         allowed: false,
         reason: "Please enter a valid address to submit information",
       };
-    if (!(this.state.metadata.name.length > 0))
+
+    if (!(metadata.name.length > 0))
       return {
         allowed: false,
         reason: "Enter a name to submit information",
@@ -304,7 +333,7 @@ class Editor extends React.Component {
 
   render() {
     const { state } = this;
-
+    const { permissions } = state;
     return (
       <div className="editform" id="editform">
         <Form
@@ -313,14 +342,12 @@ class Editor extends React.Component {
           contractdata={state.contractdata}
           submitter={state.contractdata.submitter}
           badges={this.getBadges(state.contractdata)}
+          updatePermissions={() => this.editorFormDidChange()}
         />
         <div className="button-aligner">
           <Tooltip
             title={
-              !this.canSubmit(this.state.contractdata).allowed
-                ? "Can't submit: " +
-                  this.canSubmit(this.state.contractdata).reason
-                : ""
+              !permissions.allowed ? "Can't submit: " + permissions.reason : ""
             }
             classes={{
               tooltip: this.props.classes.lightTooltip,
@@ -331,7 +358,7 @@ class Editor extends React.Component {
           >
             <span>
               <Button
-                disabled={!this.canSubmit(this.state.contractdata).allowed}
+                disabled={!permissions.allowed}
                 size="small"
                 variant="contained"
                 onClick={this.onSubmit}
@@ -344,9 +371,21 @@ class Editor extends React.Component {
               </Button>
             </span>
           </Tooltip>
-          <Button variant="outlined" disabled size="small">
-            {this.state.curator ? 0 : this.state.price} Ξ
-          </Button>
+          <Tooltip
+            title={(this.state.curator ? 0 : this.state.price.eth) + " Ξ"}
+            classes={{
+              tooltip: this.props.classes.lightTooltip,
+              popper: this.props.classes.popper,
+            }}
+            enterDelay={200}
+            leaveDelay={200}
+          >
+            <span>
+              <Button variant="outlined" disabled size="small">
+                {this.state.curator ? 0 : this.state.price.usd} $
+              </Button>
+            </span>
+          </Tooltip>
         </div>
 
         <Notification

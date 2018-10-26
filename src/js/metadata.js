@@ -1,6 +1,7 @@
 import Eth from "ethjs";
 import abi from "../abi/metadata.json";
 import IPFS from "ipfs-mini";
+import axios from "axios";
 
 const network = "mainnet";
 
@@ -120,13 +121,29 @@ export default class MetaDataContract {
     return eth.net_version();
   }
 
-  async getPrice() {
-    return this.contract.getPrice().then(result => {
-      // console.log(result[0]);
+  getPrice = async () => {
+    try {
+      let result = await this.contract.getPrice();
       this.price = result[0];
+      let usd = await this.getUSD();
+      let eth = parseFloat(Eth.fromWei(result[0], "ether"));
+      return { eth: eth, usd: (eth * usd).toFixed(2) };
+    } catch (e) {
+      return { eth: "ERROR", usd: "ERROR" };
+    }
+  };
 
-      return Eth.fromWei(result[0], "ether");
-    });
+  async getUSD() {
+    return axios
+      .get(
+        "http://api.etherscan.io/api?module=stats&ohai&action=ethprice&apikey=EJ9XCX8ZNI65MUH9JGN6Y4CRM1TGK32MUF",
+      )
+      .then(function(response) {
+        return parseFloat(response.data.result.ethusd);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   isValidAddress(address) {

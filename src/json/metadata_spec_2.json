@@ -1,0 +1,42 @@
+[
+    {
+        "version": "2",
+        "address": "",
+        "submission": {
+            "comments": "",
+            "ipfs": [""]
+        },
+        "metadata": {
+            "name": "",
+            "url": "",
+            "logo": "",
+            "description": "",
+            "tags": [],
+            "contact": {
+                "twitter": "",
+                "facebook": "",
+                "email": "",
+                "github": ""
+            }
+        },
+        "contract": {
+            "abi": "",
+            "source": "",
+            "compiler_version": "",
+            "swarm_source": "",
+            "interfaces": [],
+            "erc": []
+        },
+        "standards": {
+            "20": {}
+        },
+        "reputation": {
+            "verified": [],
+            "status": "",
+            "category": "",
+            "subcategory": "",
+            "description": "",
+            "related": []
+        }
+    }
+]

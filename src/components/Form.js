@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, PropTypes } from "react";
 import Grid from "@material-ui/core/Grid";
 import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Edit from "@material-ui/icons/Edit";
 import defaultsDeep from "lodash.defaultsdeep";
+import isEqual from "lodash.isequal";
 
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
@@ -14,7 +15,7 @@ import Registry from "./Registry"; //single priority icon
 
 import "../css/form.css";
 
-export default class Form extends Component {
+class Form extends Component {
   //"scam" -- reported scam prio 1
   //"malicious" -- verified to be malicious by ETH registry
   //"verified" -- verified by curators of ETH registry
@@ -30,15 +31,13 @@ export default class Form extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.metadata) {
-      this.setState({ metadata: nextProps.metadata });
-    }
-    if (nextProps.contractdata) {
-      this.setState({ contractdata: nextProps.contractdata });
-    }
     if (nextProps.badges) {
       this.setState({ badges: nextProps.badges });
     }
+  }
+
+  populateForm(metadata, contractdata) {
+    this.setState({ metadata: metadata, contractdata: contractdata });
   }
 
   handleChange = name => event => {
@@ -66,6 +65,7 @@ export default class Form extends Component {
     });
     const state = defaultsDeep({ ...this.state, ...newState }, this.state);
     this.setState(state);
+    this.props.updatePermissions();
   };
 
   render() {
@@ -259,3 +259,5 @@ export default class Form extends Component {
     );
   }
 }
+
+export default Form;
