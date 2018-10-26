@@ -1,0 +1,32 @@
+#simple-menu ul {
+    padding: 0;
+    margin: 0;
+    font-size: 9pt !important;
+}
+
+#simple-menu li {
+    padding: 10px;
+    font-size: 9pt !important;
+}
+
+#simple-menu > div {
+    margin-left: -25px;
+    margin-top: 40px;
+}
+
+#simple-menu > div {
+    width: 200px;
+}
+
+.Account .name {
+    font-size: 8pt;
+    margin-right: 5px;
+}
+
+.Account .name.registered {
+    font-size: 9pt;
+}
+
+.Account {
+    cursor: pointer;
+}
