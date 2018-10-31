@@ -301,3 +301,55 @@ img {
   vertical-align: middle;
   left: auto;
 }
+
+@media only screen and (max-width: 756px) {
+  body {
+  }
+
+  .editform .form {
+    box-sizing: border-box;
+    margin: -0.75rem -1.75rem 0 -2.5rem !important;
+    padding: 2rem 1.5rem 1rem 0.5rem !important;
+    border: none !important;
+  }
+
+  .form .avatarDropzone img {
+    width: 24px !important;
+    height: 24px !important;
+    margin-top: -18px !important;
+    margin-right: -26px !important;
+  }
+
+  .form .badgeIcon {
+    display: none;
+  }
+
+  .form .avatarDropzone img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .form .badges {
+    display: none;
+  }
+
+  .editform .button-aligner {
+    float: none;
+    margin: auto;
+    text-align: center;
+  }
+
+  .editform .form,
+  .editform .form:after,
+  .editform .form:before {
+    background: none !important;
+  }
+
+  .signature {
+    display: none;
+  }
+
+  .HeaderMenu ul {
+    display: none !important;
+  }
+}

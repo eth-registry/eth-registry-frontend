@@ -145,9 +145,12 @@ class Index extends React.Component {
                 endAdornment: <LoadingIndicator />,
               }}
               helperText={
-                !this.props.ethregistry.isValidAddress(
+                (!this.props.ethregistry.isValidAddress(
                   this.state.editAddress,
-                ) && this.state.editAddress.length >= 42
+                ) &&
+                  this.state.editAddress.length >= 42) ||
+                (this.state.editAddress.length >= 2 &&
+                  this.state.editAddress.indexOf("0x") < 0)
                   ? "The address is not a valid Ethereum address"
                   : ""
               }

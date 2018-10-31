@@ -30,14 +30,14 @@ class FooterPage extends React.Component {
   render() {
     const { metadata } = this.props;
     return (
-      <footer className="font-small pt-4 mt-4">
+      <footer className="font-small pt-4 mt-4" style={{ flexGrow: 1 }}>
         <Grid container spacing={16}>
-          <Grid item xs={2} />
-          <Grid item xs={3}>
+          <Grid item xs={2} sm={0} />
+          <Grid item xs={3} sm={3}>
             <h2>Recent Submissions</h2>
             <Recent metadata={metadata} />
           </Grid>
-          <Grid item xs={3} style={{ marginRight: "3rem" }}>
+          <Grid item xs={3} sm={3} style={{ marginRight: "3rem" }}>
             <h2>Resources</h2>
             <b>Metadata Contract:</b>{" "}
             <p>
@@ -80,7 +80,7 @@ class FooterPage extends React.Component {
               </code>
             </p>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={2} sm={3}>
             <img src={LogoBanner} alt="logo" className="logo" />
             <p className="disclaimer">
               ETH Registry is an open-source tool for storing metadata on the
@@ -116,7 +116,7 @@ class FooterPage extends React.Component {
             </p>
             <p className="copyright">© 2018 Eth Registry</p>
           </Grid>
-          <Grid item xs={2} />
+          <Grid item xs={2} sm={0} />
         </Grid>
       </footer>
     );
