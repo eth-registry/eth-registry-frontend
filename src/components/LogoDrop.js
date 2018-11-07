@@ -19,7 +19,8 @@ export default class LogoDrop extends Component {
                         Couldn't upload your file, please make sure it is of the
                         following type:
                         <br />
-                        image/jpeg, image/png, .jpg, .jpeg, .png, .svg
+                        image/jpeg, image/png, image/svg+xml, .jpg, .jpeg, .png,
+                        .svg
                     </span>
                 ),
                 variant: "error",
@@ -38,7 +39,8 @@ export default class LogoDrop extends Component {
             : this.props.file || undefined;
         return (
             <MagicDropzone
-                accept="image/jpeg, image/png, .jpg, .jpeg, .png"
+                accept="image/jpeg, image/png, image/svg+xml, .jpg, .jpeg, .png,
+                        .svg"
                 onDrop={this.submitFile}
                 className="dropmagic"
             >
