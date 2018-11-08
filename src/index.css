@@ -273,6 +273,7 @@ img {
 
 .historyItem {
   width: 100%;
+  display: flex;
   position: relative;
   margin-bottom: 1rem;
 }
@@ -291,7 +292,7 @@ img {
 }
 .historyItem span code {
   position: relative;
-  left: 21px;
+  word-break: break-word;
 }
 
 .icon {
@@ -303,9 +304,6 @@ img {
 }
 
 @media only screen and (max-width: 756px) {
-  body {
-  }
-
   .editform .form {
     box-sizing: border-box;
     margin: -0.75rem -1.75rem 0 -2.5rem !important;

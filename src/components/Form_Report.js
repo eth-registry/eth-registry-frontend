@@ -1,17 +1,12 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import InputBase from "@material-ui/core/InputBase";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Edit from "@material-ui/icons/Edit";
 import defaultsDeep from "lodash.defaultsdeep";
-import isEqual from "lodash.isequal";
 
 import FormComponent from "./FormComponent";
-import LogoDrop from "./LogoDrop";
 // import AddressBar from "./AddressBar"; //address bar plus all icons
 
 // THE COMPONENT TO END ALL COMPONENTS
-import Registry from "./Registry"; //single priority icon
+// import Registry from "./Registry"; //single priority icon
 
 import "../css/form.css";
 
@@ -79,7 +74,7 @@ class Form extends Component {
 
   render() {
     const { state } = this;
-    const { badges, metadata, contractdata } = state;
+    const { badges, contractdata } = state;
 
     return (
       <React.Fragment>

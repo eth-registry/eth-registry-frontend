@@ -6,7 +6,7 @@ const contractAddress = "0xfa91455977911e46f48b0c362174f52176ed49b6";
 const ipfs = new IPFS({
   host: "ipfs.infura.io",
   port: 5001,
-  protocol: "https"
+  protocol: "https",
 });
 
 export default class Metadata {
@@ -18,8 +18,9 @@ export default class Metadata {
     const network = provider.network || "mainnet";
     const eth = new Eth(
       new Eth.HttpProvider(
-        `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`
-      )
+        `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API ||
+          "414438eb69d7469483421969becd7f66"}`,
+      ),
     );
     this.contract = eth.contract(abi).at(contractAddress);
   }
@@ -61,7 +62,7 @@ export default class Metadata {
       data: JSON.parse(JSON.stringify(ipfs)),
       self_attested: query[3],
       curated: query[4],
-      submitter: metadata[5]
+      submitter: metadata[5],
     };
   }
 

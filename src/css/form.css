@@ -383,8 +383,8 @@
   cursor: pointer;
 }
 
-.form .dropzone:not(.empty) input {
-}
+/* .form .dropzone:not(.empty) input {
+} */
 
 .barBadges,
 .barAddress {

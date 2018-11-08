@@ -9,7 +9,7 @@ class LoadingIndicator extends React.Component {
         position="end"
         style={{
           color: "red",
-          fontWeight: 400
+          fontWeight: 400,
         }}
         aria-label="loading"
       >

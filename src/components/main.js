@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import LoadingIndicator from "./loadingIndicator";
 import Button from "@material-ui/core/Button";
 import LogoBanner from "../assets/logo_banner.png";
-import Footer from "./Footer";
 
 const styles = theme => ({
   popper: {
@@ -192,7 +191,6 @@ class Index extends React.Component {
             <b>Thank you for your submission and patience,</b>
           </p>
         </div>
-        <Footer metadata={this.props.ethregistry} />
       </React.Fragment>
     );
   }

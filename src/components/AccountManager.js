@@ -40,6 +40,7 @@ export default class AccountManager extends Component {
   };
 
   handleClick = event => {
+    event.preventDefault();
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -51,6 +52,7 @@ export default class AccountManager extends Component {
     const { anchorEl } = this.state;
     return (
       <a
+        href="/"
         className="HeaderNavlink px-2 Account"
         data-hotkey="g n"
         aria-owns={anchorEl ? "simple-menu" : null}

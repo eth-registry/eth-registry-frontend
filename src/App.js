@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import Typography from "typography";
+import githubTheme from "typography-theme-github";
 import EthRegistry from "./js/metadata.js";
 import Main from "./components/main.js";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import Typography from "typography";
-import githubTheme from "typography-theme-github";
 
 githubTheme.headerFontFamily = ["Roboto", "sans-serif"];
 githubTheme.bodyFontFamily = ["Roboto", "sans-serif"];
@@ -85,13 +86,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header ethregistry={ethregistry} />
         <MuiThemeProvider theme={theme}>
+          <Header ethregistry={ethregistry} />
           <Main
             params={this.props.match.params}
             location={this.props.location}
             ethregistry={ethregistry}
           />
+          <Footer metadata={ethregistry} />
         </MuiThemeProvider>
       </div>
     );

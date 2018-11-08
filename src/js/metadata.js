@@ -8,12 +8,14 @@ const network = "mainnet";
 let reader = {};
 const eth = new Eth(
   new Eth.HttpProvider(
-    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`,
+    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API ||
+      "414438eb69d7469483421969becd7f66"}`,
   ),
 );
 const ethRead = new Eth(
   new Eth.HttpProvider(
-    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API}`,
+    `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API ||
+      "414438eb69d7469483421969becd7f66"}`,
   ),
 );
 
