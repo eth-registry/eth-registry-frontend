@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import EmptyAvatar from "../assets/empty_avatar.png";
+import { getMetamaskAccounts } from "../js/metamask";
 import "../css/menu.css";
 
 export default class AccountManager extends Component {
@@ -9,14 +10,12 @@ export default class AccountManager extends Component {
   };
 
   componentWillMount() {
-    if (
-      typeof window.web3 !== "undefined" &&
-      typeof window.web3.currentProvider !== "undefined"
-    ) {
+    const callback = () => {
       this.setState({ web3Provider: window.web3.currentProvider }, () =>
         this.getProfile(),
       );
-    }
+    };
+    getMetamaskAccounts(callback);
   }
 
   getProfile = async () => {

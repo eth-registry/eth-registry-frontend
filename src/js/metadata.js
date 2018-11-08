@@ -2,6 +2,7 @@ import Eth from "ethjs";
 import abi from "../abi/metadata.json";
 import IPFS from "ipfs-mini";
 import axios from "axios";
+import { getMetamaskAccounts } from "../js/metamask";
 
 const network = "mainnet";
 
@@ -95,20 +96,10 @@ export default class MetaDataContract {
     });
   }
 
-  async getMetamask() {
-    const setMetamaskProvider = () =>
-      eth.setProvider(window.web3.currentProvider);
+  getMetamask() {
+    const callback = () => eth.setProvider(window.web3.currentProvider);
 
-    if (
-      typeof window.web3 !== "undefined" &&
-      typeof window.web3.currentProvider !== "undefined"
-    ) {
-      setMetamaskProvider();
-    } else if (window.ethereum) {
-      await window.ethereum.enable();
-
-      setMetamaskProvider();
-    }
+    getMetamaskAccounts(callback);
   }
 
   async isCurator() {
