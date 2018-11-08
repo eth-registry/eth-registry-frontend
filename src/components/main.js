@@ -190,7 +190,6 @@ class Index extends React.Component {
             Registry, several curators will verify your data and, upon approval,
             sign your submission as validated.{" "}
             <b>Thank you for your submission and patience,</b>
-            <span className="signature">Eth Registry</span>
           </p>
         </div>
         <Footer metadata={this.props.ethregistry} />
