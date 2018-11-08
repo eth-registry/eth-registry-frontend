@@ -93,12 +93,19 @@ export default class MetaDataContract {
     });
   }
 
-  getMetamask() {
+  async getMetamask() {
+    const setMetamaskProvider = () =>
+      eth.setProvider(window.web3.currentProvider);
+
     if (
       typeof window.web3 !== "undefined" &&
       typeof window.web3.currentProvider !== "undefined"
     ) {
-      eth.setProvider(window.web3.currentProvider);
+      setMetamaskProvider();
+    } else if (window.ethereum) {
+      await window.ethereum.enable();
+
+      setMetamaskProvider();
     }
   }
 
