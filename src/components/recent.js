@@ -20,7 +20,7 @@ export default class Recent extends React.Component {
     let recent = [];
 
     for (let r of response) {
-      let data = await this.props.metadata.getAddressData(r[0]);
+      let data = await this.props.metadata.get(r[0]);
       data.key = r.key;
       recent.push(data);
       if (recent.length >= 5) break;
@@ -31,10 +31,10 @@ export default class Recent extends React.Component {
   render() {
     return (
       <div>
-        {this.state.recent.map(sub => {
+        {this.state.recent.map((sub, idx) => {
           if (!sub.data) return "";
           return (
-            <div key={sub.key} className="historyItem">
+            <div key={idx} className="historyItem">
               <img
                 src={sub.data.metadata.logo || Placeholder}
                 alt="submission_icon"

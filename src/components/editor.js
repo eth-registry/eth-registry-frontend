@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import metadata from "../js/metadata";
 import Form from "./Form";
 import FormReport from "./Form_Report";
 import Button from "@material-ui/core/Button";
@@ -84,17 +83,22 @@ class Editor extends React.Component {
 
   componentWillMount() {
     if (this.state.address !== this.props.address) {
-      this.setState({ address: this.props.address });
+      this.setState({
+        address: this.props.address,
+      });
     }
     registry.price().then(result => {
-      this.setState({ price: result });
+      this.setState({
+        price: result,
+      });
     });
-    // FIXME: should check if current user is curator
-    // Registry.isCurator().then(result => {
-    //   this.setState({ curator: result });
-    // });
+
     // FIXME: should set this to current user address
     // this.setState({ userAddress: Registry.getCurrentAccount() });
+    // FIXME: should check if current user is curator
+    // Registry.isCurator(this.state.userAddress).then(result => {
+    //   this.setState({ curator: result });
+    // });
     this.clearEditor();
     this.getAddress(this.props.address);
   }
@@ -396,7 +400,7 @@ class Editor extends React.Component {
             </span>
           </Tooltip>
           <Tooltip
-            title={(this.state.curator ? 0 : this.state.price.eth) + " Ξ"}
+            title={(this.state.curator ? 0 : this.state.price) + " Ξ"}
             classes={{
               tooltip: this.props.classes.lightTooltip,
               popper: this.props.classes.popper,
@@ -406,7 +410,7 @@ class Editor extends React.Component {
           >
             <span>
               <Button variant="outlined" disabled size="small">
-                {this.state.curator ? 0 : this.state.price.usd} $
+                {this.state.curator ? 0 : this.state.price} Ξ
               </Button>
             </span>
           </Tooltip>
