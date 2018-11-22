@@ -21,7 +21,7 @@ export default class AccountManager extends Component {
     const address = accounts[0];
     console.log(address);
     this.setState({ name: address });
-    let profile = await this.props.ethregistry.getAddressData(address);
+    let profile = await this.props.ethregistry.get(address);
     if (profile && profile.data) {
       console.log(profile);
       this.setState({
