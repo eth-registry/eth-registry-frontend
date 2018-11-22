@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import metadata from "../js/metadata.js";
+import metadata from "../js/metadata";
 import Form from "./Form";
 import FormReport from "./Form_Report";
 import Button from "@material-ui/core/Button";

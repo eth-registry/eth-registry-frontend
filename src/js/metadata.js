@@ -97,9 +97,9 @@ export default class MetaDataContract {
   }
 
   getMetamask() {
-    const callback = () => eth.setProvider(window.web3.currentProvider);
-
-    getMetamaskAccounts(callback);
+    getMetamaskAccounts(() => {
+      eth.setProvider(window.web3.currentProvider);
+    });
   }
 
   async isCurator() {

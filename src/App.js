@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Typography from "typography";
 import githubTheme from "typography-theme-github";
-import EthRegistry from "./js/metadata.js";
-import Main from "./components/main.js";
+import EthRegistry from "./js/metadata";
+import Main from "./components/main";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";

@@ -14,5 +14,7 @@ export function getMetamaskAccounts(callback) {
       .catch(error => {
         console.error(error);
       });
+  } else {
+    throw new Error("Metamask is not installed. Please install Metamask first");
   }
 }

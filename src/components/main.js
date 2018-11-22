@@ -106,7 +106,7 @@ class Index extends React.Component {
           <a href="/">
             <img src={LogoBanner} alt="logo" />
           </a>
-          <h3>Ethereum Metadata Directory</h3>
+          <h3>Ethereum Metadata Registry</h3>
           <h2 className="logo">
             Submit <i>{this.state.addressType}</i> Metadata
           </h2>
