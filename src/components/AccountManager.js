@@ -3,6 +3,10 @@ import Avatar from "@material-ui/core/Avatar";
 import EmptyAvatar from "../assets/empty_avatar.png";
 import WalletSelector from "../components/WalletSelector";
 import { getMetamaskAccounts } from "../js/metamask";
+// import {
+//   walletConnectGetWeb3,
+//   walletConnectCreateSession,
+// } from "../js/walletconnect";
 import "../css/menu.css";
 
 export default class AccountManager extends Component {
@@ -44,13 +48,32 @@ export default class AccountManager extends Component {
   };
 
   onMetamask = () =>
-    getMetamaskAccounts(accounts => {
+    getMetamaskAccounts((accounts, error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
       this.setState({ web3Provider: window.web3.currentProvider }, () =>
         this.getProfile(accounts),
       );
     });
 
-  onWalletConnect = () => {};
+  // onWalletConnect = async () => {
+  //   const network = "mainnet";
+  //   const web3 = await walletConnectGetWeb3(network);
+
+  //   try {
+  //     let accounts = await web3.eth.getAccounts();
+  //     if (!accounts || !accounts.length) {
+  //       accounts = await walletConnectCreateSession();
+  //     }
+  //     this.setState({ web3Provider: web3.currentProvider }, () =>
+  //       this.getProfile(accounts),
+  //     );
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   onSelectWallet = selectedWallet => {
     this.setState({ showWallets: false });
@@ -60,7 +83,8 @@ export default class AccountManager extends Component {
       case "Metamask":
         return this.onMetamask();
       case "WalletConnect":
-        return this.onWalletConnect();
+        // return this.onWalletConnect();
+        break;
       default:
         return this.onMetamask();
     }

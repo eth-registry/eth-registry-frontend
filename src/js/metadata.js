@@ -97,7 +97,11 @@ export default class MetaDataContract {
   }
 
   getMetamask() {
-    getMetamaskAccounts(() => {
+    getMetamaskAccounts((accounts, error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
       eth.setProvider(window.web3.currentProvider);
     });
   }
