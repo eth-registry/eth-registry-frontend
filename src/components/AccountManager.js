@@ -3,10 +3,10 @@ import Avatar from "@material-ui/core/Avatar";
 import EmptyAvatar from "../assets/empty_avatar.png";
 import WalletSelector from "../components/WalletSelector";
 import { getMetamaskAccounts } from "../js/metamask";
-// import {
-//   walletConnectGetWeb3,
-//   walletConnectCreateSession,
-// } from "../js/walletconnect";
+import {
+  walletConnectGetWeb3,
+  walletConnectCreateSession,
+} from "../js/walletconnect";
 import "../css/menu.css";
 
 export default class AccountManager extends Component {
