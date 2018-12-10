@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import metadata from "../js/metadata";
 import Form from "./Form";
 import FormReport from "./Form_Report";
 import Button from "@material-ui/core/Button";
 // import JSONPretty from "./JSONPretty";
 import Notification from "./notification";
 import Tooltip from "@material-ui/core/Tooltip";
+import EthRegisty from "eth-registry";
+
+const registry = new EthRegisty();
 
 // http://localhost:3000/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0 kraken
 // http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
@@ -30,8 +32,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 // Add 'tags' to JSON spec
 // How to deal with versioning?
-
-let Registry = {};
 
 const styles = theme => ({
   popper: {
@@ -82,30 +82,31 @@ class Editor extends React.Component {
   }
 
   componentWillMount() {
-    Registry = new metadata();
     if (this.state.address !== this.props.address) {
-      this.setState({ address: this.props.address });
+      this.setState({
+        address: this.props.address,
+      });
     }
-    Registry.getPrice().then(result => {
-      this.setState({ price: result });
+    registry.price().then(result => {
+      this.setState({
+        price: result,
+      });
     });
-    Registry.isCurator().then(result => {
-      this.setState({ curator: result });
-    });
-    this.setState({ userAddress: Registry.getCurrentAccount() });
+
+    // FIXME: should set this to current user address
+    // this.setState({ userAddress: Registry.getCurrentAccount() });
+    // FIXME: should check if current user is curator
+    // Registry.isCurator(this.state.userAddress).then(result => {
+    //   this.setState({ curator: result });
+    // });
     this.clearEditor();
     this.getAddress(this.props.address);
   }
 
-  componentDidMount() {
-    Registry.getMetamask();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.address !== this.props.address) {
-      // console.log(Registry.isValidAddress(this.props.address));
       this.setState({ address: this.props.address });
-      if (Registry.isValidAddress(this.props.address))
+      if (registry.isValidAddress(this.props.address))
         this.getAddress(this.props.address);
       else this.clearEditor();
     }
@@ -120,8 +121,8 @@ class Editor extends React.Component {
   }
 
   getAddress(address) {
-    if (Registry.isValidAddress(address))
-      Registry.getAddressData(address).then(contractdata => {
+    if (registry.isValidAddress(address))
+      registry.get(address).then(contractdata => {
         if (this.populateEditor(contractdata)) {
           this.props.setType(contractdata);
         } else {
@@ -131,7 +132,7 @@ class Editor extends React.Component {
   }
 
   clearEditor() {
-    let json = Registry.getEmptyObject();
+    let json = registry.getEmptyObject();
     json.address = this.props.address;
     this.setState({
       metadata: json.metadata,
@@ -161,16 +162,15 @@ class Editor extends React.Component {
   }
 
   onSubmit = async e => {
-    let data = Registry.getEmptyObject();
+    let data = registry.getEmptyObject();
     const { metadata } = this.form.current.state;
-    // console.log(this.form, data, metadata);
     metadata.address = this.state.address;
     data.address = this.state.address;
 
     //check if files are string or not
     if (typeof metadata.logo !== "string") {
       try {
-        let logo = await Registry.convertBlobToBase64(metadata.logo);
+        let logo = await registry.convertBlobToBase64(metadata.logo);
         metadata.logo = logo;
       } catch (e) {
         throw console.warn(e);
@@ -178,7 +178,7 @@ class Editor extends React.Component {
     }
     if (typeof metadata.contract.abi !== "string") {
       try {
-        let abi = await Registry.storeJsonIPFS(metadata.contract.abi);
+        let abi = await registry.storeJsonIPFS(metadata.contract.abi);
         metadata.contract.abi = abi;
       } catch (e) {
         throw console.warn(e);
@@ -186,7 +186,7 @@ class Editor extends React.Component {
     }
     if (typeof metadata.contract.source !== "string") {
       try {
-        let source = await Registry.storeDataIPFS(metadata.contract.source);
+        let source = await registry.storeDataIPFS(metadata.contract.source);
         metadata.contract.source = source;
       } catch (e) {
         throw console.warn(e);
@@ -201,9 +201,10 @@ class Editor extends React.Component {
       notification: "Transaction waiting for approval",
       variant: "info",
     });
-    Registry.storeMetadata(metadata.address, metadata.name, data, () => {
-      this.onTransactionReceipt();
-    })
+    registry
+      .storeMetadata(metadata.address, metadata.name, data, () => {
+        this.onTransactionReceipt();
+      })
       .then(response => {
         this.setState({
           address: data.address,
@@ -237,7 +238,7 @@ class Editor extends React.Component {
   }
 
   permissionText(contractdata) {
-    let currentAccount = Registry.getCurrentAccount();
+    let currentAccount = undefined; //Registry.getCurrentAccount();
     if (!contractdata) return "disconnected";
     if (contractdata.self_attested || contractdata.curated) {
       if (currentAccount && currentAccount === contractdata.address)
@@ -249,10 +250,11 @@ class Editor extends React.Component {
   }
 
   getBadges(contractdata) {
-    let currentAccount = Registry.getCurrentAccount();
+    // FIXME: should be set to current account
+    let currentAccount = undefined; //Registry.getCurrentAccount();
 
     let badges = [];
-    if (!Registry.isValidAddress(this.state.address)) {
+    if (!registry.isValidAddress(this.state.address)) {
       badges.push("unknown");
       return badges;
     }
@@ -273,7 +275,8 @@ class Editor extends React.Component {
   }
 
   canEdit(contractdata) {
-    let currentAccount = Registry.getCurrentAccount();
+    // FIXME: should be set to current account
+    let currentAccount = undefined; //registry.getCurrentAccount();
     if (!currentAccount) return { allowed: false, reason: "Not logged in" };
     if (this.state.curator)
       return { allowed: true, reason: "You are a curator" };
@@ -304,11 +307,7 @@ class Editor extends React.Component {
         reason: "Can't hack this, https://www.youtube.com/watch?v=otCpCn0l4Wo",
       };
     const { metadata } = this.form.current.state;
-    // return {
-    //   allowed: true,
-    //   reason: "You hacked it",
-    // };
-    if (!Registry.isValidAddress(this.state.address))
+    if (!registry.isValidAddress(this.state.address))
       return {
         allowed: false,
         reason: "Please enter a valid address to submit information",
@@ -324,9 +323,10 @@ class Editor extends React.Component {
   }
 
   attentionText(contractdata) {
+    // FIXME: should be set to current account
     if (
       contractdata.self_attested &&
-      contractdata.address !== Registry.getCurrentAccount()
+      contractdata.address !== "" // FIXME: Registry.getCurrentAccount()
     )
       return "This address metadata has been submitted by the owner of this address and cannot be edited";
     if (!this.state.curator && contractdata.curated)
@@ -400,7 +400,7 @@ class Editor extends React.Component {
             </span>
           </Tooltip>
           <Tooltip
-            title={(this.state.curator ? 0 : this.state.price.eth) + " Ξ"}
+            title={(this.state.curator ? 0 : this.state.price) + " Ξ"}
             classes={{
               tooltip: this.props.classes.lightTooltip,
               popper: this.props.classes.popper,
@@ -410,7 +410,7 @@ class Editor extends React.Component {
           >
             <span>
               <Button variant="outlined" disabled size="small">
-                {this.state.curator ? 0 : this.state.price.usd} $
+                {this.state.curator ? 0 : this.state.price} Ξ
               </Button>
             </span>
           </Tooltip>
