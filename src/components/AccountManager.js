@@ -84,7 +84,6 @@ export default class AccountManager extends Component {
         return this.onMetamask();
       case "WalletConnect":
         return this.onWalletConnect();
-        break;
       default:
         return this.onMetamask();
     }
