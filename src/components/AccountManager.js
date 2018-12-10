@@ -58,22 +58,22 @@ export default class AccountManager extends Component {
       );
     });
 
-  // onWalletConnect = async () => {
-  //   const network = "mainnet";
-  //   const web3 = await walletConnectGetWeb3(network);
+  onWalletConnect = async () => {
+    const network = "mainnet";
+    const web3 = await walletConnectGetWeb3(network);
 
-  //   try {
-  //     let accounts = await web3.eth.getAccounts();
-  //     if (!accounts || !accounts.length) {
-  //       accounts = await walletConnectCreateSession();
-  //     }
-  //     this.setState({ web3Provider: web3.currentProvider }, () =>
-  //       this.getProfile(accounts),
-  //     );
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+    try {
+      let accounts = await web3.eth.getAccounts();
+      if (!accounts || !accounts.length) {
+        accounts = await walletConnectCreateSession();
+      }
+      this.setState({ web3Provider: web3.currentProvider }, () =>
+        this.getProfile(accounts),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   onSelectWallet = selectedWallet => {
     this.setState({ showWallets: false });
@@ -83,8 +83,7 @@ export default class AccountManager extends Component {
       case "Metamask":
         return this.onMetamask();
       case "WalletConnect":
-        // return this.onWalletConnect();
-        break;
+        return this.onWalletConnect();
       default:
         return this.onMetamask();
     }
