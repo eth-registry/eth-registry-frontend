@@ -38,7 +38,7 @@
     "react-json-pretty": "^1.7.9",
     "react-magic-dropzone": "^1.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "^2.1.1",
     "react-syntax-highlighter": "^8.0.1",
     "react-typography": "^0.16.13",
     "typography": "^0.16.17",
@@ -56,5 +56,11 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "prettier": "^1.14.2"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

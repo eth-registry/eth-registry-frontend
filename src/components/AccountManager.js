@@ -3,10 +3,10 @@ import Avatar from "@material-ui/core/Avatar";
 import EmptyAvatar from "../assets/empty_avatar.png";
 import WalletSelector from "../components/WalletSelector";
 import { getMetamaskAccounts } from "../js/metamask";
-import {
-  walletConnectGetWeb3,
-  walletConnectCreateSession,
-} from "../js/walletconnect";
+// import {
+//   walletConnectGetWeb3,
+//   walletConnectCreateSession,
+// } from "../js/walletconnect";
 import "../css/menu.css";
 
 export default class AccountManager extends Component {
@@ -58,36 +58,36 @@ export default class AccountManager extends Component {
       );
     });
 
-  onWalletConnect = async () => {
-    const network = "mainnet";
-    const web3 = await walletConnectGetWeb3(network);
+  // onWalletConnect = async () => {
+  //   const network = "mainnet";
+  //   const web3 = await walletConnectGetWeb3(network);
 
-    try {
-      let accounts = await web3.eth.getAccounts();
-      if (!accounts || !accounts.length) {
-        accounts = await walletConnectCreateSession();
-      }
-      this.setState({ web3Provider: web3.currentProvider }, () =>
-        this.getProfile(accounts),
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   try {
+  //     let accounts = await web3.eth.getAccounts();
+  //     if (!accounts || !accounts.length) {
+  //       accounts = await walletConnectCreateSession();
+  //     }
+  //     this.setState({ web3Provider: web3.currentProvider }, () =>
+  //       this.getProfile(accounts),
+  //     );
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  onSelectWallet = selectedWallet => {
-    this.setState({ showWallets: false });
-    console.log(selectedWallet);
+  // onSelectWallet = selectedWallet => {
+  //   this.setState({ showWallets: false });
+  //   console.log(selectedWallet);
 
-    switch (selectedWallet) {
-      case "Metamask":
-        return this.onMetamask();
-      case "WalletConnect":
-        return this.onWalletConnect();
-      default:
-        return this.onMetamask();
-    }
-  };
+  //   switch (selectedWallet) {
+  //     case "Metamask":
+  //       return this.onMetamask();
+  //     case "WalletConnect":
+  //       return this.onWalletConnect();
+  //     default:
+  //       return this.onMetamask();
+  //   }
+  // };
 
   render() {
     const { anchorEl } = this.state;
@@ -122,7 +122,11 @@ export default class AccountManager extends Component {
         </a>
         <WalletSelector
           show={this.state.showWallets}
-          callback={this.onSelectWallet}
+          callback={
+            // TODO: walletconnect-web3-provider is not currently working (default to Metamask)
+            // this.onSelectWallet
+            this.onMetamask()
+          }
         />
       </Fragment>
     );
