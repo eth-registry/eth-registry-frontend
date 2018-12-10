@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Edit from "@material-ui/icons/Edit";
 import defaultsDeep from "lodash.defaultsdeep";
-import isEqual from "lodash.isequal";
 
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";

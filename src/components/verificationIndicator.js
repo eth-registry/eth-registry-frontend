@@ -7,7 +7,7 @@ import Locked from "@material-ui/icons/Lock";
 
 const styles = theme => ({
   popper: {
-    opacity: 1
+    opacity: 1,
   },
   lightTooltip: {
     background: "#fefefe",
@@ -16,15 +16,15 @@ const styles = theme => ({
       "0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 3px 2px 0px rgba(0, 0, 0, 0.01), 0px 3px 1px -2px rgba(0, 0, 0, 0.01)",
     fontFamily: "Hack, Source Code Pro",
     fontSize: 9,
-    opacity: 1
-  }
+    opacity: 1,
+  },
 });
 
 class Indicator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
     };
   }
 
@@ -66,7 +66,7 @@ class Indicator extends React.Component {
         title={title}
         classes={{
           tooltip: this.props.classes.lightTooltip,
-          popper: this.props.classes.popper
+          popper: this.props.classes.popper,
         }}
         enterDelay={200}
         leaveDelay={200}
@@ -75,7 +75,7 @@ class Indicator extends React.Component {
           position="end"
           style={{
             color: color,
-            fontWeight: 400
+            fontWeight: 400,
           }}
           aria-label={label}
         >

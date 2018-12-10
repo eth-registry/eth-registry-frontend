@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import LoadingIndicator from "./loadingIndicator";
 import Button from "@material-ui/core/Button";
 import LogoBanner from "../assets/logo_banner.png";
-import Footer from "./Footer";
 
 const styles = theme => ({
   popper: {
@@ -49,7 +48,7 @@ class Index extends React.Component {
 
   componentWillMount() {
     this.setState({ metadata: this.props.ethregistry });
-    this.props.ethregistry.getPrice().then(result => {
+    this.props.ethregistry.price().then(result => {
       // console.log(result);
       this.setState({ price: result });
     });
@@ -107,7 +106,7 @@ class Index extends React.Component {
           <a href="/">
             <img src={LogoBanner} alt="logo" />
           </a>
-          <h3>Ethereum Metadata Directory</h3>
+          <h3>Ethereum Metadata Registry</h3>
           <h2 className="logo">
             Submit <i>{this.state.addressType}</i> Metadata
           </h2>
@@ -190,10 +189,8 @@ class Index extends React.Component {
             Registry, several curators will verify your data and, upon approval,
             sign your submission as validated.{" "}
             <b>Thank you for your submission and patience,</b>
-            <span className="signature">Eth Registry</span>
           </p>
         </div>
-        <Footer metadata={this.props.ethregistry} />
       </React.Fragment>
     );
   }
