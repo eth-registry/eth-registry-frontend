@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Typography from "typography";
 import githubTheme from "typography-theme-github";
-import EthRegistry from "./js/metadata";
+import EthRegistry from "eth-registry";
 import Main from "./components/main";
 import Header from "./components/Header";
 import Footer from "./components/Footer";

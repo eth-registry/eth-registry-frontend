@@ -48,7 +48,7 @@ class Index extends React.Component {
 
   componentWillMount() {
     this.setState({ metadata: this.props.ethregistry });
-    this.props.ethregistry.getPrice().then(result => {
+    this.props.ethregistry.price().then(result => {
       // console.log(result);
       this.setState({ price: result });
     });
