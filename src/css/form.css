@@ -315,7 +315,7 @@
 .form .avatarDropzone:hover {
   padding: 5px;
   border: 1px dashed rgba(0, 0, 0, 0.2);
-  margin: calc(auto - 5px) 0 0 -5px;
+  /* margin: calc(auto - 5px) 0 0 -5px; */ /* THIS BREAKS THE BUILD */
   width: 70px !important;
   height: 70px !important;
   top: -5px;
