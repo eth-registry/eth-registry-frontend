@@ -155,7 +155,10 @@ export default class MetaDataContract {
   }
 
   getCurrentAccount() {
-    if (window.web3) return window.web3.eth.accounts[0];
+    if (window.web3) {
+      const account = window.web3.eth.accounts[0];
+      return account;
+    }
     else return null;
   }
 

@@ -1,12 +1,12 @@
 import React from "react";
-import metadata from "../js/metadata.js";
+import metadata from "../../js/metadata.js";
 import { withStyles } from "@material-ui/core/styles";
 import Editor from "./editor";
 import Recent from "./recent";
 import TextField from "@material-ui/core/TextField";
 import LoadingIndicator from "./loadingIndicator";
 import Button from "@material-ui/core/Button";
-import LogoBanner from "../assets/logo_banner.png";
+import LogoBanner from "../../assets/logo_banner.png";
 
 let metaData = {};
 

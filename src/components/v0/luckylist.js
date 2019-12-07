@@ -2,7 +2,7 @@ import React from "react";
 import Lucky from "../js/luckylist";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import "../index.css";
+import "../../index.css";
 
 let luckyList;
 

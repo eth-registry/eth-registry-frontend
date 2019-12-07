@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Main from "./components/v0/main.js";
+import Main from "../components/v0/main.js";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import { Theme } from './theme.js';
+import { Theme } from '../theme.js';
 
 class App extends Component {
   componentWillMount() {
