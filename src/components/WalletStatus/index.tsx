@@ -7,6 +7,7 @@ import { connectorsByName } from '../../connectors';
 const StatusButton = styled.button`
   flex-row: no-wrap;
   width: 100%;
+  color: ${({ theme }) => theme.black };
   font-size: 0.9rem;
   align-items: center;
   padding: 0.5rem;
@@ -22,7 +23,7 @@ const StatusButton = styled.button`
 const StatusError = styled(StatusButton)`
   background-color: red;
   border: 1px solid red;
-  color: white;
+  color: ${({ theme }) => theme.black};
   font-weight: 500;
   :hover,
   :focus {

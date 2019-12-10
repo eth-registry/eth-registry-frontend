@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import WalletStatus from '../WalletStatus/';
+import { Link } from 'react-router-dom'; 
+import logo from '../../assets/logo_new.png';
 
 const HeaderFrame = styled.div`
   display: flex;
@@ -11,14 +13,18 @@ const HeaderFrame = styled.div`
 
 const HeaderElement = styled.div`
   margin: 1.25rem;
-  display: flex;
+  display:flex;
   min-width: 0;
-  display: flex;
   align-items: center;
 `;
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   text-decoration:none;
+
+  :visited {
+    text-decoration:none;
+    color: black;
+  }
 `;
 
 const Title = styled.div`
@@ -29,10 +35,21 @@ const Title = styled.div`
   }
 
   #title {
-    display: inline;
-    font-size: 1rem;
+    display: inline-block;
+    font-size: 1.25rem;
+    padding: 6px;
     font-weight: 500;
+    vertical-align: middle;
+    font-family: "Raleway";
+    font-style:italic;
+    letter-spacing: 0.1rem;
   }
+`
+
+const Logo = styled.img`
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
 `
 
 export default function Header() {
@@ -40,9 +57,10 @@ export default function Header() {
     <HeaderFrame>
       <HeaderElement>
         <Title>
-          <Link href="https://ethregistry.org">
+          <StyledLink to="/">
+            <Logo src={logo} alt="logo" />
             <h1 id="title">ETHRegistry</h1>
-          </Link>
+          </StyledLink>
         </Title>
       </HeaderElement>
       <HeaderElement>

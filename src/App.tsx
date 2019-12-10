@@ -4,6 +4,7 @@ import React from 'react';
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
+import ThemeProvider from './theme'
 import Home from './views/Home';
 import Header from './components/Header';
 
@@ -15,9 +16,6 @@ function getLibrary(provider:any):Web3Provider {
 }
 if (!process.env.REACT_APP_GRAPHQL_ENDPOINT) {
   throw new Error('REACT_APP_GRAPHQL_ENDPOINT environment variable not defined');
-}
-if (!process.env.REACT_APP_RPC_URL_1) {
-  throw new Error('RPC_URL_1 environment variable not defined');
 }
 
 const client = new ApolloClient({
@@ -41,14 +39,16 @@ function AppRouter() {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <ApolloProvider client={client}>
-      <header>
-        <Header />
-      </header>
-      <Router>
+        <ThemeProvider>
+          <Router>
+          <header>
+            <Header />
+          </header>
           <Switch>
             <Route path="/" exact component={Home} />
           </Switch>
-      </Router>
+          </Router>
+        </ThemeProvider>       
     </ApolloProvider>
    </Web3ReactProvider>
   );
