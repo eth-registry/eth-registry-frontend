@@ -1,8 +1,0 @@
-{
-  "type": "static",
-  "static": {
-    "public": "build"
-  },
-  "name": "ethregistry",
-  "alias": "ethregistry.org"
-}
