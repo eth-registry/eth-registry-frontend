@@ -1,10 +1,9 @@
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient, { gql,  InMemoryCache } from "apollo-boost";
 import React from 'react';
-import { InjectedConnector } from '@web3-react/injected-connector'
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import Web3Provider from "web3-react";
 import Home from './views/Home';
+import Header from './components/Header';
 
 if (!process.env.REACT_APP_GRAPHQL_ENDPOINT) {
   throw new Error('REACT_APP_GRAPHQL_ENDPOINT environment variable not defined');
@@ -26,24 +25,19 @@ export const ENTRIES_QUERY = gql`
   }
 `;
 
-const injected = new InjectedConnector({ supportedChainIds: [Number(process.env.REACT_APP_NETWORK_ID) || 1] });
+//const injected = new InjectedConnector({ supportedChainIds: [Number(process.env.REACT_APP_NETWORK_ID) || 1] });
+//const connectors = { injected };
 
 // TODO: Add route supporting deprecated app...maybe a static page with the bundle of the latest release
 function AppRouter() {
   return (
-    <Web3Provider connectors= {{ injected }} libraryName="ethers.js">
-      <ApolloProvider client={client}>
-        <Router>
-          <div>
-           <header>
-              <Switch>
-                <Route path="/" exact component={Home} />
-              </Switch>
-            </header>
-          </div>
-        </Router>
-      </ApolloProvider>
-    </Web3Provider>
+    <ApolloProvider client={client}>
+      <Router>
+          <Switch>
+            <Route path="/" exact component={Home} />
+          </Switch>
+      </Router>
+    </ApolloProvider>
   );
 }
 
