@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import { useEagerConnect, useInactiveListener } from '../../hooks';
+import { connectorsByName } from '../../connectors';
 
 const StatusButton = styled.button`
   flex-row: no-wrap;
@@ -38,12 +40,30 @@ const Text = styled.p`
 `;
 
 export default function WalletStatus() {
-  const { active, account, error, chainId, library} = useWeb3React();
+  const { connector, activate, deactivate, account, error } = useWeb3React();
+    // handle logic to recognize the connector currently being activated
+    const [activatingConnector, setActivatingConnector] = React.useState()
+    React.useEffect(() => {
+      if (activatingConnector && activatingConnector === connector) {
+        setActivatingConnector(undefined)
+      }
+    }, [activatingConnector, connector])
+    
+    // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
+    const triedEager = useEagerConnect();
+
+    // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
+    useInactiveListener(!triedEager || !!activatingConnector);
 
   function getWeb3Status() {
     if (account) {
       return (
-        <StatusButton>
+        <StatusButton
+          onClick={() => {
+            setActivatingConnector(false)
+            deactivate()
+          }}
+        >
           <Text>{account}</Text>
         </StatusButton>
       )
@@ -55,7 +75,12 @@ export default function WalletStatus() {
       )
     } else {
       return (
-        <StatusButton>
+        <StatusButton
+          onClick={() => {
+            setActivatingConnector(true)
+            activate(connectorsByName['Injected'])
+          }}
+        >
           <Text>{('Connect to a Wallet')}</Text>
         </StatusButton>
       )

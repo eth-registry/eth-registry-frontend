@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useWeb3React } from '@web3-react/core'
-
-import { injected } from '../connectors'
+import { URI_AVAILABLE } from '@web3-react/walletconnect-connector';
+import { injected, walletconnect } from './connectors'
 
 export function useEagerConnect() {
   const { activate, active } = useWeb3React()
@@ -71,3 +71,83 @@ export function useInactiveListener(suppress: boolean = false) {
     }
   }, [active, error, suppress, activate])
 }
+
+export function useBlockListener() {
+  const { library, chainId } = useWeb3React();
+  // set up block listener
+  const [blockNumber, setBlockNumber] = useState();
+  useEffect((): any => {
+    if (library) {
+      let stale = false;
+
+      library
+        .getBlockNumber()
+        .then((blockNumber: number) => {
+          if (!stale) {
+            setBlockNumber(blockNumber);
+          }
+        })
+        .catch(() => {
+          if (!stale) {
+            setBlockNumber(null);
+          }
+        })
+
+      const updateBlockNumber = (blockNumber: number) => {
+        setBlockNumber(blockNumber);
+      }
+      library.on('block', updateBlockNumber);
+
+      return () => {
+        library.removeListener('block', updateBlockNumber);
+        stale = true;
+        setBlockNumber(undefined);
+      }
+    }
+  }, [blockNumber, library, chainId]);
+}
+
+export function useEthBalanceUpdate() {
+  const { account, library, chainId } = useWeb3React();
+   // fetch eth balance of the connected account
+   const [ethBalance, setEthBalance] = useState();
+   useEffect((): any => {
+     if (library && account) {
+       let stale = false;
+ 
+       library
+         .getBalance(account)
+         .then((balance: any) => {
+           if (!stale) {
+             setEthBalance(balance);
+           }
+         })
+         .catch(() => {
+           if (!stale) {
+             setEthBalance(null);
+           }
+         });
+ 
+       return () => {
+         stale = true;
+         setEthBalance(undefined);
+       }
+     }
+   }, [ethBalance, library, account, chainId]);
+}
+
+export function useWalletConnectURI() {
+    // log the walletconnect URI
+  useEffect(() => {
+    const logURI = (uri: any) => {
+      console.log('WalletConnect URI', uri);
+    }
+    walletconnect.on(URI_AVAILABLE, logURI);  
+    return () => {
+      walletconnect.off(URI_AVAILABLE, logURI);
+    }
+  }, []);
+}
+
+
+ 
