@@ -1702,6 +1702,27 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+"@web3-react/abstract-connector@^6.0.0-beta.19":
+  version "6.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@web3-react/abstract-connector/-/abstract-connector-6.0.0-beta.19.tgz#c4565249977344c2ca6b06c0545d76ef9ffdf225"
+  integrity sha512-aSh3ZvdNBeCXoe9QP7d0Xj19w4nwL+RVvB29rmpylTNpsGJ41nPxXCOXY08olHA+aGmwm8bLhIv3ArFMc29qrA==
+  dependencies:
+    "@web3-react/types" "^6.0.0-beta.19"
+
+"@web3-react/injected-connector@^6.0.0-beta.24":
+  version "6.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@web3-react/injected-connector/-/injected-connector-6.0.0-beta.24.tgz#2da1bc57c0286e46d265a0744f705807086564c0"
+  integrity sha512-sI4hJTyXK/gMB0brGC2FMdL3b07Tw7YF9lofUxVcqPEeVlctn3mer57DJW96tqfF0YRYN8L6vmsFfnwgo4eXug==
+  dependencies:
+    "@web3-react/abstract-connector" "^6.0.0-beta.19"
+    "@web3-react/types" "^6.0.0-beta.19"
+    tiny-warning "^1.0.3"
+
+"@web3-react/types@^6.0.0-beta.19":
+  version "6.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@web3-react/types/-/types-6.0.0-beta.19.tgz#06e32c1c83069c5dd0f18d87c083204057b6a9ea"
+  integrity sha512-8V2ORhdMOrmrdw+Er2b863KsOgatpbelTaBizJ5IcJdKS1NwBQerhyBJucSXwplQWPbuXnSDYCL2Vgv/mzpmUw==
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -13665,7 +13686,7 @@ tiny-invariant@^1.0.2:
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.0.6.tgz#b3f9b38835e36a41c843a3b0907a5a7b3755de73"
   integrity sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==
 
-tiny-warning@^1.0.0, tiny-warning@^1.0.2:
+tiny-warning@^1.0.0, tiny-warning@^1.0.2, tiny-warning@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
