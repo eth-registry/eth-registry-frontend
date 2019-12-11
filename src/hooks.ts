@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { URI_AVAILABLE } from '@web3-react/walletconnect-connector';
 import { injected, walletconnect } from './connectors'
+import { getContract, isAddress } from './helpers/index.js';
+import METADATA_REGISTRY_ABI from './abis/MetadataRegistry.json';
 
 export function useEagerConnect() {
   const { activate, active } = useWeb3React()
@@ -142,12 +144,54 @@ export function useWalletConnectURI() {
     const logURI = (uri: any) => {
       console.log('WalletConnect URI', uri);
     }
-    walletconnect.on(URI_AVAILABLE, logURI);  
+    walletconnect.on(URI_AVAILABLE, logURI);
     return () => {
       walletconnect.off(URI_AVAILABLE, logURI);
     }
   }, []);
 }
 
+export function useRegistryContract(registryAddress: string, withSignerIfPossible: boolean = true) {
+   const { library, account } = useWeb3React()
 
- 
+  return useMemo(() => {
+    try {
+      return getContract(registryAddress, METADATA_REGISTRY_ABI, library, withSignerIfPossible ? account : undefined);
+    } catch (e){
+      return e;
+    }
+  }, [registryAddress, library, withSignerIfPossible, account])
+}
+
+export function useENSName(address: string) {
+  const { library } = useWeb3React();
+
+  const [ENSName, setENSName] = useState();
+
+  useEffect(() => {
+    if (isAddress(address)) {
+      let stale = false;
+      try {
+        library.lookupAddress(address).then( (name: string) => {
+          if (!stale) {
+            if (name) {
+              setENSName(name);
+            } else {
+              setENSName(null);
+            }
+          }
+        })
+      } catch {
+        setENSName(null);
+      }
+
+      return () => {
+        stale = true;
+        setENSName(null);
+      }
+    }
+  }, [library, address])
+
+  return ENSName
+}
+

@@ -35,14 +35,10 @@ const Title = styled.div`
   }
 
   #title {
+    ${({ theme }) => theme.headerText }
     display: inline-block;
-    font-size: 1.25rem;
     padding: 6px;
-    font-weight: 500;
     vertical-align: middle;
-    font-family: "Raleway";
-    font-style:italic;
-    letter-spacing: 0.1rem;
   }
 `
 

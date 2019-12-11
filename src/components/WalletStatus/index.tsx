@@ -8,7 +8,6 @@ const StatusButton = styled.button`
   flex-row: no-wrap;
   width: 100%;
   color: ${({ theme }) => theme.black };
-  font-size: 0.9rem;
   align-items: center;
   padding: 0.5rem;
   border-radius: 2rem;
@@ -37,6 +36,7 @@ const Text = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0 0.5rem 0 0.25rem;
+  ${({ theme }) => theme.headerText };
   font-size: 0.83rem;
 `;
 
@@ -49,7 +49,7 @@ export default function WalletStatus() {
         setActivatingConnector(undefined)
       }
     }, [activatingConnector, connector])
-    
+
     // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
     const triedEager = useEagerConnect();
 

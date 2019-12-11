@@ -48,9 +48,9 @@ function AppRouter() {
             <Route path="/" exact component={Home} />
           </Switch>
           </Router>
-        </ThemeProvider>       
-    </ApolloProvider>
-   </Web3ReactProvider>
+        </ThemeProvider>
+      </ApolloProvider>
+     </Web3ReactProvider>
   );
 }
 

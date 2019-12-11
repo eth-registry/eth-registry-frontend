@@ -1,6 +1,6 @@
 export enum Schemas {
-  ERC721="erc721",
-  ERC1456="erc1456",
-  SELF_ATTESTED="self_attested",
-  ANY="any"
+  ERC721="ERC721 (Coming soon...)",
+  ERC1456="ERC1456 (Coming soon...)",
+  SELF_ATTESTED="Self-attested",
+  GENERIC="Generic"
 }

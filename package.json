@@ -14,6 +14,7 @@
     "@web3-react/network-connector": "^6.0.0-beta.19",
     "@web3-react/walletconnect-connector": "^6.0.0-beta.19",
     "apollo-boost": "^0.4.4",
+    "crypto-js": "^3.1.9-1",
     "dotenv": "^8.2.0",
     "ethers": "^4.0.40",
     "graphql": "^14.5.8",
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.16",
     "@types/react": "^16.9.16",
