@@ -7,6 +7,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import ThemeProvider from './theme'
 import Home from './views/Home';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 function getLibrary(provider:any):Web3Provider {
   const library = new Web3Provider(provider);
@@ -48,9 +49,12 @@ function AppRouter() {
             <Route path="/" exact component={Home} />
           </Switch>
           </Router>
+          <footer>
+            <Footer />
+          </footer>
         </ThemeProvider>
       </ApolloProvider>
-     </Web3ReactProvider>
+    </Web3ReactProvider>
   );
 }
 

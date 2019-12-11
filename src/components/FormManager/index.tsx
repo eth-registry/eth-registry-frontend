@@ -25,6 +25,7 @@ const SubmitButton = styled(Button)`
 
 const ButtonRow = styled.div`
   margin-top: 0.2rem;
+  margin-bottom: 1.5rem;
   float: right;
 `;
 
@@ -121,18 +122,20 @@ export default function FormManager({ initialState }: any) {
                 helperText={!canConvertToBase58(ipfsHash) && ipfsHash.length > 0 ? "There was an error checking the encoding..." : ""}
                 onChange={handleIPFS}
               />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={checkbox.contract} onChange={handleCheckbox('contract')} />
-                }
-                label="Is this a contract or token?"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={checkbox.selfAttested} onChange={handleCheckbox('selfAttested')} />
-                }
-                label="Is this self-attested?"
-              />
+              <ButtonRow>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={checkbox.contract} onChange={handleCheckbox('contract')} />
+                  }
+                  label="Is this a contract or token?"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={checkbox.selfAttested} onChange={handleCheckbox('selfAttested')} />
+                  }
+                  label="Is this self-attested?"
+                />
+              </ButtonRow>
               <SubmitButton
                 type="submit"
                 disabled={!canSubmit(editAddress, ipfsHash)}
