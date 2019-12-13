@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import FormManager from '../components/FormManager';
+import Submissions from '../components/Submissions';
 import { Schemas } from '../types/Schemas';
 import { MetadataRegistryAddress } from '../constants/';
 
@@ -49,7 +50,8 @@ export default function Home() {
           metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.
       </Body>
       <FormManager initialState={{ initial: Schemas.GENERIC }}  />
-      <Byline className="underline">Recent Submissions</Byline>
+      <Byline>Recent Submissions</Byline>
+      <Submissions />
       <Byline>More Information</Byline>
       <Body>
         <b>Metadata Contract:</b>{" "}
