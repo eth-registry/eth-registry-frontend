@@ -1,0 +1,449 @@
+@import url("https://fonts.googleapis.com/css?family=Miss+Fajardose");
+
+* {
+  box-sizing: border-box;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+
+  background-size: 100%;
+  /*-webkit-background-clip: text;*/
+  /*-webkit-text-fill-color: transparent;*/
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+}
+
+.wrap {
+  /*mix-blend-mode: difference;*/
+  z-index: -1;
+}
+
+.editform {
+  margin-top: 5rem;
+  margin-bottom: 14rem;
+}
+
+.editform .form {
+  box-sizing: border-box;
+  margin: -0.75rem -1.75rem 0 -1.75rem;
+  padding: 4rem 1.75rem 1rem 1.75rem;
+  border-radius: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  border-left: 1px solid rgba(0, 0, 0, 0);
+  border-right: 1px solid rgba(0, 0, 0, 0);
+  border-top: none;
+  position: relative;
+  background: linear-gradient(
+    rgba(256, 256, 256, 0) 0%,
+    rgba(256, 256, 256, 1) 8%
+  );
+  z-index: 2;
+}
+
+.editform .form:before {
+  content: "";
+  background: linear-gradient(
+    rgba(256, 256, 256, 0) 18%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  width: calc(100% + 2px);
+  height: 100%;
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  border-radius: 4px;
+  z-index: -4;
+  filter: blur(0.2px);
+}
+
+.editform .form:after {
+  content: "";
+  background: linear-gradient(
+    rgba(256, 256, 256, 0) 0%,
+    rgba(256, 256, 256, 1) 8%
+  );
+  width: calc(100%);
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 4px;
+  z-index: -2;
+}
+
+.editform .form img {
+  margin: 0;
+}
+
+.form {
+  /*top: -100px;*/
+  /*width: 80%;*/
+  min-height: 100% !important;
+  height: 100% !important;
+  max-width: 800px;
+}
+
+.form img {
+  left: auto;
+}
+
+.form input,
+.form textarea,
+.form p,
+.form button,
+.form .prefix {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+.form .monospace {
+  font-family: "Hack", monospace;
+  color: rgba(170, 170, 170, 1);
+  margin-top: 2px;
+  font-size: 10pt;
+  font-weight: 200;
+}
+
+.form h2 {
+  font-size: 12pt;
+  font-weight: 500;
+}
+
+.form h2,
+.form h3,
+.form h4 {
+  text-align: left;
+  border-bottom: 0;
+  padding-bottom: 0;
+  letter-spacing: normal !important;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: default;
+}
+
+.form h2 {
+  margin-bottom: 1em;
+  margin-top: 3em;
+}
+
+.form hr {
+  margin-top: 0.5em;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.form textarea,
+.form input {
+  font-size: 14.4px;
+  font-weight: 300;
+  font-kerning: normal;
+  line-height: 23.4px;
+}
+
+.form .sectionDescription {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: default;
+  font-size: 10pt;
+  font-weight: 500;
+}
+
+.form .prefix {
+  font-size: 10pt;
+  color: rgba(0, 0, 0, 0.3);
+  min-width: 96px;
+  max-width: 96px;
+  text-transform: lowercase;
+}
+
+.form .inputH2 input {
+  font-size: 1.5rem !important;
+  font-family: "Montserrat" !important;
+  font-weight: 300;
+}
+
+.form .inputH4 input {
+  font-size: 0.875rem !important;
+}
+
+.form .borderHover input {
+  color: rgba(0, 0, 0, 0.9);
+}
+.form .borderHover:hover input {
+  color: rgba(0, 0, 0, 1);
+}
+
+.form .borderHover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  position: relative;
+}
+
+.form .borderHover p,
+.form .borderHover .action {
+  opacity: 0;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.form .borderHover:hover {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2) !important;
+  transition: 0.1s all;
+}
+
+.form .borderHover:focus-within {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0) !important;
+  transition: 0.4s all;
+}
+
+.form .borderHover:after {
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  content: "";
+  position: absolute;
+  transform: scaleX(0);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.form .borderHover:focus-within:after {
+  transform: scaleX(1);
+  border-image-slice: 1;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.form .inputH4.reputation input:disabled {
+  font-weight: 500;
+}
+
+.form .dropzone .action {
+  opacity: 0;
+}
+
+.form .borderHover:hover p,
+.form .dropzone:hover .action,
+.form .borderHover:hover .action {
+  opacity: 1;
+}
+
+.form .multilineHover {
+  padding: 5px 12px 12px !important;
+  margin-top: 3px;
+  margin-left: -12px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  width: calc(100% + 24px);
+  position: relative;
+}
+
+.form .multilineHover:after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  position: absolute;
+  transform: scale(1.08);
+  transition: all 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  border: 2px solid rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+.form .multilineHover:focus-within:after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  position: absolute;
+  transform: scale(1);
+  transition: all 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.form .multilineHover:hover:not(:focus-within) {
+  border: 1px dashed rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px;
+}
+
+.form .multilineHover:focus-within {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0) !important;
+  transition: 0.3s all;
+}
+
+.form .inputAdornment {
+  margin-right: 5px;
+  margin-left: -2px;
+}
+.form .inputAdornment svg {
+  font-size: 90%;
+}
+
+.form .action {
+  margin-right: 5px;
+  margin-left: -2px;
+}
+
+.form .action:hover {
+  margin-right: 5px;
+  margin-left: -2px;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+
+.form .monospace {
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 3px;
+  padding: 3px 0px 3px 6px;
+  /*background: #efefef;*/
+}
+
+.form .avatarDropzone {
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  position: relative;
+  margin: auto;
+}
+
+.form .avatarDropzone.empty {
+  border: 1px dashed rgba(0, 0, 0, 0.05);
+  top: 0px;
+}
+
+.form .avatarDropzone:hover {
+  padding: 5px;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  margin: calc(auto - 5px) 0 0 -5px;
+  width: 70px !important;
+  height: 70px !important;
+  top: -5px;
+}
+
+.form .dropmagic {
+  margin: auto;
+  text-align: center;
+}
+.form .dropzone {
+  margin: auto;
+  pointer-events: all;
+  height: 36px;
+  width: 100%;
+}
+
+.form .dropzone input {
+  cursor: pointer;
+}
+
+.form .dropzonecontent {
+  font-size: 10pt;
+  color: rgba(0, 0, 0, 0.8);
+  width: 363px;
+  max-width: 363px;
+  cursor: pointer;
+  min-height: 28px;
+  max-height: 28px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form .dropzonecontent .dropzonetext {
+  margin: auto;
+  font-size: 9pt;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.form .dropzonecontent:not(.empty):hover {
+  text-decoration: underline;
+}
+
+.form .dropzone input {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.form .dropzonecontent.empty {
+  margin: 6px 0 2px 0;
+  border: 1px dashed rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  font-size: 70% !important;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.form .dropzonecontent.empty:hover {
+  margin: 6px 0 2px 0;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-size: 70% !important;
+  background: rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+}
+
+.form .dropzone:not(.empty) input {
+}
+
+.barBadges,
+.barAddress {
+  display: inline-flex;
+  margin-right: 4px;
+}
+
+.badgeIcon svg {
+  font-weight: 600;
+  font-size: 16px;
+  vertical-align: middle;
+  cursor: help;
+}
+
+.formbadges {
+  margin-top: 12px;
+  margin-left: -2px;
+  margin-bottom: 4px;
+}
+
+.badges {
+  margin-top: 2em;
+  padding-top: 3em;
+  margin-bottom: -2em;
+  margin-left: -1em;
+}
+
+.badge {
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  padding: 3px 8px 2px 8px;
+  border-radius: 5px;
+  margin-right: 10px;
+  box-shadow: -26px 0px 0px 0px rgba(255, 255, 255, 0.3) inset;
+  text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: help;
+  display: inline-block;
+}
+
+.badge svg {
+  font-weight: 600;
+  font-size: 20px;
+  vertical-align: top;
+  margin-left: 8px;
+  padding-left: 4px;
+  margin-right: -3px;
+}
+
+.signature {
+  float: right;
+  margin-right: 1rem;
+  font-family: "Miss Fajardose";
+  margin-top: -4rem;
+  font-size: 100pt;
+  color: black;
+  -webkit-transform: rotateZ(-1deg);
+  -ms-transform: rotate(-1deg);
+  transform: rotateZ(-1deg);
+  opacity: 0.03;
+}

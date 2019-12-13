@@ -36,6 +36,9 @@ const Body = styled.p`
 `;
 
 export default function Home() {
+  // TODO: Add tabbed support for multiple forms see types/schemas.ts
+  // const [activeForm, setActiveForm] = useState('');
+
   return (
     <Greeting>
       <Byline>Submit <i>Unstoppable</i> Metadata</Byline>
@@ -49,7 +52,7 @@ export default function Home() {
           The current version deployed on mainnnet accepts any IPFS multihash from contract deployers or from users looking to self-attest
           metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.
       </Body>
-      <FormManager initialState={{ initial: Schemas.GENERIC }}  />
+      <FormManager activeForm={Schemas.ERC1456} badges={['malicious']} />
       <Byline>Recent Submissions</Byline>
       <Submissions />
       <Byline>More Information</Byline>
@@ -62,13 +65,13 @@ export default function Home() {
         >
           <code>{MetadataRegistryAddress}</code>
         </a>
-        <p>
+        <span>
           There are three methods available to you as a delegate:<br/><br />
           - <code>updateEntry(address, digest, hashFunction, size)</code><br />- <code>setDelegate(address, address)</code><br />- <code>clearEntry(address)</code><br /><br />
-          As you can see the API require us to use multihash format, this is to reduce gas costs and future-proof the hash format. More schemas soon to come such as ERC721/ERC1456. <br />Set the delegate to
-          {" "}<code>0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF</code> enable any Ethereum address publishing rights. Hope you know what you're doing... :)<br /><br />
+          As you can see the API require us to use multihash format, this is to reduce gas costs and future-proof the hash format. More schemas soon to come such as ERC721/ERC1456. <br />
+          Set the delegate to {" "}<code>0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF</code> enable any Ethereum address publishing rights. Hope you know what you're doing... :)<br /><br />
           If not, be sure to check out the <a href={"https://github.com/corydickson/eth-metadata-registry/blob/master/README.md"} target="_blank" rel="noopener noreferrer">docs</a>.
-        </p>
+        </span>
       </Body>
     </Greeting>
    );
