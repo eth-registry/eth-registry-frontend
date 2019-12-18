@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useWeb3React } from '@web3-react/core';
 import Edit from "@material-ui/icons/Edit";
 import { Grid, InputBase, InputAdornment } from '@material-ui/core';
-import { ERC1456 } from '../../types/Schemas';
+// import { ERC1456 } from '../../types/Schemas';
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
 import Registry from "./Registry"; //single priority icon
+// import EthRegistry from 'eth-registry';
 
-export default function ERC1456Form(props:any) {
+// Existing entries:
+// http://localhost:3000/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0 kraken
+// http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
+// http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
+// const registry = new EthRegistry();
+
+export default function ERC1456Form(props) {
+  const { account } = useWeb3React();
+  const erc1456Form = useRef(null);
   const [formState, setFormState] = useState({
     data: {
       metadata: {
@@ -22,20 +32,73 @@ export default function ERC1456Form(props:any) {
       contract: {
         abi: "",
       },
-    } as ERC1456,
-    contractdata: {} as any
+    },
+    contractdata: {},
+    permission: ""
   });
 
   const { data, contractdata } = formState;
   const { metadata } = data;
 
-  const handleChange = (name: string) => (event: any) => {
+  const handleChange = (name) => (event) => {
     setFormState({...formState, [name]: event.target.value });
   };
 
+  const permissionText = (contractdata) => {
+    let currentAccount = account ? account : undefined;
+    if (!contractdata) return "disconnected";
+    if (contractdata.self_attested || contractdata.curated) {
+      if (currentAccount && currentAccount === contractdata.address)
+        return "verified_self";
+      if (contractdata.self_attested) return "verified";
+      if (contractdata.curated) return "curated";
+    }
+    return "any";
+  }
+
+  /**
+  const clearEditor = () => {
+    let json = registry.getEmptyObject();
+    json.address = this.props.address;
+    setFormState({
+      metadata: json.metadata,
+      contractdata: json,
+      permission: this.permissionText(json),
+    });
+    if (this.form.current) this.form.current.populateForm(json.metadata, json);
+  }
+
+  const populateEditor = (contractdata: any): boolean => {
+    if (!contractdata) return false;
+    let md = contractdata.data.metadata as ERC1456; // we need to use the types here
+    if (!md) return false;
+    setFormState({
+      ...formState,
+      metadata: md,
+      contractdata: contractdata,
+    });
+
+    return true
+  }
+
+  const getCuratedRegistryData = (address: string): void => {
+    if (registry.isValidAddress(address)) {
+      registry.get(address).then((contractdata: any) => {
+        if (populateEditor(contractdata)) {
+          // this.props.setType(contractdata);
+          // This would change the text to unstoppable -> curated, maybe there is a dropdown with transparent background elements over the text
+        } else {
+          clearEditor();
+        }
+      }).catch((err: any) => {
+        console.error(err);
+      });
+    }
+    } **/
+
   return(
     <div>
-      <div className="form">
+      <div ref={erc1456Form} className="form">
         <Grid container>
           <Grid item xs={2}>
             <LogoDrop
@@ -99,7 +162,6 @@ export default function ERC1456Form(props:any) {
                 />
               );
             })}
-
             <h2>
               Contract Details
               <hr />

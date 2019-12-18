@@ -139,7 +139,7 @@ export function useEthBalanceUpdate() {
 }
 
 export function useWalletConnectURI() {
-    // log the walletconnect URI
+  // log the walletconnect URI
   useEffect(() => {
     const logURI = (uri: any) => {
       console.log('WalletConnect URI', uri);
@@ -152,7 +152,7 @@ export function useWalletConnectURI() {
 }
 
 export function useRegistryContract(registryAddress: string, withSignerIfPossible: boolean = true) {
-   const { library, account } = useWeb3React()
+  const { library, account } = useWeb3React()
 
   return useMemo(() => {
     try {
@@ -194,4 +194,5 @@ export function useENSName(address: string) {
 
   return ENSName
 }
+
 

@@ -21,7 +21,7 @@ export default function FormManager(props: any) {
     if (props.activeForm) {
       if (props.activeForm === Schemas.ERC1456) {
         return (
-          <ERC1456Form badges={props.badges} />
+          <ERC1456Form editAddress={editAddress} badges={props.badges} />
         );
       }
 
