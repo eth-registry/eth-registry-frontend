@@ -15,7 +15,7 @@ export default class FormComponent extends Component {
 
     renderUploader() {
         return (
-            <React.Fragment>
+            <React.Fragment key={this.props.key}>
                 <input
                     accept={this.props.accept}
                     id={"flat-button-file" + this.state.key}

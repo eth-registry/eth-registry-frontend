@@ -125,7 +125,7 @@ export default class Registry extends Component {
                     {t.text} {t.icon}
                 </span>
             );
-        else return <React.Fragment />;
+        else return <React.Fragment key={i} />;
     }
 
     renderIcon(type, i) {
@@ -146,7 +146,7 @@ export default class Registry extends Component {
                     {t.icon}
                 </span>
             );
-        else return <React.Fragment />;
+        else return <React.Fragment key={i} />;
     }
 
     render() {
