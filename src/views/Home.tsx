@@ -1,9 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 import FormManager from '../components/FormManager';
 import Submissions from '../components/Submissions';
 import { Schemas } from '../types/Schemas';
 import { MetadataRegistryAddress } from '../constants/';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSchemaDefinition";
+
+// TODO: fix theme provider and styled drop down in there....
+const StyledFormControl = styled(FormControl)`
+  vertical-align: middle !important;
+  padding-top: 0px !important;
+  margin: 0 0 0 0.5rem !important;
+
+  .MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-selected {
+    font-family: "Tomorrow", sans-serif !important;
+  }
+
+  svg {
+    display:none;
+  }
+  
+  .MuiInputBase-root {
+    font-family: "Tomorrow", sans-serif;
+    font-size: 2rem;
+    line-height: 2.5;
+  }
+  .MuiInputBase-input {
+    padding: 0px 0 10px;
+  }
+
+  .MuiInput-underline:before {
+    content: none;
+  }
+
+  .MuiSelect-selectMenu.MuiSelect-selectMenu {
+    padding-right: 0.75rem;
+  }
+`
 
 const Greeting = styled.div`
   max-width: 42rem;
@@ -37,11 +74,29 @@ const Body = styled.p`
 
 export default function Home() {
   // TODO: Add tabbed support for multiple forms see types/schemas.ts
-  // const [activeForm, setActiveForm] = useState('');
+  const [activeForm, setActiveForm] = useState(Schemas.GENERIC);
+
+  const inputLabel = React.useRef<HTMLLabelElement>(null);
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+
+    // enumarate unstoppable or curated and map to schema
+    setActiveForm(event.target.value as Schemas);
+  };
 
   return (
     <Greeting>
-      <Byline>Submit <i>Unstoppable</i> Metadata</Byline>
+      <Byline>Submit 
+        <StyledFormControl>
+          <Select value={activeForm} onChange={handleChange} displayEmpty>
+            <MenuItem value={Schemas.GENERIC}>
+              <i>Unstoppable</i> 
+            </MenuItem>
+            <MenuItem value={Schemas.ERC1456}><i>Curated</i></MenuItem>
+          </Select>
+        </StyledFormControl>
+        Metadata
+      </Byline>
       <Body>
           ETHRegistry stores information you submit about an Ethereum address
           on the blockchain and IPFS to make it <b>openly accessible to users, wallets and apps</b> without having to
@@ -52,7 +107,7 @@ export default function Home() {
           The current version deployed on mainnnet accepts any IPFS multihash from contract deployers or from users looking to self-attest
           metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.
       </Body>
-      <FormManager activeForm={Schemas.ERC1456} badges={['malicious']} />
+      <FormManager activeForm={activeForm} badges={['malicious']} />
       <Byline>Recent Submissions</Byline>
       <Submissions />
       <Byline>More Information</Byline>

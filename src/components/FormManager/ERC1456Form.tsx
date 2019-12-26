@@ -1,23 +1,40 @@
 import React, { useState, useEffect, createRef } from 'react';
+import styled from 'styled-components';
 import { useWeb3React } from '@web3-react/core';
 import Edit from "@material-ui/icons/Edit";
-import { Grid, InputBase, InputAdornment } from '@material-ui/core';
+import { Button, Tooltip, Grid, InputBase, InputAdornment } from '@material-ui/core';
+import { ButtonRow } from '../../theme/components';
 import { ERC1456 } from '../../types/Schemas';
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
 import Registry from "./Registry"; //single priority icon
 import EthRegistry from '../../helpers/registry.js';
+import axios from "axios";
+
+const Byline = styled.h2`
+  ${({ theme }) => theme.bylineText }
+  margin-top: 4rem;
+  border-bottom: 1px solid hsla(0,0%,0%,0.07);
+  line-height: 2.5;
+`;
 
 // Existing entries:
 // http://localhost:3000/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0 kraken
 // http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
 // http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
 
+
+// TODO: create a context for the registry that can be accessed
+const registry = new EthRegistry(null);
+
 export default function ERC1456Form(props: any) {
   const { library, account } = useWeb3React();
-  const registry = new EthRegistry(library);
+  const erc1456Form = createRef<HTMLDivElement>();
+  const [price, setPrice] = useState({
+    eth: 0,
+    usd: 0
+  });
 
-  const erc1456Form = createRef<HTMLFormElement>();
   const [formState, setFormState] = useState({
     data: {
       metadata: {
@@ -51,6 +68,11 @@ export default function ERC1456Form(props: any) {
 
   const { data, contractdata } = formState;
   const { metadata } = data;
+
+  const handleSubmit = (evt: any) => {
+    evt.preventDefault();
+
+  }
 
   const handleChange = (name: string) => (evt: any) => {
     if (evt === undefined) return; // we need this check for the logo drop since no event is fired
@@ -97,8 +119,6 @@ export default function ERC1456Form(props: any) {
     if (contractdata === {}) return false;
     let md = contractdata.data ? contractdata.data.metadata : undefined; // we need to use the types here
     let contract = md ? md.contract : undefined; // we need to use the types here
-    console.log(md);
-    console.log(contract);
     if (!md) return false;
     if (!contract) return false;
 
@@ -114,7 +134,32 @@ export default function ERC1456Form(props: any) {
     return true
   }
 
+  async function getUSD() {
+    return axios
+      .get(
+        `https://api.etherscan.io/api?module=stats&ohai&action=ethprice&apikey=${process.env.REACT_APP_ETHERSCAN_API_KEY}`,
+      )
+      .then(function(response) {
+        return parseFloat(response.data.result.ethusd);
+      })
+      .catch(function(error) {
+        console.log(error);
+        return 0;
+      });
+  }
+
   useEffect(() => {
+    async function getPrice() {
+      if (account) {
+        const inEth = await registry.price();
+        const usd = await getUSD();
+        setPrice({
+          eth: inEth,
+          usd: parseFloat((inEth * usd).toFixed(3))
+        });
+      }
+    }
+
     async function getCuratedData(contractdata:any) {
       if (populateEditor(contractdata)) {
         // this.props.setType(contractdata);
@@ -128,11 +173,13 @@ export default function ERC1456Form(props: any) {
     if (props.contractData) {
       getCuratedData(props.contractData);
     }
-  }, [props.editAddress, props.contractData]);
+
+    getPrice();
+  }, [props.editAddress, props.contractData, account]);
 
   return(
     <div>
-      <div className="form">
+      <div ref={erc1456Form} className="form">
         <Grid container>
           <Grid item xs={2}>
             <LogoDrop
@@ -147,13 +194,6 @@ export default function ERC1456Form(props: any) {
               className="borderHover inputH2"
               placeholder="Name"
               onChange={handleChange("metadata.name")}
-              startAdornment={
-                <React.Fragment>
-                  <InputAdornment position="start">
-                    <Registry single icon type={props.badges} />
-                  </InputAdornment>
-                </React.Fragment>
-              }
               endAdornment={
                 <React.Fragment>
                   <InputAdornment position="end" className="badgeIcon action">
@@ -179,10 +219,10 @@ export default function ERC1456Form(props: any) {
               className="multilineHover"
               onChange={handleChange("metadata.description")}
             />
-            <h2>
+            <Byline>
               Contact Information
-              <hr />
-            </h2>
+            <hr />
+            </Byline>
             {Object.keys(metadata.contact).map((key: string) => {
               return (
                 <FormComponent
@@ -195,10 +235,10 @@ export default function ERC1456Form(props: any) {
                 />
               );
             })}
-            <h2>
+            <Byline>
               Contract Details
               <hr />
-            </h2>
+            </Byline>
             <p className="sectionDescription">
               Contract details allow users to validate and trust the source code
               of your contracts. If you are using Radspec this also enables you
@@ -251,10 +291,10 @@ export default function ERC1456Form(props: any) {
                 "metadata.contract.constructor_arguments",
               )}
             />
-            <h2>
+            <Byline>
               Reputation
               <hr />
-            </h2>
+            </Byline>
             <p className="sectionDescription">
               Reputation is attributed by ETH Registry, malicious sites that are
               reported to us will be tagged as malicious upon further
@@ -308,7 +348,39 @@ export default function ERC1456Form(props: any) {
           <Registry single type={props.badges} />
         </div>
       </div>
+      <ButtonRow className="button-aligner">
+        <Tooltip
+          title={
+            !props.canEdit ? "Can't submit: account is not a curator" : ""
+          }
+          enterDelay={200}
+          leaveDelay={200}
+        >
+          <span style={{margin: "1rem"}}>
+            <Button
+              disabled={!props.canEdit}
+              size="small"
+              variant="contained"
+              color="secondary"
+              style={{ color: "white" }}
+              onClick={handleSubmit}
+            >
+              Submit Metadata
+            </Button>
+          </span>
+        </Tooltip>
+        <Tooltip
+          title={(props.canEdit ? 0 : price.eth) + " Ξ"}
+          enterDelay={200}
+          leaveDelay={200}
+        >
+        <span>
+          <Button variant="outlined" disabled size="small">
+            ~ $ {props.canEdit ? 0 : price.usd}
+          </Button>
+        </span>
+        </Tooltip>
+      </ButtonRow>
     </div>
   );
 }
-

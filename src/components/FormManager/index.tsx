@@ -25,8 +25,9 @@ export default function FormManager(props: any) {
 
   // TODO: create context states for each form schema
   const [editAddress, setEditAddress] = useState('');
+  const [canEdit, setCanEdit] = useState(false);
   const [contractData, setContractData] = useState({});
-  const [exists, setExists] = useState(false);
+  //  const [exists, setExists] = useState(false);
 
   useEffect(() => {
     async function fetchIPFSHash() {
@@ -35,14 +36,22 @@ export default function FormManager(props: any) {
         setContractData(contractdata);
       }
     }
+
+    async function getCuratorStatus() {
+      if (account) {
+        let curator: boolean = await registry.isCurator(account);
+        setCanEdit(curator);
+      }
+    }
     fetchIPFSHash();
-  }, [editAddress]);
+    getCuratorStatus();
+  }, [account, editAddress]);
 
   function getForm() {
     if (props.activeForm) {
       if (props.activeForm === Schemas.ERC1456) {
         return (
-          <ERC1456Form contractData={contractData} editAddress={editAddress} badges={props.badges} />
+          <ERC1456Form canEdit={canEdit} contractData={contractData} editAddress={editAddress} badges={props.badges} />
         );
       }
 

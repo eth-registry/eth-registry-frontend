@@ -1,28 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { useWeb3React } from '@web3-react/core';
-import { Button, Checkbox, TextField, FormControlLabel } from '@material-ui/core';
+import { Checkbox, TextField, FormControlLabel } from '@material-ui/core';
 import { getBytes32FromMultihash, canConvertToBase58, isAddress } from '../../helpers/index.js';
 import { MetadataRegistryAddress } from '../../constants/';
 import { useRegistryContract } from '../../hooks';
-import { StyledForm, ButtonRow } from '../../theme/components';
-
-const SubmitButton = styled(Button)`
-  ${({ theme }) => theme.bodyText }
-  margin-top: 3rem;
-  width: 100%;
-  color: ${({ theme }) => theme.black };
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 2rem;
-  box-sizing: border-box;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  }
-`;
-
+import { SubmitButton, StyledForm, ButtonRow } from '../../theme/components';
 
 export default function GenericForm(props: any) {
   const [ipfsHash, setIPFSHash] = useState('');
