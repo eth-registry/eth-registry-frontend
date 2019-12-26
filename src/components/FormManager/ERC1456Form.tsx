@@ -5,6 +5,8 @@ import Edit from "@material-ui/icons/Edit";
 import { Button, Tooltip, Grid, InputBase, InputAdornment } from '@material-ui/core';
 import { ButtonRow } from '../../theme/components';
 import { ERC1456 } from '../../types/Schemas';
+
+// TODO: deprecate these components to be uncontrolled and make this HOC manage the state for submission
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
 import Registry from "./Registry"; //single priority icon
@@ -69,9 +71,9 @@ export default function ERC1456Form(props: any) {
   const { data, contractdata } = formState;
   const { metadata } = data;
 
+  // TODO: have this component manage the form state
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
-
   }
 
   const handleChange = (name: string) => (evt: any) => {
