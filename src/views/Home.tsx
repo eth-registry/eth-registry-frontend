@@ -5,7 +5,6 @@ import Submissions from '../components/Submissions';
 import { Schemas } from '../types/Schemas';
 import { MetadataRegistryAddress } from '../constants/';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSchemaDefinition";
@@ -23,7 +22,7 @@ const StyledFormControl = styled(FormControl)`
   svg {
     display:none;
   }
-  
+
   .MuiInputBase-root {
     font-family: "Tomorrow", sans-serif;
     font-size: 2rem;
@@ -109,7 +108,7 @@ export default function Home() {
       </Body>
       <FormManager activeForm={activeForm} badges={['malicious']} />
       <Byline>Recent Submissions</Byline>
-      <Submissions />
+      <Submissions activeForm={activeForm} />
       <Byline>More Information</Byline>
       <Body>
         <b>Metadata Contract:</b>{" "}

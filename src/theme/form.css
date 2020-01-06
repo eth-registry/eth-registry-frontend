@@ -336,6 +336,7 @@
 }
 
 .form .dropzonecontent {
+  font-family: 'Tomorrow', sans-serif;
   font-size: 10pt;
   color: rgba(0, 0, 0, 0.8);
   width: 363px;

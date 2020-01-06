@@ -179,6 +179,7 @@ export default function ERC1456Form(props: any) {
     getPrice();
   }, [props.editAddress, props.contractData, account]);
 
+
   return(
     <div>
       <div ref={erc1456Form} className="form">
@@ -206,7 +207,6 @@ export default function ERC1456Form(props: any) {
             />
             <FormComponent
               value={metadata.url || ""}
-              defaultValue="https://spankchain.com"
               type="url"
               placeholder={"Website"}
               onChange={handleChange("metadata.url")}
@@ -217,14 +217,15 @@ export default function ERC1456Form(props: any) {
               rowsMax="5"
               placeholder={"Description"}
               value={metadata.description || ""}
-              defaultValue="SpankChain is a revolutionary blockchain based economic and technological infrastructure for the adult industry. Built on Ethereum, our smart contracts allow us to eliminate third party intermediaries and unfair payment practices while providing more powerful privacy and security."
               className="multilineHover"
               onChange={handleChange("metadata.description")}
             />
-            <Byline>
-              Contact Information
-            <hr />
-            </Byline>
+            {Object.keys(metadata.contact).length > 0 ?
+              <Byline>
+                Contact Information
+                <hr />
+              </Byline> : null
+            }
             {Object.keys(metadata.contact).map((key: string) => {
               return (
                 <FormComponent
@@ -271,13 +272,11 @@ export default function ERC1456Form(props: any) {
             />
             <FormComponent
               label="language"
-              defaultValue="Solidity"
               value={data.contract.language || ""}
               onChange={handleChange("data.contract.language")}
             />
             <FormComponent
               label="optimizer"
-              defaultValue="200"
               value={data.contract.optimizer || ""}
               onChange={handleChange("data.contract.optimizer")}
             />
@@ -330,12 +329,6 @@ export default function ERC1456Form(props: any) {
               className="reputation"
               label="Curated by"
               value="Ethtective, WalletConnect"
-              disabled
-            />
-            <FormComponent
-              className="reputation"
-              label="Description"
-              value={contractdata.description}
               disabled
             />
             <FormComponent

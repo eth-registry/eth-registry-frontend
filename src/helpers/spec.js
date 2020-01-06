@@ -10,7 +10,12 @@ const spec = {
         url: "",
         logo: "",
         description: "",
-        contact: [],
+        contact: {
+          email: "",
+          peepeth: "",
+          press: "",
+          support: "",
+        },
         contract: {
             name: "",
             abi: "",
