@@ -6,9 +6,9 @@ import { getContract, isAddress } from './helpers/index.js';
 import METADATA_REGISTRY_ABI from './abis/MetadataRegistry.json';
 
 export function useEagerConnect() {
-  const { activate, active } = useWeb3React()
+  const { activate, active } = useWeb3React();
 
-  const [tried, setTried] = useState(false)
+  const [tried, setTried] = useState(false);
 
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized: boolean) => {
@@ -20,16 +20,16 @@ export function useEagerConnect() {
         setTried(true)
       }
     })
-  }, []) // intentionally only running on mount (make sure it's only mounted once :))
+  }, []);
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
   useEffect(() => {
     if (!tried && active) {
       setTried(true)
     }
-  }, [tried, active])
+  }, [tried, active]);
 
-  return tried
+  return tried;
 }
 
 export function useInactiveListener(suppress: boolean = false) {
@@ -157,7 +157,7 @@ export function useRegistryContract(registryAddress: string, withSignerIfPossibl
   return useMemo(() => {
     try {
       return getContract(registryAddress, METADATA_REGISTRY_ABI, library, withSignerIfPossible ? account : undefined);
-    } catch (e){
+    } catch (e) {
       return e;
     }
   }, [registryAddress, library, withSignerIfPossible, account])
@@ -194,5 +194,3 @@ export function useENSName(address: string) {
 
   return ENSName
 }
-
-

@@ -13,7 +13,6 @@ import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSc
 const StyledFormControl = styled(FormControl)`
   vertical-align: middle !important;
   padding-top: 0px !important;
-  margin: 0 0 0 0.5rem !important;
 
   .MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-selected {
     font-family: "Tomorrow", sans-serif !important;
@@ -85,11 +84,11 @@ export default function Home() {
 
   return (
     <Greeting>
-      <Byline>Submit 
+      <Byline>Submit{" "}
         <StyledFormControl>
           <Select value={activeForm} onChange={handleChange} displayEmpty>
             <MenuItem value={Schemas.GENERIC}>
-              <i>Unstoppable</i> 
+              <i>Unstoppable</i>
             </MenuItem>
             <MenuItem value={Schemas.ERC1456}><i>Curated</i></MenuItem>
           </Select>

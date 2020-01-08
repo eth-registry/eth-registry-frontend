@@ -28,7 +28,7 @@ const theme = createMuiTheme({
       body1: {
         fontFamiliy: 'Tomorrow',
         fontWeight: 800,
-        fontSize: "0.9rem",
+        fontSize: "1.1rem",
         letterSpacing: "0.06rem"
       }
     },
@@ -39,7 +39,7 @@ const theme = createMuiTheme({
       text-align: center;
     `,
     bodyText: css`
-      font-size: 0.9rem;
+      font-size: 1.1rem;
       position: relative;
       font-weight:800;
       letter-spacing: 0.06rem;

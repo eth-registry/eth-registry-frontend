@@ -4,7 +4,39 @@ import { LinearProgress } from '@material-ui/core';
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import { Schemas } from '../../types/Schemas';
+import { registry } from '../../contexts';
 import EthRegistry from '../../helpers/registry.js';
+
+const HistoryItem = styled.div`
+  width: 430px;
+  position: relative;
+  margin-bottom: 1rem;
+  ${({ theme }) => theme.bodyText }
+  img {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    left: 0px;
+    margin: 0 2px 0 0;
+  }
+
+  span {
+    position: relative;
+    left: 5px;
+    top: -2px;
+  }
+
+  span code {
+    position: relative;
+    left: 21px;
+  }
+`;
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+  overflow:hidden;
+  width:min-content;
+`
 
 const ENTRIES_QUERY = gql`
   query getLatestEntries {
@@ -17,12 +49,11 @@ const ENTRIES_QUERY = gql`
   }
 `;
 
-const registry = new EthRegistry(null);
-
 export default function Submissions(props) {
   const [submissions, setSubmissions] = useState({
     recent: [],
-    history: []
+    history: [],
+    isLoading: true,
   });
 
   useEffect(() => {
@@ -38,37 +69,51 @@ export default function Submissions(props) {
 
         setSubmissions({
           ...submissions,
-          recent: recent
+          recent: recent,
+          isLoading: false
         });
       }
     }
     fetchRecent();
   }, [props.activeForm]);
 
+  function renderCurated() {
+    if (submissions.isLoading) {
+      return <LinearProgress variant="query" style={{ width: '80%' }} />
+    }
+    else {
+      return (
+        <Wrapper>
+          {submissions.recent.map(sub => {
+            if (!sub.data) return "";
+            return (
+              <HistoryItem key={sub.key}>
+                <img src={sub.data.metadata.logo} alt="submission_icon" />{" "}
+                <span>
+                  <a href={"https://ethregistry.org/edit/" + sub.data.address}>
+                    {sub.name}
+                  </a>{" "}
+                  <br />
+                  <code>
+                    <a href={"https://www.ethtective.com/" + sub.address}>
+                      {sub.address}
+                    </a>
+                  </code>
+                </span>
+              </HistoryItem>
+            );
+          })}
+        </Wrapper>
+      );
+    }
+  }
+
   function renderSubmissions() {
     if (props.activeForm) {
       if (props.activeForm === Schemas.ERC1456) {
         return (
           <>
-            {submissions.recent.map(sub => {
-              if (!sub.data) return "";
-              return (
-                <div key={sub.key} className="historyItem">
-                  <img src={sub.data.metadata.logo} alt="submission_icon" />{" "}
-                  <span>
-                    <a href={"https://ethregistry.org/edit/" + sub.data.address}>
-                      {sub.name}
-                    </a>{" "}
-                    <br />
-                    <code>
-                      <a href={"https://www.ethtective.com/" + sub.address}>
-                        {sub.address}
-                      </a>
-                    </code>
-                  </span>
-                </div>
-              );
-          })}
+            {renderCurated()}
           </>
         );
       }

@@ -5,6 +5,7 @@ import Edit from "@material-ui/icons/Edit";
 import { Button, Tooltip, Grid, InputBase, InputAdornment } from '@material-ui/core';
 import { ButtonRow } from '../../theme/components';
 import { ERC1456 } from '../../types/Schemas';
+import { registry } from '../../contexts';
 
 // TODO: deprecate these components to be uncontrolled and make this HOC manage the state for submission
 import FormComponent from "./FormComponent";
@@ -24,10 +25,6 @@ const Byline = styled.h2`
 // http://localhost:3000/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0 kraken
 // http://localhost:3000/edit/0x42d6622dece394b54999fbd73d108123806f6a18 spankchain
 // http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
-
-
-// TODO: create a context for the registry that can be accessed
-const registry = new EthRegistry(null);
 
 export default function ERC1456Form(props: any) {
   const { library, account } = useWeb3React();
@@ -165,8 +162,6 @@ export default function ERC1456Form(props: any) {
     async function getCuratedData(contractdata:any) {
       if (populateEditor(contractdata)) {
         // this.props.setType(contractdata);
-        // This would change the text to unstoppable -> curated, maybe there is a dropdown
-        // with transparent background elements over the text
       } else {
         clearEditor();
       }
@@ -245,7 +240,7 @@ export default function ERC1456Form(props: any) {
             <p className="sectionDescription">
               Contract details allow users to validate and trust the source code
               of your contracts. If you are using Radspec this also enables you
-              to use Human Readable Machine Verifyable transactions.
+              to use Human Readable transactions.
             </p>
             <FormComponent
               file={data.contract.abi}
