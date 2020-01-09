@@ -1,17 +1,15 @@
 import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
+import { registry } from '../../contexts';
 import { useWeb3React } from '@web3-react/core';
 import Edit from "@material-ui/icons/Edit";
 import { Button, Tooltip, Grid, InputBase, InputAdornment } from '@material-ui/core';
 import { ButtonRow } from '../../theme/components';
-import { ERC1456 } from '../../types/Schemas';
-import { registry } from '../../contexts';
 
 // TODO: deprecate these components to be uncontrolled and make this HOC manage the state for submission
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
 import Registry from "./Registry"; //single priority icon
-import EthRegistry from '../../helpers/registry.js';
 import axios from "axios";
 
 const Byline = styled.h2`
@@ -27,7 +25,7 @@ const Byline = styled.h2`
 // http://localhost:3000/edit/0x6090a6e47849629b7245dfa1ca21d94cd15878ef ens
 
 export default function ERC1456Form(props: any) {
-  const { library, account } = useWeb3React();
+  const { account } = useWeb3React();
   const erc1456Form = createRef<HTMLDivElement>();
   const [price, setPrice] = useState({
     eth: 0,
@@ -167,7 +165,7 @@ export default function ERC1456Form(props: any) {
       }
     }
 
-    if (props.contractData) {
+    if (props.contractData !== {}) {
       getCuratedData(props.contractData);
     }
 

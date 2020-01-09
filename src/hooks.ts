@@ -20,7 +20,7 @@ export function useEagerConnect() {
         setTried(true)
       }
     })
-  }, []);
+  }, [activate]);
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
   useEffect(() => {

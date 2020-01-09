@@ -81,7 +81,7 @@ export default class Metadata {
         if (!ipfs) return null;
 
         // @todo check if metadata is valid
-        let metadata = JSON.parse(JSON.stringify(ipfs));
+        //let metadata = JSON.parse(JSON.stringify(ipfs));
 
         // @todo merge metadata object with empty object to bring it up to date if spec changed
 

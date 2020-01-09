@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider as StyledComponentsThemeProvider, css } from 'styled-components';
 import { createMuiTheme } from '@material-ui/core';
 
+/* TODO: mobile styling
 const MEDIA_WIDTHS = {
     upToSmall: 600,
     upToMedium: 960,
@@ -16,6 +17,7 @@ const mediaWidthTemplates = Object.keys(MEDIA_WIDTHS).reduce((accumulator, size)
     `
     return accumulator
 }, {});
+*/
 
 const white = '#FFFFFF'
 const black = '#000000'
@@ -24,7 +26,7 @@ const theme = createMuiTheme({
     white,
     black,
     typography: {
-      fontFamily: 'Raleway, Arial',
+      fontFamily: 'Raleway, Arial, Tomorrow',
       body1: {
         fontFamiliy: 'Tomorrow',
         fontWeight: 800,

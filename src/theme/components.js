@@ -31,3 +31,13 @@ export const ButtonRow = styled.div`
 `;
 
 
+export const Body = styled.p`
+  ${({ theme }) => theme.bodyText }
+  margin-top: 2rem;
+  position: relative;
+  display:inline-block;
+  a {
+   text-decoration:none;
+  }
+`;
+

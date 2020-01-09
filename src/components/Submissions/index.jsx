@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from 'styled-components';
+import { ActiveFormContext } from '../../contexts';
 import { LinearProgress } from '@material-ui/core';
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import { Schemas } from '../../types/Schemas';
 import { registry } from '../../contexts';
-import EthRegistry from '../../helpers/registry.js';
 
 const HistoryItem = styled.div`
   width: 430px;
@@ -50,6 +50,8 @@ const ENTRIES_QUERY = gql`
 `;
 
 export default function Submissions(props) {
+  const activeForm = useContext(ActiveFormContext);
+
   const [submissions, setSubmissions] = useState({
     recent: [],
     history: [],
@@ -58,7 +60,7 @@ export default function Submissions(props) {
 
   useEffect(() => {
     async function fetchRecent() {
-      if (props.activeForm == Schemas.ERC1456) {
+      if (activeForm === Schemas.ERC1456) {
         let response = await registry.getHistory();
         let recent = [];
         for (let r of response) {
@@ -67,15 +69,17 @@ export default function Submissions(props) {
           recent.push(data);
         }
 
-        setSubmissions({
-          ...submissions,
-          recent: recent,
-          isLoading: false
-        });
+        setSubmissions(s => (
+          {
+            ...s,
+            recent: recent,
+            isLoading: false
+          }
+        ));
       }
     }
     fetchRecent();
-  }, [props.activeForm]);
+  }, [activeForm]);
 
   function renderCurated() {
     if (submissions.isLoading) {
@@ -84,10 +88,10 @@ export default function Submissions(props) {
     else {
       return (
         <Wrapper>
-          {submissions.recent.map(sub => {
+          {submissions.recent.map((sub, i)=> {
             if (!sub.data) return "";
             return (
-              <HistoryItem key={sub.key}>
+              <HistoryItem key={i}>
                 <img src={sub.data.metadata.logo} alt="submission_icon" />{" "}
                 <span>
                   <a href={"https://ethregistry.org/edit/" + sub.data.address}>
@@ -109,8 +113,8 @@ export default function Submissions(props) {
   }
 
   function renderSubmissions() {
-    if (props.activeForm) {
-      if (props.activeForm === Schemas.ERC1456) {
+    if (activeForm) {
+      if (activeForm === Schemas.ERC1456) {
         return (
           <>
             {renderCurated()}
@@ -118,7 +122,7 @@ export default function Submissions(props) {
         );
       }
 
-      if (props.activeForm === Schemas.GENERIC) {
+      if (activeForm === Schemas.GENERIC) {
         return (
           <Query query={ENTRIES_QUERY} >
             {({ data, error, loading }) => {

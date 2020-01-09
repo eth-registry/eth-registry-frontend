@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
+import { ActiveFormContext } from '../contexts';
 import FormManager from '../components/FormManager';
 import Submissions from '../components/Submissions';
-import { Schemas } from '../types/Schemas';
-import { MetadataRegistryAddress } from '../constants/';
+import Information from '../components/Information';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSchemaDefinition";
+import { Body } from '../theme/components';
+import { Schemas } from '../types/Schemas';
+// import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSchemaDefinition";
 
 // TODO: fix theme provider and styled drop down in there....
 const StyledFormControl = styled(FormControl)`
@@ -59,26 +61,10 @@ const Byline = styled.h2`
   line-height: 2.5;
 `;
 
-
-const Body = styled.p`
-  ${({ theme }) => theme.bodyText }
-  margin-top: 2rem;
-  position: relative;
-  display:inline-block;
-  a {
-   text-decoration:none;
-  }
-`;
-
 export default function Home() {
-  // TODO: Add tabbed support for multiple forms see types/schemas.ts
   const [activeForm, setActiveForm] = useState(Schemas.GENERIC);
 
-  const inputLabel = React.useRef<HTMLLabelElement>(null);
-
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-
-    // enumarate unstoppable or curated and map to schema
     setActiveForm(event.target.value as Schemas);
   };
 
@@ -100,32 +86,17 @@ export default function Home() {
           on the blockchain and IPFS to make it <b>openly accessible to users, wallets and apps</b> without having to
           go through third parties that lock your data behind APIs. We wish to
           provide the Ethereum ecosystem with an easy way to add, edit and
-          access information such as logo, url, token information or scam type
-          to the Ethereum blockchain.<br /><br />
+          access information such as logo, url, token information or scam type to the Ethereum blockchain.<br /><br />
           The current version deployed on mainnnet accepts any IPFS multihash from contract deployers or from users looking to self-attest
           metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.
       </Body>
-      <FormManager activeForm={activeForm} badges={['malicious']} />
-      <Byline>Recent Submissions</Byline>
-      <Submissions activeForm={activeForm} />
-      <Byline>More Information</Byline>
-      <Body>
-        <b>Metadata Contract:</b>{" "}
-        <a
-          href={"http://canary.ethtective.com/" + MetadataRegistryAddress}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <code>{MetadataRegistryAddress}</code>
-        </a>
-        <span>
-          There are three methods available to you as a delegate:<br/><br />
-          - <code>updateEntry(address, digest, hashFunction, size)</code><br />- <code>setDelegate(address, address)</code><br />- <code>clearEntry(address)</code><br /><br />
-          As you can see the API require us to use multihash format, this is to reduce gas costs and future-proof the hash format. More schemas soon to come such as ERC721/ERC1456. <br />
-          Set the delegate to {" "}<code>0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF</code> enable any Ethereum address publishing rights. Hope you know what you're doing... :)<br /><br />
-          If not, be sure to check out the <a href={"https://github.com/corydickson/eth-metadata-registry/blob/master/README.md"} target="_blank" rel="noopener noreferrer">docs</a>.
-        </span>
-      </Body>
+      <ActiveFormContext.Provider value={activeForm}>
+        <FormManager badges={['malicious']} />
+        <Byline>Recent Submissions</Byline>
+        <Submissions />
+        <Byline>More Information</Byline>
+        <Information />
+      </ActiveFormContext.Provider>
     </Greeting>
    );
 }

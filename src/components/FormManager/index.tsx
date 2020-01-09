@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Button, TextField } from '@material-ui/core';
 import { isAddress } from '../../helpers/index.js';
 import { Schemas } from '../../types/Schemas';
+import { ActiveFormContext } from '../../contexts';
 import GenericForm from './GenericForm';
 import ERC1456Form from './ERC1456Form';
 import { registry } from '../../contexts';
@@ -19,7 +20,8 @@ const StyledButton = styled(Button)`
 // i.e. if one is already set, it will check the permissions for that particular contract and given the account by the provider will notify the user
 // and prepopulate the form with existing information
 export default function FormManager(props: any) {
-  const { library, account } = useWeb3React();
+  const { account } = useWeb3React();
+  const activeForm = useContext(ActiveFormContext);
 
   const [editAddress, setEditAddress] = useState('');
   const [canEdit, setCanEdit] = useState(false);
@@ -44,14 +46,14 @@ export default function FormManager(props: any) {
   }, [account, editAddress]);
 
   function getForm() {
-    if (props.activeForm) {
-      if (props.activeForm === Schemas.ERC1456) {
+    if (activeForm) {
+      if (activeForm === Schemas.ERC1456) {
         return (
           <ERC1456Form canEdit={canEdit} contractData={contractData} editAddress={editAddress} badges={props.badges} />
         );
       }
 
-      if (props.activeForm === Schemas.GENERIC) {
+      if (activeForm === Schemas.GENERIC) {
         return (
           <GenericForm editAddress={editAddress} />
         );
