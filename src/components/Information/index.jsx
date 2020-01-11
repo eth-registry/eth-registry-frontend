@@ -45,6 +45,7 @@ export default function Information() {
             <span style={{ color: "#DA4C8A" }}>bool</span> isCurated,{" "}
             <span style={{ color: "#DA4C8A" }}>address</span> submittedBy)
           </code>
+          <br /><br />
           <a href="https://ethereum-magicians.org/t/erc-1456-address-metadata-json-schema/">
              <b>View the EIP 1456 (Address Metadata JSON Specification)</b>
           </a>
