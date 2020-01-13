@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button, TextField } from '@material-ui/core';
 import { isAddress } from '../../helpers/index.js';
 import { Schemas } from '../../types/Schemas';
-import { ActiveFormContext } from '../../contexts';
+import { ActiveFormContext, EditAddressContext } from '../../contexts';
 import GenericForm from './GenericForm';
 import ERC1456Form from './ERC1456Form';
 import { registry } from '../../contexts';
@@ -49,13 +49,13 @@ export default function FormManager(props: any) {
     if (activeForm) {
       if (activeForm === Schemas.ERC1456) {
         return (
-          <ERC1456Form canEdit={canEdit} contractData={contractData} editAddress={editAddress} badges={props.badges} />
+          <ERC1456Form canEdit={canEdit} contractData={contractData} />
         );
       }
 
       if (activeForm === Schemas.GENERIC) {
         return (
-          <GenericForm editAddress={editAddress} />
+          <GenericForm />
         );
       }
     }
@@ -111,7 +111,9 @@ export default function FormManager(props: any) {
           View on Ethtective
         </StyledButton>
       </ButtonRow>
-      {getForm()}
-    </>
+      <EditAddressContext.Provider value={editAddress}>
+        {getForm()}
+      </EditAddressContext.Provider>
+      </>
   );
 }

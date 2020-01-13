@@ -2,8 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import styled from 'styled-components';
 import { ActiveFormContext } from '../../contexts';
 import { LinearProgress } from '@material-ui/core';
-import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
+// import { gql } from "apollo-boost";
+// import { Query } from "react-apollo";
+import { Byline } from '../../theme/components';
 import { Schemas } from '../../types/Schemas';
 import { registry } from '../../contexts';
 
@@ -37,7 +38,7 @@ const Wrapper = styled.div`
   overflow:hidden;
   width:min-content;
 `
-
+/**
 const ENTRIES_QUERY = gql`
   query getLatestEntries {
     entries(first: 10) {
@@ -48,6 +49,7 @@ const ENTRIES_QUERY = gql`
     }
   }
 `;
+**/
 
 export default function Submissions(props) {
   const activeForm = useContext(ActiveFormContext);
@@ -122,6 +124,7 @@ export default function Submissions(props) {
         );
       }
 
+      /**
       if (activeForm === Schemas.GENERIC) {
         return (
           <Query query={ENTRIES_QUERY} >
@@ -136,13 +139,14 @@ export default function Submissions(props) {
             }}
           </Query>
         );
-      }
+      } **/
     }
     return null;
   }
 
   return(
     <>
+      <Byline>Recent Submissions</Byline>
       {renderSubmissions()}
     </>
   );

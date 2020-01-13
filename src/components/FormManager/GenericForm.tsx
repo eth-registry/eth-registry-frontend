@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useWeb3React } from '@web3-react/core';
 import { Checkbox, TextField, FormControlLabel } from '@material-ui/core';
 import { getBytes32FromMultihash, canConvertToBase58, isAddress } from '../../helpers/index.js';
-import { MetadataRegistryAddress } from '../../constants/';
+import { AnyDelegate, NoDelegate, MetadataRegistryAddress } from '../../constants/';
+import { EditAddressContext } from '../../contexts';
 import { useRegistryContract } from '../../hooks';
 import { SubmitButton, StyledForm, ButtonRow } from '../../theme/components';
 
+const DelegateRow = styled.div`
+  ${({ theme }) => theme.bodyText }
+  display:block;
+  margin: 2rem 0;
+  width: 100%;
+  float:left;
+`
+
 export default function GenericForm(props: any) {
   const [ipfsHash, setIPFSHash] = useState('');
+  const [delegate, setDelegate] = useState('');
+  const editAddress = useContext(EditAddressContext);
   const [checkbox, setCheckbox] = useState({
     contract: false,
     selfAttested: false,
@@ -25,18 +37,36 @@ export default function GenericForm(props: any) {
     if (event) event.preventDefault();
   }
 
+  const isDelegate = async (editAddress: string) => {
+    if (account) {
+      return contract.getDelegate(editAddress).then((res:any) => {
+        setDelegate(res);
+
+        if (res === NoDelegate) {
+          return true;
+        }
+
+        return res === account || res === AnyDelegate;
+      }).catch((err:any) => {
+        console.error(err);
+      });
+    }
+
+    return false;
+  }
+
   const canSubmit = (editAddress: string, ipfsHash:string) => {
     let isValid = false;
-    if (isAddress(editAddress)) {
+    if (isAddress(editAddress) && account) {
       isValid = canConvertToBase58(ipfsHash);
     }
 
-    return isValid;
+    return isValid && isDelegate(editAddress);
   }
 
   const submitTransaction = async (e:any) => {
     e.preventDefault();
-    console.log("I just sent the transaction!!! " + account + props.editAddress + ipfsHash + checkbox.contract);
+    console.log("I just sent the transaction!!! " + account + editAddress + ipfsHash + checkbox.contract);
 
     /** if you provide an invalid nonce the transaction fails since it only takes unsigned ints in the api
     * we should probably change this to make the ux cleaner because otherwise how would we handle submissions
@@ -45,15 +75,10 @@ export default function GenericForm(props: any) {
     * let nonce = INVALID_NONCE;
     */
 
-    let nonce = 1;
-    if (checkbox.contract) {
-      nonce = await library.getTransactionCount(account);
-      console.log('the users nonce is: ' + nonce);
-    }
-
+    let nonce = await library.getTransactionCount(account);
     const metadata = getBytes32FromMultihash(ipfsHash);
 
-    contract.createEntry(props.editAddress, metadata.digest, metadata.hashFunction, metadata.size, nonce).then((res:any) => {
+    contract.createEntry(editAddress, metadata.digest, metadata.hashFunction, metadata.size, nonce).then((res:any) => {
       console.log(res);
     }).catch((err:any) => {
       console.error(err);
@@ -63,15 +88,30 @@ export default function GenericForm(props: any) {
   useEffect(() => {
     setCheckbox(c => {
       if (c) {
-        if (account && props.editAddress.length > 0) {
-          return {...c, selfAttested: (account === props.editAddress)};
+        if (account && editAddress.length > 0) {
+          return {...c, selfAttested: (account === editAddress)};
         }
       }
       return {...c};
     });
-  }, [account, props.editAddress]);
+  }, [account, editAddress]);
 
-  const { editAddress } = props;
+  function renderDelegateStatus() {
+    if (account) {
+      if (delegate.length === 0) {
+        return null;
+      }
+      else {
+        let addr = (delegate === NoDelegate ? 'N/A' : delegate);
+
+        return (
+          <DelegateRow>
+            {"Current Delegate: " + addr}
+          </DelegateRow>
+        );
+      }
+    }
+  }
 
   return(
     <div>
@@ -98,6 +138,7 @@ export default function GenericForm(props: any) {
             label="Is this self-attested?"
           />
         </ButtonRow>
+        {renderDelegateStatus()}
         <SubmitButton
           type="submit"
           disabled={!canSubmit(editAddress, ipfsHash)}

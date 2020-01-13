@@ -7,7 +7,7 @@ import Information from '../components/Information';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { Body } from '../theme/components';
+import { Body, Byline } from '../theme/components';
 import { Schemas } from '../types/Schemas';
 // import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSchemaDefinition";
 
@@ -54,13 +54,6 @@ const Greeting = styled.div`
   }
 `;
 
-const Byline = styled.h2`
-  ${({ theme }) => theme.bylineText }
-  margin-top: 4rem;
-  border-bottom: 1px solid hsla(0,0%,0%,0.07);
-  line-height: 2.5;
-`;
-
 export default function Home() {
   const [activeForm, setActiveForm] = useState(Schemas.GENERIC);
 
@@ -91,10 +84,8 @@ export default function Home() {
           metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.
       </Body>
       <ActiveFormContext.Provider value={activeForm}>
-        <FormManager badges={['malicious']} />
-        <Byline>Recent Submissions</Byline>
-        <Submissions />
-        <Byline>More Information</Byline>
+        <FormManager />
+        {activeForm === Schemas.GENERIC ? null : <Submissions />}
         <Information />
       </ActiveFormContext.Provider>
     </Greeting>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MetadataRegistryAddress } from '../../constants/';
 import { ActiveFormContext } from '../../contexts';
 import { Schemas } from '../../types/Schemas';
-import { Body } from '../../theme/components';
+import { Body, Byline } from '../../theme/components';
 
 export default function Information() {
   const activeForm = useContext(ActiveFormContext);
@@ -58,6 +58,7 @@ export default function Information() {
 
   return (
     <>
+      <Byline>More Information</Byline>
       {renderInfo()}
     </>
   );

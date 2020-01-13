@@ -1,23 +1,16 @@
-import React, { useState, useEffect, createRef } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useState, useEffect, createRef } from 'react';
+import { EditAddressContext } from '../../contexts';
 import { registry } from '../../contexts';
 import { useWeb3React } from '@web3-react/core';
 import Edit from "@material-ui/icons/Edit";
 import { Button, Tooltip, Grid, InputBase, InputAdornment } from '@material-ui/core';
-import { ButtonRow } from '../../theme/components';
+import { ButtonRow, Byline } from '../../theme/components';
 
 // TODO: deprecate these components to be uncontrolled and make this HOC manage the state for submission
 import FormComponent from "./FormComponent";
 import LogoDrop from "./LogoDrop";
 import Registry from "./Registry"; //single priority icon
 import axios from "axios";
-
-const Byline = styled.h2`
-  ${({ theme }) => theme.bylineText }
-  margin-top: 4rem;
-  border-bottom: 1px solid hsla(0,0%,0%,0.07);
-  line-height: 2.5;
-`;
 
 // Existing entries:
 // http://localhost:3000/edit/0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0 kraken
@@ -26,6 +19,7 @@ const Byline = styled.h2`
 
 export default function ERC1456Form(props: any) {
   const { account } = useWeb3React();
+  const editAddress = useContext(EditAddressContext);
   const erc1456Form = createRef<HTMLDivElement>();
   const [price, setPrice] = useState({
     eth: 0,
@@ -33,6 +27,7 @@ export default function ERC1456Form(props: any) {
   });
 
   const [formState, setFormState] = useState({
+    badges: [],
     data: {
       metadata: {
         url: "",
@@ -91,7 +86,7 @@ export default function ERC1456Form(props: any) {
 
   const clearEditor = () => {
     let json = registry.getEmptyObject();
-    json.address = props.editAddress;
+    json.address = editAddress;
 
     setFormState({
       ...formState,
@@ -113,7 +108,7 @@ export default function ERC1456Form(props: any) {
   }
 
   const populateEditor = (contractdata: any): boolean => {
-    if (contractdata === {}) return false;
+    if (contractdata == null) return false;
     let md = contractdata.data ? contractdata.data.metadata : undefined; // we need to use the types here
     let contract = md ? md.contract : undefined; // we need to use the types here
     if (!md) return false;
@@ -146,6 +141,32 @@ export default function ERC1456Form(props: any) {
   }
 
   useEffect(() => {
+    async function getBadges(contractdata: any) {
+      let badges = [] as string[];
+      if (!registry.isValidAddress(editAddress)) {
+        badges.push("unknown");
+        return badges;
+      }
+      //TODO: only show self attested badge when form is empty or is actually self attested
+      if (
+        (account &&
+          editAddress.toLowerCase() === account.toLowerCase()) ||
+        contractdata.self_attested
+      )
+        badges.push("self");
+      else badges.push("info");
+      if (contractdata.verified) badges.push("verified");
+      if (contractdata.curated) badges.push("locked");
+      if (badges.length === 0) badges.push("unkown");
+
+      setFormState((f:any) => {
+        return {
+          ...f,
+          badges: badges,
+        }
+      });
+    }
+
     async function getPrice() {
       if (account) {
         const inEth = await registry.price();
@@ -167,10 +188,11 @@ export default function ERC1456Form(props: any) {
 
     if (props.contractData !== {}) {
       getCuratedData(props.contractData);
+      getBadges(props.contractData);
     }
 
     getPrice();
-  }, [props.editAddress, props.contractData, account]);
+  }, [editAddress, props.contractData, account]);
 
 
   return(
@@ -297,23 +319,23 @@ export default function ERC1456Form(props: any) {
               themselves by providing transparency.
             </p>
             <div className="formbadges">
-              <Registry type={props.badges} />
+              <Registry type={formState.badges} />
             </div>
             <FormComponent
               label="Status"
               className="reputation"
               value={
-                props.badges.includes("malicious")
+                formState.badges.includes("malicious")
                   ? "Blocked"
-                  : props.badges.includes("verified")
+                  : formState.badges.includes("verified")
                     ? "Trusted"
                     : "Neutral"
               }
               disabled
               style={{
-                color: props.badges.includes("malicious")
+                color: formState.badges.includes("malicious")
                   ? "#eb5757"
-                  : props.badges.includes("verified")
+                  : formState.badges.includes("verified")
                     ? "#27ae60"
                     : "#bdbdbd",
               }}
@@ -332,9 +354,6 @@ export default function ERC1456Form(props: any) {
             />
           </Grid>
         </Grid>
-        <div className="badges">
-          <Registry single type={props.badges} />
-        </div>
       </div>
       <ButtonRow className="button-aligner">
         <Tooltip

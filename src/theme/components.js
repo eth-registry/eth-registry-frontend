@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 
 export const SubmitButton = styled(Button)`
   ${({ theme }) => theme.bodyText }
+  background-color: #60618b0d !important;
   margin-top: 3rem;
   width: 100%;
   color: ${({ theme }) => theme.black };
@@ -30,6 +31,12 @@ export const ButtonRow = styled.div`
   float: right;
 `;
 
+export const Byline = styled.h2`
+  ${({ theme }) => theme.bylineText }
+  margin-top: 4rem;
+  border-bottom: 1px solid hsla(0,0%,0%,0.07);
+  line-height: 2.5;
+`;
 
 export const Body = styled.p`
   ${({ theme }) => theme.bodyText }
@@ -40,4 +47,3 @@ export const Body = styled.p`
    text-decoration:none;
   }
 `;
-

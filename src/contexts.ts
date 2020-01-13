@@ -7,3 +7,7 @@ export const registry = new EthRegistry(null);
 
 export const ActiveFormContext = createContext(Schemas.GENERIC);
 
+export const EditAddressContext = createContext('');
+
+
+
