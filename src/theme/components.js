@@ -38,6 +38,18 @@ export const Byline = styled.h2`
   line-height: 2.5;
 `;
 
+export const BodyWrapper = styled.div`
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px;
+  .MuiFormLabel-root, .MuiButton-label {
+    font-family: "Tomorrow", sans-serif;
+  }
+`;
+
 export const Body = styled.p`
   ${({ theme }) => theme.bodyText }
   margin-top: 2rem;

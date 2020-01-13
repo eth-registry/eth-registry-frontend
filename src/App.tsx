@@ -6,6 +6,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
 import ThemeProvider from './theme'
 import Home from './views/Home';
+import Report from './views/Report';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -37,6 +38,7 @@ function AppRouter() {
           </header>
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/report" exact component={Report} />
           </Switch>
           </Router>
           <footer>

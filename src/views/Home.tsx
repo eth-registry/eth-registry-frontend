@@ -7,7 +7,7 @@ import Information from '../components/Information';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { Body, Byline } from '../theme/components';
+import { Body, BodyWrapper, Byline } from '../theme/components';
 import { Schemas } from '../types/Schemas';
 // import { schemaDefinitionNotAloneMessage } from "graphql/validation/rules/LoneSchemaDefinition";
 
@@ -40,18 +40,6 @@ const StyledFormControl = styled(FormControl)`
   .MuiSelect-selectMenu.MuiSelect-selectMenu {
     padding-right: 0.75rem;
   }
-`
-
-const Greeting = styled.div`
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 10px;
-  .MuiFormLabel-root, .MuiButton-label {
-    font-family: "Tomorrow", sans-serif;
-  }
 `;
 
 export default function Home() {
@@ -62,7 +50,7 @@ export default function Home() {
   };
 
   return (
-    <Greeting>
+    <BodyWrapper>
       <Byline>Submit{" "}
         <StyledFormControl>
           <Select value={activeForm} onChange={handleChange} displayEmpty>
@@ -79,15 +67,17 @@ export default function Home() {
           on the blockchain and IPFS to make it <b>openly accessible to users, wallets and apps</b> without having to
           go through third parties that lock your data behind APIs. We wish to
           provide the Ethereum ecosystem with an easy way to add, edit and
-          access information such as logo, url, token information or scam type to the Ethereum blockchain.<br /><br />
+          access information such as logo, url, token information or report scams within the Ethereum blockchain using a curated registry.<br /><br />
           The current version deployed on mainnnet accepts any IPFS multihash from contract deployers or from users looking to self-attest
-          metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.
+          metadata about their address. Publishing rights default to initial submitters who can delegate write access to another address.<br /><br />
+
+          ⚠️  Caution: Data provided can be viewed/accessed publically by <i>anyone</i>.
       </Body>
       <ActiveFormContext.Provider value={activeForm}>
         <FormManager />
         {activeForm === Schemas.GENERIC ? null : <Submissions />}
         <Information />
       </ActiveFormContext.Provider>
-    </Greeting>
+    </BodyWrapper>
    );
 }
