@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from 'styled-components';
 import { ActiveFormContext } from '../../contexts';
-import { LinearProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 // import { gql } from "apollo-boost";
 // import { Query } from "react-apollo";
 import { Byline } from '../../theme/components';
@@ -85,11 +85,11 @@ export default function Submissions(props) {
 
   function renderCurated() {
     if (submissions.isLoading) {
-      return <LinearProgress variant="query" style={{ width: '80%' }} />
+      return <CircularProgress style={{textAlign:'center'}} />
     }
     else {
       return (
-        <Wrapper>
+        <>
           {submissions.recent.map((sub, i)=> {
             if (!sub.data) return "";
             return (
@@ -109,7 +109,7 @@ export default function Submissions(props) {
               </HistoryItem>
             );
           })}
-        </Wrapper>
+        </>
       );
     }
   }
@@ -118,9 +118,9 @@ export default function Submissions(props) {
     if (activeForm) {
       if (activeForm === Schemas.ERC1456) {
         return (
-          <>
+          <Wrapper>
             {renderCurated()}
-          </>
+          </Wrapper>
         );
       }
 

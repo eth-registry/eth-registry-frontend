@@ -28,7 +28,13 @@ const StyledFormControl = styled(FormControl)`
     font-family: "Tomorrow", sans-serif;
     font-size: 2rem;
     line-height: 2.5;
+    color: initial;
+    transition: 0.2s color ease-in-out;
+    :hover {
+      color: #4fc4cf;
+    }
   }
+
   .MuiInputBase-input {
     padding: 0px 0 10px;
   }
@@ -57,7 +63,9 @@ export default function Home() {
             <MenuItem value={Schemas.GENERIC}>
               <i>Unstoppable</i>
             </MenuItem>
-            <MenuItem value={Schemas.ERC1456}><i>Curated</i></MenuItem>
+            <MenuItem value={Schemas.ERC1456}>
+              <i>Curated</i>
+            </MenuItem>
           </Select>
         </StyledFormControl>
         Metadata

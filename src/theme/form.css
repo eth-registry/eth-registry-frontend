@@ -4,6 +4,29 @@
   box-sizing: border-box;
 }
 
+/** Quick hack until mobile styles are completed **/
+@media (max-width: 724px) {
+  #root {
+    display:none;
+  }
+
+  #mobile-temp {
+    font-size: 1.1rem;
+    position: relative;
+    font-weight:800;
+    letter-spacing: 0.06rem;
+    font-family: 'Tomorrow', sans-serif;
+    text-align: center;
+    display:block !important;
+    margin: 15rem auto;
+  }
+}
+
+#mobile-temp {
+  display:none;
+}
+
+
 .bg {
   width: 100%;
   height: 100%;
